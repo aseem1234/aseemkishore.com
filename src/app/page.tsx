@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getPostsByCategorySlug } from "@/lib/wordpress";
 import ProjectCard from "@/components/ProjectCard";
+import ThoughtCard from "@/components/ThoughtCard";
 
 function Hero() {
   return (
@@ -66,11 +67,80 @@ async function ProjectsSection() {
   );
 }
 
+async function ThoughtsSection() {
+  const thoughts = await getPostsByCategorySlug("thoughts", 4);
+
+  if (thoughts.length === 0) {
+    return (
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+            Thoughts
+          </h2>
+          <p className="mt-3 text-zinc-400">
+            Quick updates, musings, and articles.
+          </p>
+        </div>
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-12 text-center">
+          <p className="text-zinc-500">Thoughts coming soon.</p>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-24">
+      <div className="mb-12">
+        <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+          Thoughts
+        </h2>
+        <p className="mt-3 text-zinc-400">
+          Quick updates, musings, and articles.
+        </p>
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2">
+        {thoughts.map((post) => (
+          <ThoughtCard key={post.id} post={post} />
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <Link
+          href="/thoughts"
+          className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          View all thoughts &rarr;
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function AboutTeaser() {
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-24">
+      <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-12 text-center">
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-zinc-400">
+          Tech entrepreneur with 15+ years building and growing digital media
+          brands. Writer, investor, and lifelong tinkerer.
+        </p>
+        <Link
+          href="/about"
+          className="mt-6 inline-block text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          Learn more about me &rarr;
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 export default async function Home() {
   return (
     <>
       <Hero />
       <ProjectsSection />
+      <ThoughtsSection />
+      <AboutTeaser />
     </>
   );
 }
