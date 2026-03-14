@@ -6,10 +6,11 @@ import { getPostByCategorySlug, getPostsByCategorySlug, decodeHtmlEntities } fro
 type Props = { params: Promise<{ slug: string }> };
 
 function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", {
+  return new Date(dateStr + "Z").toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   });
 }
 
