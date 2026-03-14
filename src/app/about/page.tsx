@@ -20,6 +20,8 @@ export default function AboutPage() {
             building and growing digital media brands. I founded{" "}
             <a
               href="https://akinternetconsulting.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-blue-400 hover:text-blue-300 transition-colors"
             >
               AK Internet Consulting
@@ -30,11 +32,11 @@ export default function AboutPage() {
           <p>
             I&apos;ve built a portfolio of technology publications that reach
             millions of readers each month, including{" "}
-            <a href="https://www.online-tech-tips.com" className="text-blue-400 hover:text-blue-300 transition-colors">Online Tech Tips</a>,{" "}
-            <a href="https://helpdeskgeek.com" className="text-blue-400 hover:text-blue-300 transition-colors">Help Desk Geek</a>,{" "}
-            <a href="https://www.thebackroomtech.com" className="text-blue-400 hover:text-blue-300 transition-colors">The Back Room Tech</a>,{" "}
-            <a href="https://www.switchingtomac.com" className="text-blue-400 hover:text-blue-300 transition-colors">Switching to Mac</a>, and{" "}
-            <a href="https://xboxadvisor.com" className="text-blue-400 hover:text-blue-300 transition-colors">Xbox Advisor</a>.
+            <a href="https://www.online-tech-tips.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">Online Tech Tips</a>,{" "}
+            <a href="https://helpdeskgeek.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">Help Desk Geek</a>,{" "}
+            <a href="https://www.thebackroomtech.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">The Back Room Tech</a>,{" "}
+            <a href="https://www.switchingtomac.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">Switching to Mac</a>, and{" "}
+            <a href="https://xboxadvisor.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">Xbox Advisor</a>.
           </p>
           <p>
             My work sits at the intersection of content, technology, and

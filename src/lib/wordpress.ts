@@ -1,5 +1,17 @@
 const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://wp.aseemkishore.com/wp-json/wp/v2';
 
+/** Decode HTML entities from WordPress rendered fields (e.g. &amp; &#8217;) */
+export function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(Number(num)))
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&apos;/g, "'");
+}
+
 export interface WPPostMeta {
   project_url: string;
   project_description: string;
@@ -92,6 +104,18 @@ export async function getPostsByCategory(categoryId: number, perPage = 10): Prom
     per_page: String(perPage),
     _embed: 'true',
   }, []);
+}
+
+export async function getPostByCategorySlug(postSlug: string, categorySlug: string): Promise<WPPost | null> {
+  const categories = await getCategories();
+  const category = categories.find((c) => c.slug === categorySlug);
+  if (!category) return null;
+  const posts = await fetchAPI<WPPost[]>('/posts', {
+    slug: postSlug,
+    categories: String(category.id),
+    _embed: 'true',
+  }, []);
+  return posts[0] || null;
 }
 
 export async function getPostsByCategorySlug(slug: string, perPage = 10): Promise<WPPost[]> {

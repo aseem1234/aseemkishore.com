@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPost, getPostsByCategorySlug } from "@/lib/wordpress";
+import { getPostByCategorySlug, getPostsByCategorySlug, decodeHtmlEntities } from "@/lib/wordpress";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -20,14 +20,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await getPostByCategorySlug(slug, "thoughts");
   if (!post) return {};
-  return { title: post.title.rendered };
+  return { title: decodeHtmlEntities(post.title.rendered) };
 }
 
 export default async function ThoughtPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await getPostByCategorySlug(slug, "thoughts");
   if (!post) notFound();
 
   return (
@@ -40,7 +40,7 @@ export default async function ThoughtPage({ params }: Props) {
       </Link>
 
       <h1 className="mt-8 text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">
-        {post.title.rendered}
+        {decodeHtmlEntities(post.title.rendered)}
       </h1>
       <time className="mt-4 block font-mono text-sm text-zinc-600">
         {formatDate(post.date)}

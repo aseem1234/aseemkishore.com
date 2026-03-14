@@ -1,9 +1,10 @@
 import Link from "next/link";
 import type { WPPost } from "@/lib/wordpress";
+import { decodeHtmlEntities } from "@/lib/wordpress";
 
 export default function ProjectCard({ post }: { post: WPPost }) {
   const { meta } = post;
-  const title = post.title.rendered;
+  const title = decodeHtmlEntities(post.title.rendered);
   const techStack = meta.project_tech_stack
     ? meta.project_tech_stack.split(",").map((t) => t.trim())
     : [];

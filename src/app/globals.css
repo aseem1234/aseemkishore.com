@@ -4,8 +4,6 @@
 :root {
   --background: #0a0a0f;
   --foreground: #f4f4f5;
-  --blue-accent: #1e40af;
-  --blue-highlight: #3b82f6;
 }
 
 @theme inline {

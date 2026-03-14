@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPost, getPostsByCategorySlug } from "@/lib/wordpress";
+import { getPostByCategorySlug, getPostsByCategorySlug, decodeHtmlEntities } from "@/lib/wordpress";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -12,17 +12,17 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await getPostByCategorySlug(slug, "projects");
   if (!post) return {};
   return {
-    title: post.title.rendered,
+    title: decodeHtmlEntities(post.title.rendered),
     description: post.meta.project_description,
   };
 }
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await getPostByCategorySlug(slug, "projects");
   if (!post) notFound();
 
   const { meta } = post;
@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: Props) {
 
       <div className="mt-8 flex flex-wrap items-center gap-4">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">
-          {post.title.rendered}
+          {decodeHtmlEntities(post.title.rendered)}
         </h1>
         {meta.project_status === "active" && (
           <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
