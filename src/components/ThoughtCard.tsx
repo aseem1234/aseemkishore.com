@@ -16,7 +16,8 @@ function formatDate(dateStr: string): string {
 
 export default function ThoughtCard({ post }: { post: WPPost }) {
   const title = decodeHtmlEntities(post.title.rendered);
-  const excerpt = decodeHtmlEntities(stripHtml(post.excerpt.rendered)).slice(0, 150);
+  const fullExcerpt = decodeHtmlEntities(stripHtml(post.excerpt.rendered));
+  const excerpt = fullExcerpt.slice(0, 150);
 
   return (
     <Link
@@ -32,7 +33,7 @@ export default function ThoughtCard({ post }: { post: WPPost }) {
       {excerpt && (
         <p className="text-sm leading-relaxed text-zinc-400">
           {excerpt}
-          {excerpt.length >= 150 ? "..." : ""}
+          {fullExcerpt.length > 150 ? "..." : ""}
         </p>
       )}
       <span className="mt-auto text-sm font-medium text-blue-400 opacity-0 transition-opacity group-hover:opacity-100">

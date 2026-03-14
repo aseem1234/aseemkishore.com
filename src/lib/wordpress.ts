@@ -3,13 +3,13 @@ const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://wp.aseemkishore.com
 /** Decode HTML entities from WordPress rendered fields (e.g. &amp; &#8217;) */
 export function decodeHtmlEntities(text: string): string {
   return text
-    .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(Number(num)))
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#039;/g, "'")
-    .replace(/&apos;/g, "'");
+    .replace(/&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(Number(num)));
 }
 
 export interface WPPostMeta {
