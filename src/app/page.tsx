@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getPostsByCategorySlug } from "@/lib/wordpress";
+import ProjectCard from "@/components/ProjectCard";
 
 function Hero() {
   return (
@@ -34,10 +36,41 @@ function Hero() {
   );
 }
 
+async function ProjectsSection() {
+  const projects = await getPostsByCategorySlug("projects", 6);
+
+  return (
+    <section id="projects" className="mx-auto max-w-6xl px-6 py-24">
+      <div className="mb-12">
+        <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+          Projects
+        </h2>
+        <p className="mt-3 text-zinc-400">
+          Sites and ventures I&apos;ve built and grown.
+        </p>
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((post) => (
+          <ProjectCard key={post.id} post={post} />
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <Link
+          href="/projects"
+          className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          View all projects &rarr;
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 export default async function Home() {
   return (
     <>
       <Hero />
+      <ProjectsSection />
     </>
   );
 }
