@@ -1,4 +1,13 @@
-const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://www.aseemkishore.com/wp-json/wp/v2';
+const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://wp.aseemkishore.com/wp-json/wp/v2';
+
+export interface WPPostMeta {
+  project_url: string;
+  project_description: string;
+  project_tech_stack: string;
+  project_role: string;
+  project_status: string;
+  project_founded: string;
+}
 
 export interface WPPost {
   id: number;
@@ -11,6 +20,7 @@ export interface WPPost {
   featured_media: number;
   categories: number[];
   tags: number[];
+  meta: WPPostMeta;
   _embedded?: {
     'wp:featuredmedia'?: Array<{
       source_url: string;
@@ -74,4 +84,11 @@ export async function getPostsByCategory(categoryId: number, perPage = 10): Prom
     per_page: String(perPage),
     _embed: 'true',
   });
+}
+
+export async function getPostsByCategorySlug(slug: string, perPage = 10): Promise<WPPost[]> {
+  const categories = await getCategories();
+  const category = categories.find((c) => c.slug === slug);
+  if (!category) return [];
+  return getPostsByCategory(category.id, perPage);
 }
