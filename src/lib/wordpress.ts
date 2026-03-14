@@ -41,19 +41,27 @@ export interface WPCategory {
   count: number;
 }
 
-async function fetchAPI<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
+async function fetchAPI<T>(endpoint: string, params: Record<string, string> = {}, fallback?: T): Promise<T> {
   const url = new URL(`${WP_API_URL}${endpoint}`);
   Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
 
-  const res = await fetch(url.toString(), {
-    next: { revalidate: 60 },
-  });
+  try {
+    const res = await fetch(url.toString(), {
+      next: { revalidate: 60 },
+    });
 
-  if (!res.ok) {
-    throw new Error(`WordPress API error: ${res.status} ${res.statusText}`);
+    if (!res.ok) {
+      console.error(`WordPress API error: ${res.status} ${res.statusText} for ${endpoint}`);
+      if (fallback !== undefined) return fallback;
+      throw new Error(`WordPress API error: ${res.status} ${res.statusText}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error(`WordPress API fetch failed for ${endpoint}:`, error);
+    if (fallback !== undefined) return fallback;
+    throw error;
   }
-
-  return res.json();
 }
 
 export async function getPosts(perPage = 10, page = 1): Promise<WPPost[]> {
@@ -61,21 +69,21 @@ export async function getPosts(perPage = 10, page = 1): Promise<WPPost[]> {
     per_page: String(perPage),
     page: String(page),
     _embed: 'true',
-  });
+  }, []);
 }
 
 export async function getPost(slug: string): Promise<WPPost | null> {
   const posts = await fetchAPI<WPPost[]>('/posts', {
     slug,
     _embed: 'true',
-  });
+  }, []);
   return posts[0] || null;
 }
 
 export async function getCategories(): Promise<WPCategory[]> {
   return fetchAPI<WPCategory[]>('/categories', {
     per_page: '100',
-  });
+  }, []);
 }
 
 export async function getPostsByCategory(categoryId: number, perPage = 10): Promise<WPPost[]> {
@@ -83,7 +91,7 @@ export async function getPostsByCategory(categoryId: number, perPage = 10): Prom
     categories: String(categoryId),
     per_page: String(perPage),
     _embed: 'true',
-  });
+  }, []);
 }
 
 export async function getPostsByCategorySlug(slug: string, perPage = 10): Promise<WPPost[]> {
