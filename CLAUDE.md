@@ -23,11 +23,13 @@ Personal showcase website for Aseem Kishore — built with **Next.js** (App Rout
 
 ## Current State
 
-- Vercel deployment is live at: `https://aseemkishorecom.vercel.app`
+- Vercel deployment is live at: `https://aseemkishore.com` (custom domain configured)
 - GitHub repo connected to Vercel — pushes to `main` auto-deploy
 - Homepage has a basic placeholder with site links
 - WordPress API client exists at `src/lib/wordpress.ts` but isn't wired up to pages yet
-- WordPress is still running at `https://www.aseemkishore.com` with Elementor active
+- WordPress is running at `https://wp.aseemkishore.com` (headless, no Elementor)
+- CORS mu-plugin installed at `wp-content/mu-plugins/headless-cors.php`
+- `WORDPRESS_API_URL` env var set in Vercel production
 
 ## Server Details (WordPress CMS Backend)
 
@@ -40,9 +42,11 @@ Personal showcase website for Aseem Kishore — built with **Next.js** (App Rout
 | WP Path | `/home/cbj2nas/public_html` |
 | CDN URL | `cbj27jbfj4.onrocket.site` |
 | SSH Key | `~/.ssh/codex_rocketnet` |
-| Current WP URL | `https://www.aseemkishore.com` |
+| WP URL | `https://wp.aseemkishore.com` |
+| WP API URL | `https://wp.aseemkishore.com/wp-json/wp/v2` |
 | Current WP Theme | twentyseventeen |
-| Active Plugins | Elementor, Elementor Pro |
+| Active Plugins | None (headless mode) |
+| MU-Plugins | cdn-cache-management (Rocket.net), headless-cors.php |
 
 ## Content Structure
 
@@ -55,12 +59,12 @@ These map to WordPress categories. Content is authored in WordPress and fetched 
 
 ## Roadmap / Next Steps
 
-### Phase 1: Domain and WordPress Setup
-1. **Point aseemkishore.com to Vercel** — add custom domain in Vercel dashboard, update DNS
-2. **Move WordPress to subdomain** — create `wp.aseemkishore.com` subdomain on Rocket.net, update WordPress `siteurl` and `home` options to use the subdomain
-3. **Clean up WordPress plugins** — remove Elementor and Elementor Pro (not needed for headless), remove Akismet. Install only what's needed for headless CMS (REST API is built-in)
-4. **Configure CORS** on WordPress — allow requests from aseemkishore.com / Vercel preview URLs so the frontend can fetch from the API
-5. **Update `WORDPRESS_API_URL`** env var in Vercel to `https://wp.aseemkishore.com/wp-json/wp/v2`
+### Phase 1: Domain and WordPress Setup ✅
+1. ~~**Point aseemkishore.com to Vercel**~~ — done (A record → 76.76.21.21)
+2. ~~**Move WordPress to subdomain**~~ — done (wp.aseemkishore.com, SSL provisioning by Rocket.net)
+3. ~~**Clean up WordPress plugins**~~ — done (removed Elementor, Elementor Pro, Akismet)
+4. ~~**Configure CORS**~~ — done (headless-cors.php mu-plugin)
+5. ~~**Update `WORDPRESS_API_URL`**~~ — done (set in Vercel production env)
 
 ### Phase 2: WordPress Content Setup
 1. **Create categories** in WordPress: Projects, Thoughts, Personal

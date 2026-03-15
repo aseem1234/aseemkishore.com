@@ -1,4 +1,25 @@
-const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://www.aseemkishore.com/wp-json/wp/v2';
+const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://cbj27jbfj4.onrocket.site/wp-json/wp/v2';
+
+/** Decode HTML entities from WordPress rendered fields (e.g. &amp; &#8217;) */
+export function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(Number(num)));
+}
+
+export interface WPPostMeta {
+  project_url: string;
+  project_description: string;
+  project_tech_stack: string;
+  project_role: string;
+  project_status: string;
+  project_founded: string;
+}
 
 export interface WPPost {
   id: number;
@@ -11,6 +32,7 @@ export interface WPPost {
   featured_media: number;
   categories: number[];
   tags: number[];
+  meta: WPPostMeta;
   _embedded?: {
     'wp:featuredmedia'?: Array<{
       source_url: string;
@@ -31,19 +53,27 @@ export interface WPCategory {
   count: number;
 }
 
-async function fetchAPI<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
+async function fetchAPI<T>(endpoint: string, params: Record<string, string> = {}, fallback?: T): Promise<T> {
   const url = new URL(`${WP_API_URL}${endpoint}`);
   Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
 
-  const res = await fetch(url.toString(), {
-    next: { revalidate: 60 },
-  });
+  try {
+    const res = await fetch(url.toString(), {
+      next: { revalidate: 60 },
+    });
 
-  if (!res.ok) {
-    throw new Error(`WordPress API error: ${res.status} ${res.statusText}`);
+    if (!res.ok) {
+      console.error(`WordPress API error: ${res.status} ${res.statusText} for ${endpoint}`);
+      if (fallback !== undefined) return fallback;
+      throw new Error(`WordPress API error: ${res.status} ${res.statusText}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error(`WordPress API fetch failed for ${endpoint}:`, error);
+    if (fallback !== undefined) return fallback;
+    throw error;
   }
-
-  return res.json();
 }
 
 export async function getPosts(perPage = 10, page = 1): Promise<WPPost[]> {
@@ -51,21 +81,21 @@ export async function getPosts(perPage = 10, page = 1): Promise<WPPost[]> {
     per_page: String(perPage),
     page: String(page),
     _embed: 'true',
-  });
+  }, []);
 }
 
 export async function getPost(slug: string): Promise<WPPost | null> {
   const posts = await fetchAPI<WPPost[]>('/posts', {
     slug,
     _embed: 'true',
-  });
+  }, []);
   return posts[0] || null;
 }
 
 export async function getCategories(): Promise<WPCategory[]> {
   return fetchAPI<WPCategory[]>('/categories', {
     per_page: '100',
-  });
+  }, []);
 }
 
 export async function getPostsByCategory(categoryId: number, perPage = 10): Promise<WPPost[]> {
@@ -73,5 +103,24 @@ export async function getPostsByCategory(categoryId: number, perPage = 10): Prom
     categories: String(categoryId),
     per_page: String(perPage),
     _embed: 'true',
-  });
+  }, []);
+}
+
+export async function getPostByCategorySlug(postSlug: string, categorySlug: string): Promise<WPPost | null> {
+  const categories = await getCategories();
+  const category = categories.find((c) => c.slug === categorySlug);
+  if (!category) return null;
+  const posts = await fetchAPI<WPPost[]>('/posts', {
+    slug: postSlug,
+    categories: String(category.id),
+    _embed: 'true',
+  }, []);
+  return posts[0] || null;
+}
+
+export async function getPostsByCategorySlug(slug: string, perPage = 10): Promise<WPPost[]> {
+  const categories = await getCategories();
+  const category = categories.find((c) => c.slug === slug);
+  if (!category) return [];
+  return getPostsByCategory(category.id, perPage);
 }

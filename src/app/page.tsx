@@ -1,64 +1,146 @@
-export default function Home() {
+import Link from "next/link";
+import { getPostsByCategorySlug } from "@/lib/wordpress";
+import ProjectCard from "@/components/ProjectCard";
+import ThoughtCard from "@/components/ThoughtCard";
+
+function Hero() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 px-6 font-sans dark:bg-zinc-950">
-      <main className="flex max-w-2xl flex-col items-center gap-8 text-center">
-        <h1 className="text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+    <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 text-center">
+      {/* Gradient glow */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="h-72 w-72 rounded-full bg-blue-500/20 blur-[120px]" />
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        <h1 className="text-5xl font-bold tracking-tight text-zinc-50 sm:text-6xl lg:text-7xl">
           Aseem Kishore
         </h1>
-        <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Founder of{" "}
+        <p className="max-w-xl text-lg leading-relaxed text-zinc-400 sm:text-xl">
+          Founder, writer, and tech enthusiast building digital media brands.
+        </p>
+        <div className="mt-4 flex gap-4">
           <a
-            href="https://akinternetconsulting.com"
-            className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-500 dark:text-zinc-200 dark:decoration-zinc-600 dark:hover:decoration-zinc-400"
+            href="#projects"
+            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
           >
-            AK Internet Consulting
+            See my work
           </a>
-          . Writer, tech enthusiast, investor.
-        </p>
-
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <SiteCard
-            name="Online Tech Tips"
-            url="https://www.online-tech-tips.com"
-          />
-          <SiteCard
-            name="Help Desk Geek"
-            url="https://helpdeskgeek.com"
-          />
-          <SiteCard
-            name="The Back Room Tech"
-            url="https://www.thebackroomtech.com"
-          />
+          <Link
+            href="/about"
+            className="rounded-lg border border-zinc-700 px-6 py-3 text-sm font-semibold text-zinc-300 transition-colors hover:border-zinc-500 hover:text-zinc-100"
+          >
+            About me
+          </Link>
         </div>
-
-        <div className="flex gap-3 text-sm text-zinc-500 dark:text-zinc-500">
-          <SiteCard
-            name="Switching to Mac"
-            url="https://switchingtomac.com"
-          />
-          <SiteCard
-            name="Xbox Advisor"
-            url="https://xboxadvisor.com"
-          />
-        </div>
-
-        <p className="mt-8 text-sm text-zinc-400 dark:text-zinc-600">
-          More coming soon.
-        </p>
-      </main>
-    </div>
+      </div>
+    </section>
   );
 }
 
-function SiteCard({ name, url }: { name: string; url: string }) {
+async function ProjectsSection() {
+  const projects = await getPostsByCategorySlug("projects", 6);
+
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-100"
-    >
-      {name}
-    </a>
+    <section id="projects" className="mx-auto max-w-6xl px-6 py-24">
+      <div className="mb-12">
+        <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+          Projects
+        </h2>
+        <p className="mt-3 text-zinc-400">
+          Sites and ventures I&apos;ve built and grown.
+        </p>
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((post) => (
+          <ProjectCard key={post.id} post={post} />
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <Link
+          href="/projects"
+          className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          View all projects &rarr;
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+async function ThoughtsSection() {
+  const thoughts = await getPostsByCategorySlug("thoughts", 4);
+
+  if (thoughts.length === 0) {
+    return (
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+            Thoughts
+          </h2>
+          <p className="mt-3 text-zinc-400">
+            Quick updates, musings, and articles.
+          </p>
+        </div>
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-12 text-center">
+          <p className="text-zinc-500">Thoughts coming soon.</p>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-24">
+      <div className="mb-12">
+        <h2 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+          Thoughts
+        </h2>
+        <p className="mt-3 text-zinc-400">
+          Quick updates, musings, and articles.
+        </p>
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2">
+        {thoughts.map((post) => (
+          <ThoughtCard key={post.id} post={post} />
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <Link
+          href="/thoughts"
+          className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          View all thoughts &rarr;
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function AboutTeaser() {
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-24">
+      <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-12 text-center">
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-zinc-400">
+          Tech entrepreneur with 15+ years building and growing digital media
+          brands. Writer, investor, and lifelong tinkerer.
+        </p>
+        <Link
+          href="/about"
+          className="mt-6 inline-block text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          Learn more about me &rarr;
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export default async function Home() {
+  return (
+    <>
+      <Hero />
+      <ProjectsSection />
+      <ThoughtsSection />
+      <AboutTeaser />
+    </>
   );
 }

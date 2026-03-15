@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,8 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aseem Kishore",
-  description: "Personal site of Aseem Kishore — founder, writer, and tech enthusiast.",
+  title: {
+    default: "Aseem Kishore",
+    template: "%s — Aseem Kishore",
+  },
+  description:
+    "Founder, writer, and tech enthusiast building digital media brands.",
 };
 
 export default function RootLayout({
@@ -23,11 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Nav />
+        <main className="pt-16">{children}</main>
+        <Footer />
       </body>
     </html>
   );
