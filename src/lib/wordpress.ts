@@ -1,4 +1,4 @@
-const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://wp.aseemkishore.com/wp-json/wp/v2';
+const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://cbj27jbfj4.onrocket.site/wp-json/wp/v2';
 
 /** Decode HTML entities from WordPress rendered fields (e.g. &amp; &#8217;) */
 export function decodeHtmlEntities(text: string): string {
