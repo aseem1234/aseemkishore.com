@@ -6,7 +6,8 @@ Personal showcase website for Aseem Kishore.
 
 - **Frontend:** Next.js (App Router) with TypeScript and Tailwind CSS, hosted on Vercel
 - **CMS Backend:** Headless WordPress on Rocket.net, content served via WP REST API
-- **Domain:** `aseemkishore.com` (Vercel) / `wp.aseemkishore.com` (WordPress admin)
+- **Tools:** Interactive routes under `/tools` (client UI + `/api/tools/*`). Scoring uses Together.ai; share cards use OpenAI gpt-image-2 (`IMAGE_QUALITY=medium` by default).
+- **Domain:** `aseemkishore.com` (Vercel); WP admin via Rocket.net CDN URL (see `.env.example`)
 
 ## Getting Started
 
