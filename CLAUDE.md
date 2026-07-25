@@ -15,7 +15,6 @@ npm run lint     # eslint (v9 flat config)
 - `src/app/` — routes: `/`, `/projects`, `/projects/[slug]`, `/thoughts`, `/thoughts/[slug]`, `/about`, `/tools`, `/tools/tweet-score`. Portfolio/thoughts are server components; tools may use client components + API routes (see below).
 - `src/lib/wordpress.ts` — the only WP REST client. Every fetch goes through `fetchAPI()` with `next: { revalidate: 60 }` (ISR) and a fallback arg so builds survive WP outages.
 - `src/lib/together.ts`, `src/lib/rate-limit.ts`, `src/lib/share-card.ts` — viral tools (Together writing + OpenAI images).
-- `src/components/` — Nav, Footer, ProjectCard, ThoughtCard.
 - WP content model: categories Projects/Thoughts/Personal; project posts carry native post meta (`project_url`, `project_tech_stack`, …) exposed by a mu-plugin. Details: `docs/wordpress-backend.md`.
 
 ## Conventions
