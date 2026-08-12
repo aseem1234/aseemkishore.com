@@ -213,6 +213,50 @@ test("one final OIDC Gateway attempt follows two eligible direct failures", asyn
   assert.equal(JSON.stringify(telemetry).includes("user"), false);
 });
 
+test("Gateway-configured chains reserve bounded time for both direct legs and the final attempt", async () => {
+  const originalTimeout = AbortSignal.timeout;
+  const requestedTimeouts: number[] = [];
+  Object.defineProperty(AbortSignal, "timeout", {
+    configurable: true,
+    value: (milliseconds: number) => {
+      requestedTimeouts.push(milliseconds);
+      return new AbortController().signal;
+    },
+  });
+  try {
+    let calls = 0;
+    const result = await writeWithFallback({
+      apiKey: "together-secret",
+      systemPrompt: "system",
+      userPrompt: "user",
+      env: {
+        TWEET_SCORE_GATEWAY_FALLBACK_MODE: "live",
+        TWEET_SCORE_GATEWAY_TEXT_QUALIFIED: "true",
+      },
+      gatewayTrustedServerContext: true,
+      gatewayOidcTokenProvider: async () => "runtime-oidc-token",
+      fetchImpl: async () => {
+        calls += 1;
+        return calls < 3
+          ? new Response("provider unavailable", { status: 503 })
+          : gatewayStream("final continuity result");
+      },
+    });
+
+    assert.equal(result.ok, true);
+    assert.equal(calls, 3);
+    assert.equal(requestedTimeouts.length, 3);
+    assert.ok(requestedTimeouts[0] <= 15_000, "primary must not consume the chain deadline");
+    assert.ok(requestedTimeouts[1] <= 15_000, "direct fallback must leave time for Gateway");
+    assert.ok(requestedTimeouts[2] >= 24_000, "Gateway should retain its bounded final-leg budget");
+  } finally {
+    Object.defineProperty(AbortSignal, "timeout", {
+      configurable: true,
+      value: originalTimeout,
+    });
+  }
+});
+
 test("Gateway is never considered unless both direct failures are eligible", async () => {
   let oidcLookups = 0;
   const result = await writeWithFallback({
@@ -256,8 +300,19 @@ test("only documented direct infrastructure classes are Gateway eligible", async
   for (const name of ["TimeoutError", "AbortError", "ConnectTimeoutError"]) {
     assert.equal(isGatewayEligible({ name, source: "request_exception" }), true, name);
   }
-  for (const code of ["ETIMEDOUT", "UND_ERR_CONNECT_TIMEOUT", "ENOENT", "EACCES"]) {
+  for (const code of [
+    "ETIMEDOUT",
+    "UND_ERR_CONNECT_TIMEOUT",
+    "ENOTFOUND",
+    "ECONNRESET",
+    "ECONNREFUSED",
+    "EAI_AGAIN",
+    "UND_ERR_SOCKET",
+  ]) {
     assert.equal(isGatewayEligible({ code, source: "request_exception" }), true, code);
+  }
+  for (const code of ["ENOENT", "EACCES"]) {
+    assert.equal(isGatewayEligible({ code, source: "request_exception" }), false, code);
   }
   assert.equal(isGatewayEligible({ name: "SyntaxError", source: "request_exception" }), false);
   assert.equal(isGatewayEligible({ status: 503, source: "gateway_http" }), false);
@@ -356,6 +411,30 @@ test("unqualified, untrusted, unknown-model, and explicit-model calls never read
     },
   });
   assert.equal(explicitCalls, 1);
+
+  const overriddenModels: string[] = [];
+  await writeWithFallback({
+    apiKey: "together-secret",
+    systemPrompt: "system",
+    userPrompt: "user",
+    env: {
+      WRITER_MODEL: "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+      TWEET_SCORE_GATEWAY_FALLBACK_MODE: "live",
+      TWEET_SCORE_GATEWAY_TEXT_QUALIFIED: "true",
+    },
+    gatewayTrustedServerContext: true,
+    gatewayOidcTokenProvider: async () => {
+      throw new Error("OIDC must not be read for an unqualified writer override");
+    },
+    fetchImpl: async (_url, init) => {
+      overriddenModels.push(JSON.parse(String(init?.body)).model);
+      return new Response("unavailable", { status: 503 });
+    },
+  });
+  assert.deepEqual(overriddenModels, [
+    "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+    DIRECT_FALLBACK,
+  ]);
 });
 
 test("malformed, wrong-model, tool, oversized, or inconsistent-usage Gateway streams fail closed", async () => {

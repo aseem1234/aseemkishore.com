@@ -19,6 +19,7 @@ const BAD_TEMPLATE_KWARGS_RE =
   /chat_template_kwargs|enable_thinking|template|reasoning/i;
 
 const REQUEST_TIMEOUT_MS = Number(process.env.TOGETHER_TIMEOUT_MS) || 75_000;
+const GATEWAY_CHAIN_DIRECT_LEG_TIMEOUT_MS = 15_000;
 const GATEWAY_RESPONSE_LIMIT = 32 * 1024;
 const MAX_GATEWAY_FRAMES = 256;
 
@@ -335,9 +336,23 @@ export function isGatewayEligible(failure?: FailureDetails): boolean {
     ["TimeoutError", "AbortError", "ConnectTimeoutError"].includes(
       failure.name ?? "",
     ) ||
-    ["ETIMEDOUT", "UND_ERR_CONNECT_TIMEOUT", "ENOENT", "EACCES"].includes(
-      failure.code ?? "",
-    )
+    [
+      "ETIMEDOUT",
+      "UND_ERR_CONNECT_TIMEOUT",
+      "ENOTFOUND",
+      "ECONNRESET",
+      "ECONNREFUSED",
+      "EAI_AGAIN",
+      "UND_ERR_SOCKET",
+    ].includes(failure.code ?? "")
+  );
+}
+
+function directLegDeadline(chainDeadlineAt?: number): number | undefined {
+  if (!Number.isFinite(chainDeadlineAt)) return undefined;
+  return Math.min(
+    chainDeadlineAt as number,
+    Date.now() + GATEWAY_CHAIN_DIRECT_LEG_TIMEOUT_MS,
   );
 }
 
@@ -606,11 +621,12 @@ export async function writeWithFallback(args: {
   onGatewayTelemetry?: (event: GatewayTelemetry) => unknown;
   fetchImpl?: typeof fetch;
 }): Promise<ChatResult & { model?: string; usedFallback?: boolean }> {
-  const primary = args.model || WRITER;
   const env = args.env ?? process.env;
+  const primary = args.model || (args.env?.WRITER_MODEL || WRITER);
   const mode = gatewayMode(env);
   const gatewayConfigured =
     !args.model &&
+    primary === "Qwen/Qwen3.7-Max" &&
     mode !== "off" &&
     isGatewayQualified(env) &&
     args.gatewayTrustedServerContext === true;
@@ -629,7 +645,7 @@ export async function writeWithFallback(args: {
     extraBody: args.extraBody,
     fetchImpl: args.fetchImpl,
     includeFailureDetails: true,
-    deadlineAt,
+    deadlineAt: directLegDeadline(deadlineAt),
   });
 
   if (first.ok || args.model) {
@@ -648,7 +664,7 @@ export async function writeWithFallback(args: {
     extraBody: args.extraBody,
     fetchImpl: args.fetchImpl,
     includeFailureDetails: true,
-    deadlineAt,
+    deadlineAt: directLegDeadline(deadlineAt),
   });
   if (second.ok) return { ...second, model: fallback, usedFallback: true };
 
