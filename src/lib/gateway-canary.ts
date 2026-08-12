@@ -74,6 +74,7 @@ async function readCanary(response: Response) {
     const choices = frame.choices;
     if (done || frame.model !== CANARY_MODEL || !Array.isArray(choices) || choices.length > 1) throw new Error("response_shape_invalid");
     if (choices.length === 0) {
+      if (usage) throw new Error("usage_invalid");
       usage = validUsage(frame.usage);
       if (!usage || !finish) throw new Error("usage_invalid");
       continue;
@@ -89,6 +90,11 @@ async function readCanary(response: Response) {
     if (choice.finish_reason != null) {
       if (finish || choice.finish_reason !== "stop") throw new Error("response_shape_invalid");
       finish = true;
+    }
+    if (frame.usage != null) {
+      if (!finish || usage) throw new Error("usage_invalid");
+      usage = validUsage(frame.usage);
+      if (!usage) throw new Error("usage_invalid");
     }
   }
   const output = parts.join("");

@@ -20,6 +20,21 @@ function canaryStream(): Response {
   );
 }
 
+function canaryFinishUsageStream(): Response {
+  const frames = [
+    { model: CANARY_MODEL, choices: [{ delta: { role: "assistant", content: CANARY_OUTPUT }, finish_reason: null }], usage: null },
+    {
+      model: CANARY_MODEL,
+      choices: [{ delta: {}, finish_reason: "stop" }],
+      usage: { prompt_tokens: 12, completion_tokens: 8, total_tokens: 20 },
+    },
+  ];
+  return new Response(
+    `${frames.map((frame) => `data: ${JSON.stringify(frame)}\n\n`).join("")}data: [DONE]\n\n`,
+    { headers: { "content-type": "text/event-stream" } },
+  );
+}
+
 test("fixed canary makes one no-tools, no-system, privacy-bound request", async () => {
   const calls: Array<{ url: string; headers: Headers; body: Record<string, unknown> }> = [];
   const telemetry = await runGatewayCanary({
@@ -55,6 +70,16 @@ test("fixed canary makes one no-tools, no-system, privacy-bound request", async 
   assert.equal(telemetry.output_hash.length, 64);
   assert.equal(JSON.stringify(telemetry).includes(CANARY_OUTPUT), false);
   assert.equal(telemetry.side_effect_state, "synthetic_no_persistence");
+});
+
+test("canary accepts usage on the stop finish frame", async () => {
+  const telemetry = await runGatewayCanary({
+    oidcToken: "request-oidc",
+    runId: "finish-usage-run",
+    fetchImpl: async () => canaryFinishUsageStream(),
+  });
+  assert.equal(telemetry.ok, true);
+  assert.equal(telemetry.usage?.total_tokens, 20);
 });
 
 test("canary handler checks trusted cron, no input, qualification, and temporary arm before OIDC", async () => {

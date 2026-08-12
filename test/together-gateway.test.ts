@@ -39,6 +39,21 @@ function gatewayStream(content: string): Response {
   );
 }
 
+function gatewayFinishUsageStream(content: string): Response {
+  const frames = [
+    { model: GATEWAY_MODEL, choices: [{ delta: { role: "assistant", content }, finish_reason: null }], usage: null },
+    {
+      model: GATEWAY_MODEL,
+      choices: [{ delta: {}, finish_reason: "stop" }],
+      usage: { prompt_tokens: 80, completion_tokens: 40, total_tokens: 120 },
+    },
+  ];
+  return new Response(
+    `${frames.map((frame) => `data: ${JSON.stringify(frame)}\n\n`).join("")}data: [DONE]\n\n`,
+    { headers: { "content-type": "text/event-stream" } },
+  );
+}
+
 test.beforeEach(() => _resetLearned());
 
 test("off mode preserves the direct Qwen to GLM fallback request and result", async () => {
@@ -212,6 +227,29 @@ test("one final OIDC Gateway attempt follows two eligible direct failures", asyn
   assert.equal(JSON.stringify(telemetry).includes("runtime-oidc-token"), false);
   assert.equal(JSON.stringify(telemetry).includes("system"), false);
   assert.equal(JSON.stringify(telemetry).includes("user"), false);
+});
+
+test("Gateway accepts usage on the stop finish frame", async () => {
+  let calls = 0;
+  const result = await writeWithFallback({
+    apiKey: "together-secret",
+    systemPrompt: "system",
+    userPrompt: "user",
+    env: {
+      TWEET_SCORE_GATEWAY_FALLBACK_MODE: "live",
+      TWEET_SCORE_GATEWAY_TEXT_QUALIFIED: "true",
+    },
+    gatewayTrustedServerContext: true,
+    gatewayOidcTokenProvider: async () => "runtime-oidc-token",
+    fetchImpl: async () => {
+      calls += 1;
+      return calls < 3
+        ? new Response("provider unavailable", { status: 503 })
+        : gatewayFinishUsageStream('{"score":80,"verdict":"Works","roast":"Fine","fixes":["Ship"]}');
+    },
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.model, GATEWAY_MODEL);
 });
 
 test("Gateway-configured chains reserve bounded time for both direct legs and the final attempt", async () => {
@@ -449,6 +487,13 @@ test("malformed, wrong-model, tool, oversized, or inconsistent-usage Gateway str
     [
       { model: GATEWAY_MODEL, choices: [{ delta: { content: "x" }, finish_reason: "stop" }], usage: null },
       { model: GATEWAY_MODEL, choices: [], usage: { prompt_tokens: 1, completion_tokens: 1, total_tokens: 9 } },
+    ],
+    [
+      {
+        model: GATEWAY_MODEL,
+        choices: [{ delta: { content: "x" }, finish_reason: null }],
+        usage: { prompt_tokens: 1, completion_tokens: 1, total_tokens: 2 },
+      },
     ],
   ];
 
