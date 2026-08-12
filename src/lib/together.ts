@@ -504,14 +504,14 @@ async function readGatewaySse(response: Response): Promise<GatewayResult> {
       return { ok: false, error: "Gateway response shape is invalid", failure: { source: "gateway_response" }, attempted: true };
     }
     if (choices.length === 0) {
+      if (usage) {
+        return { ok: false, error: "Gateway usage position is invalid", failure: { source: "gateway_response" }, attempted: true };
+      }
       usage = validUsage(frame.usage);
       if (!usage || finishReason !== "stop") {
         return { ok: false, error: "Gateway usage is invalid", failure: { source: "gateway_response" }, attempted: true };
       }
       continue;
-    }
-    if (usage || frame.usage != null) {
-      return { ok: false, error: "Gateway usage position is invalid", failure: { source: "gateway_response" }, attempted: true };
     }
     const choice = choices[0] as Record<string, unknown>;
     const delta = choice.delta;
@@ -535,6 +535,15 @@ async function readGatewaySse(response: Response): Promise<GatewayResult> {
         return { ok: false, error: "Gateway finish reason is invalid", failure: { source: "gateway_response" }, attempted: true };
       }
       finishReason = "stop";
+    }
+    if (frame.usage != null) {
+      if (finishReason !== "stop" || usage) {
+        return { ok: false, error: "Gateway usage position is invalid", failure: { source: "gateway_response" }, attempted: true };
+      }
+      usage = validUsage(frame.usage);
+      if (!usage) {
+        return { ok: false, error: "Gateway usage is invalid", failure: { source: "gateway_response" }, attempted: true };
+      }
     }
   }
   const content = pieces.join("");
