@@ -177,6 +177,16 @@ function disabled(failureClass: string): CanaryTelemetry {
   };
 }
 
+function failedAfterDispatch(deploymentId: string | null): CanaryTelemetry {
+  return {
+    ...disabled("canary_failed"),
+    outcome: "error",
+    gateway_attempted: true,
+    gateway_billing_classification: "metered_gateway",
+    deployment_id: deploymentId,
+  };
+}
+
 export function createGatewayCanaryHandler({
   env = process.env,
   oidcTokenProvider = getVercelOidcToken,
@@ -194,12 +204,18 @@ export function createGatewayCanaryHandler({
     }
     if (env.TWEET_SCORE_GATEWAY_TEXT_QUALIFIED !== "true") return Response.json(disabled("qualification_disabled"));
     if (env.TWEET_SCORE_GATEWAY_CANARY_ARMED !== "true") return Response.json(disabled("canary_not_armed"));
+    let token: string;
     try {
-      const token = (await oidcTokenProvider()).trim();
+      token = (await oidcTokenProvider()).trim();
       if (!token) throw new Error("oidc_missing");
-      return Response.json(await canaryRunner({ oidcToken: token, deploymentId: env.VERCEL_DEPLOYMENT_ID ?? null }));
     } catch {
       return Response.json({ ...disabled("canary_failed"), outcome: "error" }, { status: 502 });
+    }
+    const deploymentId = env.VERCEL_DEPLOYMENT_ID ?? null;
+    try {
+      return Response.json(await canaryRunner({ oidcToken: token, deploymentId }));
+    } catch {
+      return Response.json(failedAfterDispatch(deploymentId), { status: 502 });
     }
   };
 }

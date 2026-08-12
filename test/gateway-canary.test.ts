@@ -111,6 +111,49 @@ test("qualification or arm absence is a successful unmetered no-op", async () =>
   }
 });
 
+test("canary failures after OIDC preflight remain visibly attempted and metered", async () => {
+  const authorizedRequest = () => new Request("https://example.test/api/gateway-canary", {
+    headers: { authorization: "Bearer cron-secret", "user-agent": "vercel-cron/1.0" },
+  });
+  const env = {
+    CRON_SECRET: "cron-secret",
+    TWEET_SCORE_GATEWAY_TEXT_QUALIFIED: "true",
+    TWEET_SCORE_GATEWAY_CANARY_ARMED: "true",
+    VERCEL_DEPLOYMENT_ID: "deployment-id",
+  };
+
+  const oidcFailure = createGatewayCanaryHandler({
+    env,
+    oidcTokenProvider: async () => {
+      throw new Error("OIDC unavailable");
+    },
+    canaryRunner: async () => assert.fail("runner must not start without OIDC"),
+  });
+  const preflightResponse = await oidcFailure(authorizedRequest());
+  assert.equal(preflightResponse.status, 502);
+  const preflight = await preflightResponse.json();
+  assert.equal(preflight.gateway_attempted, false);
+  assert.equal(preflight.gateway_billing_classification, "unmetered_preflight");
+
+  const dispatchedFailure = createGatewayCanaryHandler({
+    env,
+    oidcTokenProvider: async () => "request-oidc",
+    canaryRunner: async () => {
+      throw new Error("malformed paid response");
+    },
+  });
+  const dispatchedResponse = await dispatchedFailure(authorizedRequest());
+  assert.equal(dispatchedResponse.status, 502);
+  const dispatched = await dispatchedResponse.json();
+  assert.equal(dispatched.ok, false);
+  assert.equal(dispatched.outcome, "error");
+  assert.equal(dispatched.failure_class, "canary_failed");
+  assert.equal(dispatched.gateway_attempted, true);
+  assert.equal(dispatched.gateway_billing_classification, "metered_gateway");
+  assert.equal(dispatched.deployment_id, "deployment-id");
+  assert.equal(dispatched.output_hash, null);
+});
+
 test("canary modules cannot import content, image, storage, or rate-limit paths", async () => {
   const { readFile } = await import("node:fs/promises");
   const sources = await Promise.all([
