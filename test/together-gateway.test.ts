@@ -6,6 +6,7 @@ import {
   GATEWAY_MODEL,
   _resetLearned,
   isGatewayEligible,
+  type GatewayTelemetry,
   writeWithFallback,
 } from "../src/lib/together";
 
@@ -471,5 +472,51 @@ test("malformed, wrong-model, tool, oversized, or inconsistent-usage Gateway str
     });
     assert.equal(result.ok, false);
     assert.equal(calls, 3);
+  }
+});
+
+test("Gateway stream parse and transport failures return the direct result with telemetry", async () => {
+  const gatewayResponses = [
+    () => new Response("data: null\n\ndata: [DONE]\n\n", {
+      headers: { "content-type": "text/event-stream" },
+    }),
+    () => new Response(new ReadableStream({
+      start(controller) {
+        controller.error(new Error("socket reset while reading Gateway stream"));
+      },
+    }), {
+      headers: { "content-type": "text/event-stream" },
+    }),
+  ];
+
+  for (const gatewayResponse of gatewayResponses) {
+    let calls = 0;
+    const telemetry: GatewayTelemetry[] = [];
+    const result = await writeWithFallback({
+      apiKey: "together-secret",
+      systemPrompt: "system",
+      userPrompt: "user",
+      env: {
+        TWEET_SCORE_GATEWAY_FALLBACK_MODE: "live",
+        TWEET_SCORE_GATEWAY_TEXT_QUALIFIED: "true",
+      },
+      gatewayTrustedServerContext: true,
+      gatewayOidcTokenProvider: async () => "runtime-oidc-token",
+      onGatewayTelemetry: (event) => telemetry.push(event),
+      fetchImpl: async () => {
+        calls += 1;
+        return calls < 3
+          ? new Response("provider unavailable", { status: 503 })
+          : gatewayResponse();
+      },
+    });
+
+    assert.equal(result.ok, false);
+    assert.equal(result.model, DIRECT_FALLBACK);
+    assert.equal(calls, 3);
+    assert.equal(telemetry.length, 1);
+    assert.equal(telemetry[0].outcome, "error");
+    assert.equal(telemetry[0].failure_class, "gateway_response");
+    assert.equal(telemetry[0].gateway_attempted, true);
   }
 });

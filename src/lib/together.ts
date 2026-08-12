@@ -602,7 +602,16 @@ async function gatewayAttempt(args: {
     void response.body?.cancel();
     return { ok: false, error: `Vercel AI Gateway ${response.status}`, failure: { status: response.status, source: "gateway_http" }, attempted: true };
   }
-  return readGatewaySse(response);
+  try {
+    return await readGatewaySse(response);
+  } catch {
+    return {
+      ok: false,
+      error: "Gateway response stream failed",
+      failure: { source: "gateway_response" },
+      attempted: true,
+    };
+  }
 }
 
 /** Primary writer with automatic fallback. */
