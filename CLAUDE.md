@@ -1,6 +1,6 @@
 # aseemkishore.com
 
-Personal showcase site. Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 on Vercel; content from headless WordPress (Rocket.net) via the WP REST API. No tests, no DB, no auth.
+Personal showcase site. Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 on Vercel; content from headless WordPress (Rocket.net) via the WP REST API. No DB or user auth. Node's test runner covers the Gateway boundary.
 
 ## Commands
 
@@ -8,6 +8,7 @@ Personal showcase site. Next.js 16 (App Router) + React 19 + TypeScript + Tailwi
 npm run dev      # localhost:3000
 npm run build    # production build — also the only typecheck gate (no typecheck script)
 npm run lint     # eslint (v9 flat config)
+npm test         # hermetic Gateway/route policy tests
 ```
 
 ## Architecture
@@ -22,7 +23,7 @@ npm run lint     # eslint (v9 flat config)
 - Styling: Tailwind v4 CSS-first — `globals.css` has `@import "tailwindcss"` + `@plugin "@tailwindcss/typography"`. There is no `tailwind.config`.
 - Data: add fetchers to `src/lib/wordpress.ts`, always pass a fallback; decode WP titles/excerpts with `decodeHtmlEntities()`.
 - WP HTML is rendered with `dangerouslySetInnerHTML` — accepted because the CMS is our own; add sanitization if untrusted content ever enters.
-- Env: `WORDPRESS_API_URL` (WP). Tools also need `TOGETHER_API_KEY`, `OPENAI_API_KEY`; optional `WRITER_MODEL`, `WRITER_FALLBACK_MODEL`, `IMAGE_QUALITY` (`medium`|`low`).
+- Env: `WORDPRESS_API_URL` (WP). Tools also need `TOGETHER_API_KEY`, `OPENAI_API_KEY`; optional `WRITER_MODEL`, `WRITER_FALLBACK_MODEL`, `IMAGE_QUALITY` (`medium`|`low`). Vercel AI Gateway continuity is default-off and uses runtime OIDC; see `README.md` for its qualification/mode/temporary-arm controls.
 - **Tools exception:** `"use client"` and `src/app/api/tools/**` are allowed under `src/app/tools/**` only. Portfolio and thoughts stay server-fetched from WP — no client data fetching there.
 
 ## Do NOT
