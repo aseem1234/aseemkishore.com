@@ -25,7 +25,7 @@ export default function ExperiencePage() {
           { name: "Experience", path: "/experience" },
         ])}
       />
-      <div className="flex flex-col gap-8 sm:flex-row sm:items-start">
+      <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
         <Portrait variant="page" />
         <PageHero
           eyebrow="Experience & Leadership"
