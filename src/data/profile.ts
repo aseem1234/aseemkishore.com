@@ -8,7 +8,7 @@ export const profile = {
   location: "Clarksville, Maryland",
   locationDetail:
     "Based between the Baltimore and Washington, D.C. metropolitan areas. Experienced remote operator and distributed-team manager.",
-  email: "akishore@akinternetconsulting.com",
+  email: "hello@aseemkishore.com",
   siteUrl: "https://aseemkishore.com",
   photo: "/images/aseem-kishore.jpg",
   photoAlt: "Aseem Kishore",
@@ -79,7 +79,7 @@ export const links = {
   email: {
     id: "email",
     label: "Email",
-    href: "mailto:akishore@akinternetconsulting.com",
+    href: "mailto:hello@aseemkishore.com",
     event: "contact_click",
   },
   resume: {

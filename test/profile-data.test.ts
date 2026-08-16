@@ -51,5 +51,5 @@ test("thought essays remain drafts", () => {
 test("profile does not publish a phone number", () => {
   const serialized = JSON.stringify({ profile, experience, publications });
   assert.doesNotMatch(serialized, /\b\d{3}[-.)]\s*\d{3}[-.\s]\d{4}\b/);
-  assert.equal(profile.email, "akishore@akinternetconsulting.com");
+  assert.equal(profile.email, "hello@aseemkishore.com");
 });
