@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ButtonLink from "@/components/ButtonLink";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
+import Portrait from "@/components/Portrait";
 import { earlyCareerSummary, experience } from "@/data/experience";
 import { profile } from "@/data/profile";
 import { skillGroups } from "@/data/skills";
@@ -24,11 +25,14 @@ export default function ExperiencePage() {
           { name: "Experience", path: "/experience" },
         ])}
       />
-      <PageHero
-        eyebrow="Experience & Leadership"
-        title="What the work actually involved"
-        description="Founder titles can hide the job. This page translates the publishing business into responsibilities a hiring manager can recognize: strategy, people, systems, performance, and accountability for results."
-      />
+      <div className="flex flex-col gap-8 sm:flex-row sm:items-start">
+        <Portrait variant="page" />
+        <PageHero
+          eyebrow="Experience & Leadership"
+          title="What the work actually involved"
+          description="Founder titles can hide the job. This page translates the publishing business into responsibilities a hiring manager can recognize: strategy, people, systems, performance, and accountability for results."
+        />
+      </div>
 
       <div className="mt-8 flex flex-wrap gap-3">
         <ButtonLink href="/resume/Aseem-Kishore-Resume.pdf" event="resume_download">

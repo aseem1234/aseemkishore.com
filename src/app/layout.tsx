@@ -37,6 +37,12 @@ export const metadata: Metadata = {
     title: "Aseem Kishore | Content Strategy, Editorial Operations & AI",
     description:
       "Aseem Kishore is a content strategy and editorial operations leader who has built technology publications reaching millions of monthly readers and now develops AI-assisted workflows and SaaS products.",
+    images: [
+      {
+        url: profile.photo,
+        alt: profile.photoAlt,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

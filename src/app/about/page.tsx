@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ButtonLink from "@/components/ButtonLink";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
+import Portrait from "@/components/Portrait";
 import { earlyCareerSummary } from "@/data/experience";
 import { profile } from "@/data/profile";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
@@ -22,11 +23,14 @@ export default function AboutPage() {
           { name: "About", path: "/about" },
         ])}
       />
-      <PageHero
-        eyebrow="About"
-        title="A career across technology, content, and product"
-        description="I work where publishing, editorial judgment, and software meet. The through-line is building systems that help people understand something clearly and act on it."
-      />
+      <div className="flex flex-col gap-8 sm:flex-row sm:items-start">
+        <Portrait variant="page" priority />
+        <PageHero
+          eyebrow="About"
+          title="A career across technology, content, and product"
+          description="I work where publishing, editorial judgment, and software meet. The through-line is building systems that help people understand something clearly and act on it."
+        />
+      </div>
 
       <section className="mt-14 space-y-5 leading-relaxed text-zinc-400">
         <p>

@@ -3,6 +3,7 @@ import CapabilityGrid from "@/components/CapabilityGrid";
 import CaseStudyCard from "@/components/CaseStudyCard";
 import CtaBand from "@/components/CtaBand";
 import JsonLd from "@/components/JsonLd";
+import Portrait from "@/components/Portrait";
 import PublicationCard from "@/components/PublicationCard";
 import ProofPoints from "@/components/ProofPoints";
 import SectionHeading from "@/components/SectionHeading";
@@ -25,28 +26,33 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
           <div className="h-72 w-72 rounded-full bg-blue-500/15 blur-[120px]" />
         </div>
-        <div className="relative z-10 mx-auto max-w-4xl">
-          <p className="font-mono text-xs uppercase tracking-[0.22em] text-blue-400">
-            {profile.label}
-          </p>
-          <h1 className="mt-5 text-4xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
-            {profile.headline}
-          </h1>
-          <p className="mt-3 text-lg text-zinc-400">{profile.supportingLabel}</p>
-          <p className="mt-8 max-w-3xl text-lg leading-relaxed text-zinc-400">
-            {profile.heroSummary}
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href="/experience">View My Experience</ButtonLink>
-            <ButtonLink href="/work" variant="secondary">
-              Explore Selected Work
-            </ButtonLink>
-            <ButtonLink href="/resume/Aseem-Kishore-Resume.pdf" variant="secondary" event="resume_download">
-              Download Résumé
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="ghost">
-              Contact Me
-            </ButtonLink>
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1fr)_auto]">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-blue-400">
+              {profile.label}
+            </p>
+            <h1 className="mt-5 text-4xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
+              {profile.headline}
+            </h1>
+            <p className="mt-3 text-lg text-zinc-400">{profile.supportingLabel}</p>
+            <p className="mt-8 max-w-3xl text-lg leading-relaxed text-zinc-400">
+              {profile.heroSummary}
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <ButtonLink href="/experience">View My Experience</ButtonLink>
+              <ButtonLink href="/work" variant="secondary">
+                Explore Selected Work
+              </ButtonLink>
+              <ButtonLink href="/resume/Aseem-Kishore-Resume.pdf" variant="secondary" event="resume_download">
+                Download Résumé
+              </ButtonLink>
+              <ButtonLink href="/contact" variant="ghost">
+                Contact Me
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="mx-auto lg:mx-0">
+            <Portrait variant="hero" priority />
           </div>
         </div>
       </section>

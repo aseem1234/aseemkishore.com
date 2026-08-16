@@ -10,6 +10,8 @@ export const profile = {
     "Based between the Baltimore and Washington, D.C. metropolitan areas. Experienced remote operator and distributed-team manager.",
   email: "akishore@akinternetconsulting.com",
   siteUrl: "https://aseemkishore.com",
+  photo: "/images/aseem-kishore.jpg",
+  photoAlt: "Aseem Kishore",
   availability:
     "Open to remote senior leadership, strategy, and selected advisory opportunities.",
   heroSummary:

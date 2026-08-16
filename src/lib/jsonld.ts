@@ -10,6 +10,7 @@ export function personJsonLd() {
     "@id": `${siteUrl}/#person`,
     name: profile.name,
     url: siteUrl,
+    image: absoluteUrl(profile.photo),
     jobTitle: profile.label,
     description: profile.heroSummary,
     email: profile.email,

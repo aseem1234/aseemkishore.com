@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ButtonLink from "@/components/ButtonLink";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
+import Portrait from "@/components/Portrait";
 import TrackedAnchor from "@/components/TrackedAnchor";
 import { links, profile } from "@/data/profile";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
@@ -30,11 +31,14 @@ export default function ContactPage() {
           { name: "Contact", path: "/contact" },
         ])}
       />
-      <PageHero
-        eyebrow="Contact"
-        title="How to reach me"
-        description="Email is the most reliable path. LinkedIn and Muck Rack are there if you prefer those networks. I do not publish a phone number here."
-      />
+      <div className="flex items-start gap-5">
+        <Portrait variant="compact" />
+        <PageHero
+          eyebrow="Contact"
+          title="How to reach me"
+          description="Email is the most reliable path. LinkedIn and Muck Rack are there if you prefer those networks. I do not publish a phone number here."
+        />
+      </div>
 
       <div className="mt-10 flex flex-wrap gap-3">
         <ButtonLink href={links.email.href} event="contact_click">

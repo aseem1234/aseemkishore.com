@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
@@ -43,8 +44,15 @@ export default function Nav() {
         <Link
           href="/"
           onClick={() => setOpen(false)}
-          className="font-mono text-sm font-semibold tracking-wide text-zinc-100 transition-colors hover:text-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400"
+          className="flex items-center gap-2.5 font-mono text-sm font-semibold tracking-wide text-zinc-100 transition-colors hover:text-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-400"
         >
+          <Image
+            src="/images/aseem-kishore-sm.jpg"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7 rounded-full object-cover ring-1 ring-zinc-700"
+          />
           Aseem Kishore
         </Link>
 
