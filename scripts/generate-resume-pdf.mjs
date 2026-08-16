@@ -6,7 +6,7 @@ const lines = [
   "ASEEM KISHORE",
   "Content Strategy & Editorial Operations Leader",
   "Digital Publishing Founder | AI & Product Builder",
-  "Clarksville, Maryland  |  akishore@akinternetconsulting.com  |  aseemkishore.com",
+  "Clarksville, Maryland  |  hello@aseemkishore.com  |  aseemkishore.com",
   "",
   "SUMMARY",
   "For nearly two decades I have built and operated technology publications, led",
