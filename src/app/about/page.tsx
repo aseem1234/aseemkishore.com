@@ -23,7 +23,7 @@ export default function AboutPage() {
           { name: "About", path: "/about" },
         ])}
       />
-      <div className="flex flex-col gap-8 sm:flex-row sm:items-start">
+      <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
         <Portrait variant="page" priority />
         <PageHero
           eyebrow="About"
