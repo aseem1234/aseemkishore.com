@@ -46,7 +46,16 @@ export default function AboutPage() {
           Search and distribution changed more than once. So did advertising and social referral. The useful habit was the same: look at performance, decide whether the idea, the execution, or the channel had failed, and then update, prune, or double down. {profile.aiPosition}
         </p>
         <p>
-          That same habit is now in product work. I am building PositionTracker, a SaaS dashboard for stock and options positions, directing the product and implementing it with AI-assisted development. I am not a licensed financial adviser, and I do not present the product as institutional portfolio management.
+          That same habit is now in product work. I built and operate PositionTracker, a SaaS dashboard for stock and options positions that is live at{" "}
+          <a
+            href="https://positiontracker.trading"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300"
+          >
+            positiontracker.trading
+          </a>
+          , directing the product and implementing it with AI-assisted development. I am not a licensed financial adviser, and I do not present the product as institutional portfolio management.
         </p>
       </section>
 

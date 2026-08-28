@@ -41,6 +41,9 @@ export default function ExperiencePage() {
         <ButtonLink href="/career" variant="secondary">
           Career profile
         </ButtonLink>
+        <ButtonLink href="/work" variant="secondary">
+          Case studies
+        </ButtonLink>
         <ButtonLink href="/contact" variant="ghost">
           Contact
         </ButtonLink>

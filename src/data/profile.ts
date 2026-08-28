@@ -127,4 +127,10 @@ export const authorArchives: ExternalLink[] = [
     href: "https://www.switchingtomac.com/author/akishorestm/",
     event: "writing_sample_click",
   },
+  {
+    id: "xbox-archive",
+    label: "Xbox Advisor author archive",
+    href: "https://xboxadvisor.com/author/akishorexba/",
+    event: "writing_sample_click",
+  },
 ];

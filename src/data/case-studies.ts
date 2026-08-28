@@ -187,7 +187,7 @@ export const caseStudies: CaseStudy[] = [
       "Designed workflows and a responsive interface around portfolio and options use cases.",
       "Integrated financial data, Clerk authentication, Neon Postgres, Stripe subscriptions, and Vercel deployment.",
       "Worked through GitHub, pull requests, testing, and release habits rather than treating the app as a one-off prototype.",
-      "Kept the public claim accurate: this is a product I am building and operating, not a claim of institutional asset management.",
+      "Kept the public claim accurate: this is a live product I built and operate, not a claim of institutional asset management.",
     ],
     systems: [
       "AI-assisted development with human review",
