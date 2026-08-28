@@ -12,7 +12,7 @@ export const experience: ExperienceRole[] = [
       precision: "month",
     },
     summary:
-      "Directing, designing, and iterating on a SaaS dashboard for organizing and analyzing stock and options positions, using modern AI-assisted development workflows.",
+      "Directing, designing, and iterating on a SaaS dashboard for organizing and analyzing stock and options positions — live at positiontracker.trading — using modern AI-assisted development workflows.",
     bullets: [
       "Defined the product concept, user workflows, and interface for tracking positions, research, and portfolio context in one place.",
       "Integrated financial market data, authentication, a Postgres data store, subscription billing, and a Vercel deployment workflow.",

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { statusLabels } from "@/data/publications";
 import type { Publication } from "@/data/types";
 
 const kindLabel: Record<Publication["kind"], string> = {
@@ -23,7 +24,7 @@ export default function PublicationCard({ item }: { item: Publication }) {
           </h3>
         </div>
         <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
-          {item.status === "building" ? "Building" : "Active"}
+          {statusLabels[item.status]}
         </span>
       </div>
       <p className="text-sm leading-relaxed text-zinc-400">{item.summary}</p>

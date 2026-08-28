@@ -83,7 +83,7 @@ export interface Publication {
   url: string;
   founded: string;
   foundedNote?: string;
-  status: "active" | "building";
+  status: "active" | "building" | "live";
   audience: string;
   editorialFocus: string;
   role: string;

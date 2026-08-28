@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { statusLabels } from "@/data/publications";
 import type { Publication } from "@/data/types";
 
 export default function ProjectCard({ post }: { post: Publication }) {
@@ -12,7 +13,7 @@ export default function ProjectCard({ post }: { post: Publication }) {
           {post.name}
         </h3>
         <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
-          {post.status === "building" ? "Building" : "Active"}
+          {statusLabels[post.status]}
         </span>
       </div>
       <p className="text-sm leading-relaxed text-zinc-400">{post.summary}</p>

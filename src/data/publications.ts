@@ -1,5 +1,11 @@
 import type { Publication } from "./types";
 
+export const statusLabels: Record<Publication["status"], string> = {
+  active: "Active",
+  building: "Building",
+  live: "Live",
+};
+
 export const publications: Publication[] = [
   {
     slug: "online-tech-tips",
@@ -146,7 +152,7 @@ export const publications: Publication[] = [
     kind: "product",
     url: "https://positiontracker.trading",
     founded: "2025",
-    status: "building",
+    status: "live",
     audience:
       "Individual investors and active traders who want one place to organize stock and options positions, research, and portfolio context.",
     editorialFocus:

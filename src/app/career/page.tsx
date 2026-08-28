@@ -35,6 +35,9 @@ export default function CareerPage() {
         <ButtonLink href="/experience" variant="secondary">
           Full experience
         </ButtonLink>
+        <ButtonLink href="/work" variant="secondary">
+          Selected work
+        </ButtonLink>
         <ButtonLink href="/writing" variant="secondary">
           Writing portfolio
         </ButtonLink>

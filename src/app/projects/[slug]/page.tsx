@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import ButtonLink from "@/components/ButtonLink";
 import JsonLd from "@/components/JsonLd";
 import { caseStudies } from "@/data/case-studies";
-import { getPublication, publications } from "@/data/publications";
+import { getPublication, publications, statusLabels } from "@/data/publications";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: Props) {
       <div className="mt-8 flex flex-wrap items-center gap-4">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl">{item.name}</h1>
         <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
-          {item.status === "building" ? "Building" : "Active"}
+          {statusLabels[item.status]}
         </span>
       </div>
       <p className="mt-3 text-lg text-zinc-400">{item.role}</p>

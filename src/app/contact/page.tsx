@@ -55,6 +55,17 @@ export default function ContactPage() {
         </ButtonLink>
       </div>
 
+      <p className="mt-5 text-zinc-400">
+        Prefer to copy the address?{" "}
+        <TrackedAnchor
+          href={links.email.href}
+          event="contact_click"
+          className="text-blue-400 hover:text-blue-300"
+        >
+          {profile.email}
+        </TrackedAnchor>
+      </p>
+
       <section className="mt-16">
         <h2 className="text-2xl font-bold text-zinc-50">What this is about</h2>
         <p className="mt-3 text-zinc-400">
