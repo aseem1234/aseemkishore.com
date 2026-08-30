@@ -1,4 +1,5 @@
 const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://cbj27jbfj4.onrocket.site/wp-json/wp/v2';
+const WORDPRESS_FETCH_TIMEOUT_MS = 10_000;
 
 /** Decode HTML entities from WordPress rendered fields (e.g. &amp; &#8217;) */
 export function decodeHtmlEntities(text: string): string {
@@ -60,6 +61,7 @@ async function fetchAPI<T>(endpoint: string, params: Record<string, string> = {}
   try {
     const res = await fetch(url.toString(), {
       next: { revalidate: 60 },
+      signal: AbortSignal.timeout(WORDPRESS_FETCH_TIMEOUT_MS),
     });
 
     if (!res.ok) {
