@@ -1,4 +1,14 @@
 const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://cbj27jbfj4.onrocket.site/wp-json/wp/v2';
+const DEFAULT_WORDPRESS_FETCH_TIMEOUT_MS = 10_000;
+const MAX_WORDPRESS_FETCH_TIMEOUT_MS = 30_000;
+
+function wordpressFetchTimeoutMs(value = process.env.WORDPRESS_FETCH_TIMEOUT_MS): number {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || !Number.isInteger(parsed) || parsed <= 0) {
+    return DEFAULT_WORDPRESS_FETCH_TIMEOUT_MS;
+  }
+  return Math.min(parsed, MAX_WORDPRESS_FETCH_TIMEOUT_MS);
+}
 
 /** Decode HTML entities from WordPress rendered fields (e.g. &amp; &#8217;) */
 export function decodeHtmlEntities(text: string): string {
@@ -56,10 +66,19 @@ export interface WPCategory {
 async function fetchAPI<T>(endpoint: string, params: Record<string, string> = {}, fallback?: T): Promise<T> {
   const url = new URL(`${WP_API_URL}${endpoint}`);
   Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+  const timeoutMs = wordpressFetchTimeoutMs();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => {
+    controller.abort(new DOMException(
+      `WordPress API request timed out after ${timeoutMs}ms`,
+      'TimeoutError',
+    ));
+  }, timeoutMs);
 
   try {
     const res = await fetch(url.toString(), {
       next: { revalidate: 60 },
+      signal: controller.signal,
     });
 
     if (!res.ok) {
@@ -68,11 +87,13 @@ async function fetchAPI<T>(endpoint: string, params: Record<string, string> = {}
       throw new Error(`WordPress API error: ${res.status} ${res.statusText}`);
     }
 
-    return res.json();
+    return await res.json();
   } catch (error) {
     console.error(`WordPress API fetch failed for ${endpoint}:`, error);
     if (fallback !== undefined) return fallback;
     throw error;
+  } finally {
+    clearTimeout(timeout);
   }
 }
 

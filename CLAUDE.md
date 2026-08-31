@@ -23,7 +23,7 @@ npm test         # hermetic Gateway/route policy tests
 - Styling: Tailwind v4 CSS-first — `globals.css` has `@import "tailwindcss"` + `@plugin "@tailwindcss/typography"`. There is no `tailwind.config`.
 - Data: add fetchers to `src/lib/wordpress.ts`, always pass a fallback; decode WP titles/excerpts with `decodeHtmlEntities()`.
 - WP HTML is rendered with `dangerouslySetInnerHTML` — accepted because the CMS is our own; add sanitization if untrusted content ever enters.
-- Env: `WORDPRESS_API_URL` (WP). Tools also need `TOGETHER_API_KEY`, `OPENAI_API_KEY`; optional `WRITER_MODEL`, `WRITER_FALLBACK_MODEL`, `IMAGE_QUALITY` (`medium`|`low`). Vercel AI Gateway continuity is default-off and uses runtime OIDC; see `README.md` for its qualification/mode/temporary-arm controls.
+- Env: `WORDPRESS_API_URL` (WP); optional `WORDPRESS_FETCH_TIMEOUT_MS` is a per-request deadline that defaults to 10 seconds and is capped at 30 seconds. Tools also need `TOGETHER_API_KEY`, `OPENAI_API_KEY`; optional `WRITER_MODEL`, `WRITER_FALLBACK_MODEL`, `IMAGE_QUALITY` (`medium`|`low`). Vercel AI Gateway continuity is default-off and uses runtime OIDC; see `README.md` for its qualification/mode/temporary-arm controls.
 - **Tools exception:** `"use client"` and `src/app/api/tools/**` are allowed under `src/app/tools/**` only. Portfolio and thoughts stay server-fetched from WP — no client data fetching there.
 
 ## Do NOT
