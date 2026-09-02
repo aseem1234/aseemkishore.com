@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/projects",
     "/thoughts",
     "/tools",
+    "/tools/flip",
+    "/flip-privacy",
   ];
 
   return [
