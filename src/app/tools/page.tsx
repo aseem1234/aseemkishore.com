@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Tools",
-  description: "Free, fast tools — shareable and useful.",
+  description: "Free, fast web utilities and iPhone apps.",
 };
 
 const tools = [
@@ -11,6 +11,11 @@ const tools = [
     href: "/tools/tweet-score",
     name: "Tweet Flops-o-Meter",
     blurb: "Paste a draft tweet. Get a score, a roast, and a share card.",
+  },
+  {
+    href: "/tools/flip",
+    name: "Flip",
+    blurb: "Sleek iPhone coin-flip. Coming soon.",
   },
 ];
 
@@ -21,7 +26,7 @@ export default function ToolsPage() {
         Tools
       </h1>
       <p className="mt-4 text-lg text-zinc-400">
-        Quick utilities you can use and share.
+        Quick web utilities and iPhone apps.
       </p>
 
       <ul className="mt-12 space-y-4">
