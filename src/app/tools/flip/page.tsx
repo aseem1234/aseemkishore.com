@@ -25,6 +25,7 @@ const proFeatures = [
   "Home Screen widget",
   "~20 extra face pairs",
   "AI Generate (2 per day)",
+  "iCloud Backup",
 ];
 
 const faqs = [
@@ -36,12 +37,12 @@ const faqs = [
   {
     question: "Is there an account?",
     answer:
-      "No. Flip has no account system and no sign-in. Your flip history and coin faces stay on your device.",
+      "No. Flip has no account system and no sign-in. Flip history stays on your device. Pro iCloud Backup can sync settings and custom/AI faces to your iCloud.",
   },
   {
     question: "What does Pro cost?",
     answer:
-      "Flip Pro is $0.99 per year with a 7-day free trial, handled by Apple through StoreKit.",
+      "Flip Pro is $0.99 per year with a 1-month introductory offer, or $4.99 lifetime. Purchases go through Apple StoreKit.",
   },
 ];
 
@@ -93,7 +94,9 @@ export default function FlipPage() {
           </div>
           <div className="rounded-xl border border-blue-500/30 bg-zinc-900/40 p-6">
             <h3 className="text-lg font-semibold text-zinc-100">Flip Pro</h3>
-            <p className="mt-1 text-sm text-zinc-500">$0.99/year, 7-day free trial</p>
+            <p className="mt-1 text-sm text-zinc-500">
+              $0.99/year with 1-month intro, or $4.99 lifetime
+            </p>
             <ul className="mt-4 list-disc space-y-2 pl-5 text-zinc-400">
               {proFeatures.map((feature) => (
                 <li key={feature}>{feature}</li>
@@ -106,8 +109,9 @@ export default function FlipPage() {
       <section className="mt-16">
         <h2 className="text-2xl font-bold text-zinc-50">Privacy</h2>
         <p className="mt-4 text-zinc-400">
-          No account, no third-party analytics SDK, and nothing leaves your device unless you use
-          the optional AI Generate feature. Read the full{" "}
+          No account and no third-party analytics SDK. Flip Pro iCloud Backup can sync settings,
+          custom photos, and saved AI faces to your iCloud. AI Generate sends your prompt to our
+          server. Read the full{" "}
           <Link href="/flip-privacy" className="text-blue-400 hover:text-blue-300">
             Flip privacy policy
           </Link>
