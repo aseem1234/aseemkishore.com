@@ -1,7 +1,7 @@
 # Frontend Design — aseemkishore.com
 
 **Date:** 2026-03-13
-**Status:** Approved
+**Status:** Approved — **superseded 2026-08-15** by the content-leadership portfolio rebuild (commit 0d59318): content now lives in `src/data/`, WordPress backs only `/thoughts`. Kept as a historical record (status note added 2026-09-03).
 
 ## Summary
 
