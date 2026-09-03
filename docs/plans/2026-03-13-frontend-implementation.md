@@ -1,5 +1,7 @@
 # Frontend Implementation Plan
 
+> **Status (2026-09-03):** Historical. Built in March 2026, then superseded on 2026-08-15 by the portfolio rebuild (commit 0d59318) — pages other than `/thoughts` no longer fetch WordPress, and the `wp.aseemkishore.com` host named below is dead (see `docs/wordpress-backend.md`). Current routes: `CLAUDE.md`.
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Build the full frontend for aseemkishore.com — a bold, dark-first personal showcase with blue accents, single-page scroll homepage, and dedicated subpages.

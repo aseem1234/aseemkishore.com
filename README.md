@@ -1,34 +1,32 @@
 # aseemkishore.com
 
-Personal showcase website for Aseem Kishore.
+Personal site for Aseem Kishore — a content-strategy / editorial-operations portfolio with a small set of web tools. Live at [aseemkishore.com](https://aseemkishore.com); `main` auto-deploys to Vercel.
 
-## Architecture
+Agent operating manual: `CLAUDE.md`. Cross-tool ground rules: `AGENTS.md`.
 
-- **Frontend:** Next.js (App Router) with TypeScript and Tailwind CSS, hosted on Vercel
-- **CMS Backend:** Headless WordPress on Rocket.net, content served via WP REST API
-- **Tools:** Interactive routes under `/tools` (client UI + `/api/tools/*`). Scoring uses Together.ai; share cards use OpenAI gpt-image-2 (`IMAGE_QUALITY=medium` by default).
-- **Domain:** `aseemkishore.com` (Vercel); WP admin via Rocket.net CDN URL (see `.env.example`)
+## What is here (2026-09-03)
 
-## Getting Started
+- **Portfolio** — `/`, `/experience`, `/career`, `/work` (case studies), `/writing` (verified bylines), `/projects` (the publications), `/about`, `/contact`, `/resume` (HTML + PDF). Rebuilt 2026-08-15; all content is static TypeScript in `src/data/` with invariants in `test/profile-data.test.ts`.
+- **Thoughts** — `/thoughts`, `/thoughts/[slug]`. The only pages still served from headless WordPress (Rocket.net, WP REST API, ISR 60s, bounded fetches with fallbacks). Original essays are drafted for review before they are published there.
+- **Tools** — `/tools`:
+  - **Tweet Flops-o-Meter** (`/tools/tweet-score`): client UI + `POST /api/tools/tweet-score` (Together.ai writer) + `POST /api/tools/share-card` (OpenAI `gpt-image-2` background, `sharp` overlay). Per-IP rate limits, 20/h and 10/h.
+  - **Flip** (`/tools/flip`, privacy policy at `/flip-privacy`): pages for the Flip iPhone coin-flip app from AK Internet Consulting. Pricing copy mirrors StoreKit (yearly $0.99 with a 1-month intro, lifetime $4.99).
+
+Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, hosted on Vercel. No database, no user accounts.
+
+## Getting started
 
 ```bash
 npm install
-npm run dev
+cp .env.example .env.local   # fill in WORDPRESS_API_URL (Rocket.net CDN URL) and, for the tools, TOGETHER_API_KEY / OPENAI_API_KEY
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Content
-
-Content is managed in WordPress and fetched via the REST API. Categories:
-
-- **Projects** — portfolio of sites and ventures
-- **Thoughts** — posts, updates, musings
-- **Personal** — family, interests, hobbies
+Checks: `npm run build` (also the typecheck), `npm run lint`, `npm test` (hermetic, no network). WordPress backend details: `docs/wordpress-backend.md`. Do not point `WORDPRESS_API_URL` at `wp.aseemkishore.com` — that DNS record no longer exists.
 
 ## Deployment
 
-Vercel auto-deploys from `main` on every push.
+Vercel auto-deploys from `main` on every push, so all work goes through a branch and a PR. `vercel.json` schedules one cron, `GET /api/gateway-canary` at 11:17 UTC daily; it is a no-op unless armed (below).
 
 ## AI continuity
 
@@ -67,8 +65,9 @@ Attended rollout order:
    available. Configure `CRON_SECRET` if the project does not already have it.
 3. Set `TWEET_SCORE_GATEWAY_TEXT_QUALIFIED=true`, then temporarily set
    `TWEET_SCORE_GATEWAY_CANARY_ARMED=true`.
-4. Run exactly one `npm run gateway:canary` and verify the bounded, hash-only
-   telemetry. Remove the arm immediately, even if the canary fails.
+4. Run exactly one `npm run gateway:canary` (it invokes `vercel crons run
+   /api/gateway-canary`) and verify the bounded, hash-only telemetry. Remove the
+   arm immediately, even if the canary fails.
 5. Separately approve `shadow`, observe a forced eligible failure without using
    its discarded output, and only then separately approve `live`.
 

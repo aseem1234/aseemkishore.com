@@ -2,6 +2,8 @@
 
 Public endpoints verified 2026-06-10; server-install state last verified 2026-03-15.
 
+> **Scope (2026-09-03):** Since the 2026-08-15 portfolio rebuild, WordPress backs only `/thoughts` and `/thoughts/[slug]`. Projects, case studies, writing samples and profile data are static TypeScript in `src/data/`; the Projects post IDs and `project_*` meta below remain in WP but are no longer read by the site.
+
 ## REST endpoints
 
 - **Working REST base:** `https://cbj27jbfj4.onrocket.site/wp-json/wp/v2` (Rocket.net CDN URL) — returned 200 on 2026-06-10. This is the code fallback in `src/lib/wordpress.ts` and the value `WORDPRESS_API_URL` should carry.
