@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["6SV2AL44X4.com.akinternetconsulting.flip"],
+        "components": [
+          { "/": "/c", "?": { "p": "?*" }, "comment": "Shared coin links open in Flip" },
+          { "/": "/c/*" }
+        ]
+      }
+    ]
+  },
+  "appclips": {
+    "apps": ["6SV2AL44X4.com.akinternetconsulting.flip.Clip"]
+  }
+}
