@@ -18,6 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools",
     "/tools/flip",
     "/flip-privacy",
+    // The bare shared-coin landing page only. Individual coin links carry noindex.
+    "/c",
   ];
 
   return [
