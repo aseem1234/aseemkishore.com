@@ -9,7 +9,7 @@ Agent operating manual: `CLAUDE.md`. Cross-tool ground rules: `AGENTS.md`.
 - **Portfolio** — `/`, `/experience`, `/career`, `/work` (case studies), `/writing` (verified bylines), `/projects` (the publications), `/about`, `/contact`, `/resume` (HTML + PDF). Rebuilt 2026-08-15; all content is static TypeScript in `src/data/` with invariants in `test/profile-data.test.ts`.
 - **Thoughts** — `/thoughts`, `/thoughts/[slug]`. The only pages still served from headless WordPress (Rocket.net, WP REST API, ISR 60s, bounded fetches with fallbacks). Original essays are drafted for review before they are published there.
 - **Tools** — `/tools`:
-  - **Tweet Flops-o-Meter** (`/tools/tweet-score`): client UI + `POST /api/tools/tweet-score` (Together.ai writer) + `POST /api/tools/share-card` (OpenAI `gpt-image-2` background, `sharp` overlay). Per-IP rate limits, 20/h and 10/h.
+  - **Tweet Flops-o-Meter** (`/tools/tweet-score`): client UI + `POST /api/tools/tweet-score` (Together.ai writer) + `POST /api/tools/share-card` (OpenAI GPT Image 2.5 Flare background with GPT Image 2 fallback, `sharp` overlay). Per-IP rate limits, 20/h and 10/h.
   - **Flip** (`/tools/flip`, privacy policy at `/flip-privacy`): pages for the Flip iPhone coin-flip app from AK Internet Consulting. Pricing copy mirrors StoreKit (yearly $0.99 with a 1-month intro, lifetime $4.99).
 
 Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, hosted on Vercel. No database, no user accounts.

@@ -8,6 +8,7 @@ export type ShareCardInput = {
 };
 
 const SIZE = "1024x1024" as const;
+export const SHARE_CARD_MODELS = ["gpt-image-2.5-flare", "gpt-image-2"] as const;
 
 function imageQuality(): "low" | "medium" | "high" {
   const q = (process.env.IMAGE_QUALITY || "medium").toLowerCase();
@@ -95,10 +96,9 @@ async function generateBackground(
 
   const prompt = `Abstract atmospheric background for a social media score card. Mood: ${vibe}. Dark cinematic palette (#0a0a0f base), subtle grain, no people, no faces, no logos, absolutely no text letters numbers or watermarks anywhere in the image. Soft bokeh lights. 1:1 square.`;
 
-  const models = ["gpt-image-2", "gpt-image-1.5"] as const;
   let lastError: unknown;
 
-  for (const model of models) {
+  for (const model of SHARE_CARD_MODELS) {
     try {
       const response = await openai.images.generate({
         model,
