@@ -1,13 +1,36 @@
 # WordPress backend reference (headless CMS on Rocket.net)
 
-Public endpoints verified 2026-06-10; server-install state last verified 2026-03-15.
+Public endpoints last verified 2026-06-10; server-install state last verified 2026-03-15. Public DNS for `aseemkishore.com` checked 2026-09-12.
 
 > **Scope (2026-09-03):** Since the 2026-08-15 portfolio rebuild, WordPress backs only `/thoughts` and `/thoughts/[slug]`. Projects, case studies, writing samples and profile data are static TypeScript in `src/data/`; the Projects post IDs and `project_*` meta below remain in WP but are no longer read by the site.
+
+## Public site vs Thoughts CMS
+
+The **public site** is Next.js on Vercel. It is not served from Rocket.net. This repo does not record a Vercel project name — do not invent one.
+
+Live public DNS (2026-09-12):
+
+| Fact | Value |
+|---|---|
+| Registrar | GoDaddy.com, LLC |
+| Nameservers | Cloudflare (`magdalena.ns.cloudflare.com` / `randall.ns.cloudflare.com`) — **DNS-only**, not proxied |
+| Apex A | Vercel anycast (`76.76.21.21`). `www` also 200; no www→apex redirect |
+| `wp.aseemkishore.com` | **NXDOMAIN** (reconfirmed 2026-09-12 at 1.1.1.1 and 8.8.8.8) |
+
+Public A/CNAME records do **not** point at Rocket. `131.153.238.181` is unused by public DNS.
+
+The **Thoughts CMS** may still be the Rocket.net WordPress install below (REST over the `onrocket.site` CDN host). That host was not re-checked over SSH on 2026-09-12. Keep using the CDN REST URL for fetches; do not describe public DNS as Rocket.
 
 ## REST endpoints
 
 - **Working REST base:** `https://cbj27jbfj4.onrocket.site/wp-json/wp/v2` (Rocket.net CDN URL) — returned 200 on 2026-06-10. This is the code fallback in `src/lib/wordpress.ts` and the value `WORDPRESS_API_URL` should carry.
-- **`wp.aseemkishore.com` is DEAD:** no DNS record exists as of 2026-06-10 (checked 1.1.1.1 and 8.8.8.8). The 2026-03-13 setup created a GoDaddy A record → 131.153.238.181, but it is gone and SSL was never confirmed. To revive: re-create the A record, confirm the Rocket.net domain alias (domain ID 13241), wait for SSL, then update `WORDPRESS_API_URL` and the code fallback.
+- **`wp.aseemkishore.com` is DEAD:** NXDOMAIN as of 2026-06-10, reconfirmed 2026-09-12. Do not point `WORDPRESS_API_URL` at it.
+
+### Historical DNS (not current)
+
+The 2026-03-13 setup created a **GoDaddy A record** for `wp.aseemkishore.com` → `131.153.238.181`. That record is gone; SSL was never confirmed. Apex DNS is no longer at GoDaddy (`domaincontrol.com`); nameservers are Cloudflare.
+
+If you revive the `wp.` hostname (optional — the site uses the Rocket CDN URL today): add the record in **Cloudflare**, not the GoDaddy DNS panel; confirm the Rocket.net domain alias (domain ID 13241); wait for SSL; then update `WORDPRESS_API_URL` and the code fallback.
 
 ## Server details
 
