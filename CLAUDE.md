@@ -1,12 +1,12 @@
 # aseemkishore.com
 
-Personal site for Aseem Kishore, rebuilt 2026-08-15 as a content-leadership portfolio (experience, case studies, verified writing, résumé, contact) plus a `/tools` section (Tweet Flops-o-Meter, Flip iPhone-app pages). Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 on Vercel. **Portfolio content is static TypeScript in `src/data/`**; headless WordPress (Rocket.net, WP REST) now serves only the Thoughts pages. No DB, no user auth. Risk: `main` auto-deploys to production; the tools spend Together/OpenAI credit.
+Personal site for Aseem Kishore, rebuilt 2026-08-15 as a content-leadership portfolio (experience, case studies, verified writing, résumé, contact) plus a `/tools` section (Tweet Flops-o-Meter, Flip iPhone-app pages). Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 on Vercel (project name unset in this repo). **Portfolio content is static TypeScript in `src/data/`**; headless WordPress (Rocket.net, WP REST) now serves only the Thoughts pages — that CMS is not public DNS. Public DNS (2026-09-12): registrar GoDaddy; NS Cloudflare (DNS-only); apex A Vercel; `wp.aseemkishore.com` is NXDOMAIN. No DB, no user auth. Risk: `main` auto-deploys to production; the tools spend Together/OpenAI credit.
 
 ## Do NOT
 
 - **Do NOT merge or push to `main` casually — Vercel auto-deploys `main` to production** (this repo is an exception to the folder-wide "no auto-deploy" default). Branch + PR.
 - **Do NOT run `npm run gateway:canary` unprompted** — it runs `vercel crons run /api/gateway-canary` against the deployed project and is part of an attended, one-shot qualification procedure (`README.md` § AI continuity). Never add a static AI Gateway key; Gateway auth is runtime Vercel OIDC.
-- **Do NOT use `wp.aseemkishore.com`** — its DNS record no longer exists (verified 2026-06-10). Use the Rocket.net CDN URL in `.env.example` until the subdomain is re-created (`docs/wordpress-backend.md`).
+- **Do NOT use `wp.aseemkishore.com`** — NXDOMAIN (verified 2026-06-10, reconfirmed 2026-09-12). Public site DNS is Cloudflare NS + Vercel A, not Rocket. Use the Rocket.net CDN URL in `.env.example` for Thoughts REST (`docs/wordpress-backend.md`).
 - **Do NOT add client-side data fetching or state management outside `src/app/tools/**`** — everything else is server-rendered from `src/data/` or `src/lib/wordpress.ts`.
 - Do NOT let a client field select the Gateway path, model, or auth in `/api/tools/tweet-score` — `test/tweet-score-route.test.ts` pins this; the server sets `gatewayTrustedServerContext`.
 - Do NOT commit `.env*` (only `.env.example` is tracked) or the secrets listed under Env.
@@ -42,7 +42,7 @@ npm run gateway:canary   # ATTENDED ONLY — see Do NOT
 
 ## AMBIGUOUS-KEPT
 
-- `.env.local` may still include `NODE_TLS_REJECT_UNAUTHORIZED` from the old wp-subdomain SSL era; removable once that story is settled (open since 2026-06-10).
+- `.env.local` may still include `NODE_TLS_REJECT_UNAUTHORIZED` from the old `wp.aseemkishore.com` SSL attempt. That hostname is NXDOMAIN (2026-09-12); the flag is leftover, not a pending DNS/SSL step.
 
 ## Model Routing (this repo)
 
@@ -55,6 +55,6 @@ Base policy: `~/.claude/CLAUDE.md` § Model routing. Small site; `sonnet` is the
 ## Docs
 
 - `README.md` — human overview, local setup, deployment, AI continuity (Gateway modes, canary, rollout/rollback).
-- `docs/wordpress-backend.md` — WP server/SSH details, mu-plugins, content IDs, endpoint status (WP now backs only `/thoughts`).
+- `docs/wordpress-backend.md` — public DNS vs Thoughts CMS, WP server/SSH details, mu-plugins, content IDs, endpoint status (WP now backs only `/thoughts`).
 - `docs/plans/2026-03-13-frontend-design.md`, `docs/plans/2026-03-13-frontend-implementation.md` — original WP-driven frontend plans; superseded for everything except Thoughts by the 2026-08-15 rebuild (status notes at the top of each).
 - `AGENTS.md` — cross-tool ground rules (Codex/Copilot/Cursor). Next 16.1.6 has not auto-written one here; if a later Next appends its "This is NOT the Next.js you know" block, keep it and commit it.

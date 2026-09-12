@@ -1,6 +1,6 @@
 # aseemkishore.com
 
-Personal site for Aseem Kishore — a content-strategy / editorial-operations portfolio with a small set of web tools. Live at [aseemkishore.com](https://aseemkishore.com); `main` auto-deploys to Vercel.
+Personal site for Aseem Kishore — a content-strategy / editorial-operations portfolio with a small set of web tools. Live at [aseemkishore.com](https://aseemkishore.com); `main` auto-deploys to Vercel (project name unset in this repo). Public DNS (2026-09-12): registrar GoDaddy; nameservers Cloudflare (DNS-only); apex A is Vercel. `www` also 200 (no redirect). Thoughts CMS is still Rocket.net WP REST — that is not public DNS.
 
 Agent operating manual: `CLAUDE.md`. Cross-tool ground rules: `AGENTS.md`.
 
@@ -22,7 +22,7 @@ cp .env.example .env.local   # fill in WORDPRESS_API_URL (Rocket.net CDN URL) an
 npm run dev                  # http://localhost:3000
 ```
 
-Checks: `npm run build` (also the typecheck), `npm run lint`, `npm test` (hermetic, no network). WordPress backend details: `docs/wordpress-backend.md`. Do not point `WORDPRESS_API_URL` at `wp.aseemkishore.com` — that DNS record no longer exists.
+Checks: `npm run build` (also the typecheck), `npm run lint`, `npm test` (hermetic, no network). WordPress backend details: `docs/wordpress-backend.md`. Do not point `WORDPRESS_API_URL` at `wp.aseemkishore.com` — that hostname is NXDOMAIN (reconfirmed 2026-09-12).
 
 ## Deployment
 
