@@ -17,15 +17,15 @@ export const proofPoints: ProofPoint[] = [
   {
     id: "contributors",
     value: "Up to 35",
-    label: "Writers at peak",
+    label: "Writers and editors at peak",
     detail:
-      "Recruited, managed, and collaborated with a team of up to 35 writers at peak.",
+      "Recruited, managed, and collaborated with a team of up to 35 writers and editors at peak.",
   },
   {
     id: "articles",
-    value: "4,500+",
-    label: "Technology articles",
-    detail: "Oversaw a portfolio containing more than 4,500 technology articles.",
+    value: "3,000+",
+    label: "Articles written personally",
+    detail: "Wrote more than 3,000 technology articles myself.",
   },
   {
     id: "publications",

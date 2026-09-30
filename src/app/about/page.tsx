@@ -40,7 +40,7 @@ export default function AboutPage() {
           In 2007 I started writing down the technology problems I was already solving at work. That side project became Online Tech Tips, then a network of audience-specific publications. In 2010 I began operating the work full time through AK Internet Consulting. The job became editorial strategy, team leadership, search, analytics, monetization, and the WordPress systems underneath high-traffic sites.
         </p>
         <p>
-          I recruited and managed a distributed group of writers and editors, set standards, and stayed close enough to the writing to edit and to publish under my own name. The network reached approximately 7–8 million monthly pageviews at its peak and now holds more than 4,500 technology articles across five publications.
+          I recruited and managed a distributed group of writers and editors, set standards, and stayed close enough to the writing to edit and to publish under my own name. The network reached approximately 7–8 million monthly pageviews at its peak and now holds more than 6,000 technology articles across five publications, more than 3,000 of which I wrote myself.
         </p>
         <p>
           Search and distribution changed more than once. So did advertising and social referral. The useful habit was the same: look at performance, decide whether the idea, the execution, or the channel had failed, and then update, prune, or double down. {profile.aiPosition}

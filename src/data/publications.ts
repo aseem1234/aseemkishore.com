@@ -24,7 +24,7 @@ export const publications: Publication[] = [
     strategy:
       "I treated OTT as a broad consumer-technology desk with a consistent voice: specific, useful, and unwilling to chase every trend. Topic selection mixed evergreen problem-solving with timely coverage when a change actually affected readers. Search intent informed the calendar, but the editorial test was whether the piece would still help someone six months later.",
     scale:
-      "Part of a five-publication portfolio that reached approximately 7–8 million monthly pageviews at its peak and now contains more than 4,500 technology articles across the network.",
+      "Part of a five-publication portfolio that reached approximately 7–8 million monthly pageviews at its peak and now contains more than 6,000 technology articles across the network, more than 3,000 of which I wrote myself.",
     team:
       "Grew from a single-author site into a multi-contributor publication with briefs, editing, and quality standards shared across the network.",
     businessModel:
@@ -51,7 +51,7 @@ export const publications: Publication[] = [
     strategy:
       "I kept HDG from drifting into gadget news or enterprise architecture. The point of view is: diagnose, try the safest fix first, and explain what the reader is looking at. Content briefs and review cycles mattered here because a wrong step wastes someone’s afternoon.",
     scale:
-      "A core property in the network’s 4,500+ article library and a major contributor to peak audience across the portfolio.",
+      "A core property in the network’s 6,000+ article library and a major contributor to peak audience across the portfolio. Across the network, I have written more than 3,000 articles myself.",
     team:
       "Writers and editors worked from shared troubleshooting standards, with editing focused on accuracy, order of operations, and clarity.",
     businessModel:
@@ -107,7 +107,7 @@ export const publications: Publication[] = [
     strategy:
       "I kept the voice practical and environment-aware: commands, failure modes, and the difference between a lab tip and a production change. That point of view also made it the natural home for later writing about AI coding tools.",
     scale:
-      "A specialized desk inside the larger 4,500+ article portfolio, aimed at a narrower and more technical reader.",
+      "A specialized desk inside the larger 6,000+ article portfolio, aimed at a narrower and more technical reader. Across the network, I have written more than 3,000 articles myself.",
     team:
       "Contributors with hands-on technical backgrounds, edited for correctness and for not overselling a procedure.",
     businessModel:
@@ -198,7 +198,7 @@ export const publications: Publication[] = [
     strategy:
       "AKIC exists to run the publications as a business: contributors, infrastructure, monetization, and later AI-enabled production. Advisory work grew out of those operations, not the other way around.",
     scale:
-      "Parent organization for five publications, a team of up to 35 writers at peak, and a 4,500+ article library.",
+      "Parent organization for five publications, a team of up to 35 writers and editors at peak, and a 6,000+ article library, more than 3,000 of which I wrote myself.",
     team:
       "Distributed writers, editors, and contractors, plus vendors for hosting, advertising, and related services.",
     businessModel:

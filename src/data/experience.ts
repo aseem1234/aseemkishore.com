@@ -36,8 +36,8 @@ export const experience: ExperienceRole[] = [
     bullets: [
       "Built and operated a portfolio of five technology publications: Online Tech Tips, Help Desk Geek, Switching to Mac, The Back Room Tech, and Xbox Advisor.",
       "Reached approximately 7–8 million monthly pageviews across the network at its peak.",
-      "Recruited and led a distributed team of up to 35 writers at peak.",
-      "Oversaw a content portfolio exceeding 4,500 technology articles.",
+      "Recruited and led a distributed team of up to 35 writers and editors at peak.",
+      "Personally wrote more than 3,000 technology articles.",
       "Directed editorial strategy, topic selection, publishing calendars, content standards, contributor workflows, editing, and quality control.",
       "Used SEO, audience behavior, content performance, and revenue data to guide investment and iteration.",
       "Developed monetization programs involving advertising, affiliate relationships, and audience growth.",
