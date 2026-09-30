@@ -39,9 +39,7 @@ export const publications: Publication[] = [
     name: "Help Desk Geek",
     kind: "publication",
     url: "https://helpdeskgeek.com",
-    founded: "2008",
-    foundedNote:
-      "LinkedIn and the AKIC about page use 2008. The existing project record listed 2009.",
+    founded: "2009",
     status: "active",
     audience:
       "Readers who want troubleshooting help — technically curious consumers and people doing help-desk style work, not enterprise IT strategy.",
@@ -200,7 +198,7 @@ export const publications: Publication[] = [
     strategy:
       "AKIC exists to run the publications as a business: contributors, infrastructure, monetization, and later AI-enabled production. Advisory work grew out of those operations, not the other way around.",
     scale:
-      "Parent organization for five publications, a 35+ contributor bench at peak, and a 4,500+ article library.",
+      "Parent organization for five publications, a team of up to 35 writers at peak, and a 4,500+ article library.",
     team:
       "Distributed writers, editors, and contractors, plus vendors for hosting, advertising, and related services.",
     businessModel:

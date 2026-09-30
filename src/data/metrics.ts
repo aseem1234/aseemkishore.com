@@ -16,10 +16,10 @@ export const proofPoints: ProofPoint[] = [
   },
   {
     id: "contributors",
-    value: "35+",
-    label: "Writers, editors, and contractors",
+    value: "Up to 35",
+    label: "Writers at peak",
     detail:
-      "Recruited, managed, and collaborated with more than 35 writers, editors, and contractors.",
+      "Recruited, managed, and collaborated with a team of up to 35 writers at peak.",
   },
   {
     id: "articles",

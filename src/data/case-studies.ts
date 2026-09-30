@@ -67,7 +67,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "editorial-operations",
     title: "Scaling Editorial Operations Across a Distributed Team",
-    subtitle: "More than 35 contributors without turning publishing into a factory",
+    subtitle: "Up to 35 writers at peak without turning publishing into a factory",
     featured: true,
     context:
       "A single-author site can hold a point of view in one person’s head. A network that publishes continuously cannot. The work had to become teachable: who writes, what a brief contains, how review works, and what “done” means.",
@@ -81,7 +81,7 @@ export const caseStudies: CaseStudy[] = [
       "Mentor contributors with direct editorial feedback instead of only accepting or rejecting drafts.",
     ],
     execution: [
-      "Recruited and collaborated with more than 35 writers, editors, and contractors.",
+      "Recruited and collaborated with a team of up to 35 writers at peak.",
       "Assigned work against calendars that mixed evergreen library-building with timely coverage.",
       "Edited for accuracy, sequence, and voice so a reader could act on the piece.",
       "Balanced speed with quality when news or product changes created real reader demand.",

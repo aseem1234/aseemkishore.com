@@ -12,7 +12,7 @@ import { writingSamples } from "../src/data/writing";
 test("homepage proof points stay qualified and limited", () => {
   assert.equal(proofPoints.length, 5);
   assert.equal(proofPoints.find((item) => item.id === "pageviews")?.value, "7–8M+");
-  assert.equal(proofPoints.find((item) => item.id === "contributors")?.value, "35+");
+  assert.equal(proofPoints.find((item) => item.id === "contributors")?.value, "Up to 35");
   assert.equal(proofPoints.find((item) => item.id === "articles")?.value, "4,500+");
   assert.match(proofPoints.find((item) => item.id === "pageviews")?.detail ?? "", /approximately/);
 });
