@@ -15,7 +15,7 @@ const tools = [
   {
     href: "/tools/flip",
     name: "Flip",
-    blurb: "Sleek iPhone coin-flip. Coming soon.",
+    blurb: "Fast Coin Flip for iPhone. Mint your own coin, flip it fair. On the App Store.",
   },
 ];
 
