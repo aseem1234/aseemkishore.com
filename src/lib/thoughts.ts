@@ -26,3 +26,17 @@ export async function getPublishedThought(slug: string): Promise<ThoughtPost | n
   if (cms) return cms;
   return repoThoughts.find((post) => post.slug === slug) ?? null;
 }
+
+export async function getThoughtSitemapEntries(
+  baseUrl: string,
+  perPage = 50,
+): Promise<Array<{ url: string; lastModified?: Date }>> {
+  const posts = await getPublishedThoughts(perPage);
+  return posts.map((post) => {
+    const parsed = new Date(`${post.date}Z`);
+    return {
+      url: `${baseUrl}/thoughts/${post.slug}`,
+      ...(Number.isNaN(parsed.getTime()) ? {} : { lastModified: parsed }),
+    };
+  });
+}
