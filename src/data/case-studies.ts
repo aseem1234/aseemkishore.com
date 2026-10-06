@@ -216,7 +216,8 @@ export const caseStudies: CaseStudy[] = [
       ],
       results: [
         "Search stayed a core acquisition channel through multiple algorithm and distribution shifts; the network reached about 7–8 million monthly pageviews at peak.",
-        "As documented on AK Internet Consulting: 4 configured WordPress properties, 9 controlled workflow stages.",
+        "Configured for 5 WordPress properties (Online Tech Tips, Help Desk Geek, Switching to Mac, The Back Room Tech and Xbox Advisor) with 9 controlled workflow stages.",
+        "About 1,206 articles published automatically so far: 875 through the content automation pipeline and 331 through the content refresh pipeline.",
       ],
       resultsNote:
         "Not claimed: rankings, AI Overview / answer-engine citation counts, traffic lift from the pipeline or current traffic.",

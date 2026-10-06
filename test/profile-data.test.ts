@@ -68,6 +68,15 @@ test("site copy never claims the pipeline avoids automatic publishing", () => {
   );
 });
 
+test("search-and-adaptation states the approved pipeline figures", () => {
+  const results = caseStudies.find((item) => item.slug === "search-and-adaptation")?.summary?.results.join(" ") ?? "";
+  assert.match(results, /5 WordPress properties/);
+  assert.match(results, /About 1,206 articles published automatically/);
+  assert.match(results, /875 .*331/);
+  assert.equal(875 + 331, 1206);
+  assert.doesNotMatch(results, /\b4 (?:configured )?WordPress properties/);
+});
+
 test("counts use the approved network, personal and team figures", () => {
   const serialized = JSON.stringify({ proofPoints, experience, publications, caseStudies, profile });
   assert.doesNotMatch(serialized, /4,500|more than 35|35\+|7–8M\+/);
