@@ -24,6 +24,13 @@ export const metadata: Metadata = {
     type: "website",
     images: [{ url: `${base}/graphics/og-1200x630.png`, width: 1200, height: 630 }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fast Coin Flip press kit",
+    description:
+      "Fact sheet, descriptions, app icon, screenshots, graphics and short videos for Fast Coin Flip.",
+    images: ["/flip/press/graphics/og-1200x630.png"],
+  },
 };
 
 const facts: [string, React.ReactNode][] = [
@@ -77,7 +84,7 @@ const descriptions = [
     id: "long",
     title: "Long",
     note: "About 160 words",
-    text: "Fast Coin Flip (Flip on the Home Screen) is an iPhone app that flips a coin when you tap or shake. The result comes from the iPhone's cryptographically secure random generator (SecRandomCopyBytes), and the animation lands on that result. It includes 26 coin face pairs and 9 table backgrounds; 6 faces and 3 backgrounds are free and the rest are part of Flip Pro. Flip Pro adds AI-minted coins from a typed sentence (2 per day, safety-filtered, sent through our server using OpenAI's moderation and image APIs, with nothing stored or made public), custom photo and text faces, Home Screen and Lock Screen widgets, Siri and Action button flips, a thumb-flick toss with metal sound effects, iCloud backup, and sharing a coin, which opens an App Clip preview. The Control Center flip control is free. Fast Coin Flip is not a gambling app and has no wagers or payouts. It is free to download, with no account and no ads.",
+    text: "Fast Coin Flip (Flip on the Home Screen) is an iPhone app that flips a coin when you tap or shake. The result comes from the iPhone's cryptographically secure random generator (SecRandomCopyBytes), and the animation lands on that result. It includes 26 coin face pairs and 9 table backgrounds; 6 face pairs and 3 backgrounds are free and the rest are part of Flip Pro. Flip Pro adds AI-minted coins from a typed sentence (2 per day, safety-filtered, sent through our server using OpenAI's moderation and image APIs, with nothing stored or made public), custom photo and text faces, Home Screen and Lock Screen widgets, Siri and Action button flips, a thumb-flick toss with metal sound effects, iCloud backup, and sharing a coin, which opens an App Clip preview. The Control Center flip control is free. Fast Coin Flip is not a gambling app and has no wagers or payouts. It is free to download, with no account and no ads.",
   },
 ];
 
@@ -106,7 +113,6 @@ const screenshots: Asset[] = [
   { file: "02-flip-tails", title: "Tails", alt: "Flip showing a coin landed on tails", bytes: 2769167 },
   { file: "03-midair", title: "Mid-air flip", alt: "Flip showing a coin in the air during a toss", bytes: 3039826 },
   { file: "06-backgrounds", title: "Table backgrounds", alt: "Flip's picker of table backgrounds, with Pro items marked", bytes: 1916665 },
-  { file: "07-paywall", title: "Flip Pro", alt: "Flip's Flip Pro screen listing the Pro features and prices", bytes: 1151073 },
   { file: "08-pro-wood-btc", title: "Pro: Bitcoin coin, wood table", alt: "Flip showing a Bitcoin coin on a wood table", bytes: 3482766 },
   { file: "08b-pro-casino-yesno", title: "Pro: Yes/No coin, casino felt", alt: "Flip showing a Yes/No coin on casino felt", bytes: 2707004 },
   { file: "09-history", title: "Flip history", alt: "Flip's history of recent flips", bytes: 159301 },
