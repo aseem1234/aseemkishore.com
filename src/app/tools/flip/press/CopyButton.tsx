@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = { text: string; label: string };
 
 export default function CopyButton({ text, label }: Props) {
   const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
   async function copy() {
     try {
@@ -27,7 +32,8 @@ export default function CopyButton({ text, label }: Props) {
         setStatus("failed");
       }
     }
-    setTimeout(() => setStatus("idle"), 2500);
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setStatus("idle"), 2500);
   }
 
   return (

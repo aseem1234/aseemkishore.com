@@ -76,7 +76,7 @@ const descriptions = [
   {
     id: "long",
     title: "Long",
-    note: "About 150 words",
+    note: "About 160 words",
     text: "Fast Coin Flip (Flip on the Home Screen) is an iPhone app that flips a coin when you tap or shake. The result comes from the iPhone's cryptographically secure random generator (SecRandomCopyBytes), and the animation lands on that result. It includes 26 coin face pairs and 9 table backgrounds; 6 faces and 3 backgrounds are free and the rest are part of Flip Pro. Flip Pro adds AI-minted coins from a typed sentence (2 per day, safety-filtered, sent through our server using OpenAI's moderation and image APIs, with nothing stored or made public), custom photo and text faces, Home Screen and Lock Screen widgets, Siri and Action button flips, a thumb-flick toss with metal sound effects, iCloud backup, and sharing a coin, which opens an App Clip preview. The Control Center flip control is free. Fast Coin Flip is not a gambling app and has no wagers or payouts. It is free to download, with no account and no ads.",
   },
 ];
@@ -161,7 +161,7 @@ function AssetCard({ asset, ratio }: { asset: Asset; ratio: "portrait" | "wide" 
         height={dims[1]}
         unoptimized
         loading="lazy"
-        className={`w-full rounded-lg border border-zinc-800 object-contain ${ratio === "portrait" ? "mx-auto max-h-72 w-auto" : "h-auto"}`}
+        className={`rounded-lg border border-zinc-800 object-contain ${ratio === "portrait" ? "mx-auto max-h-72 w-auto" : "h-auto w-full"}`}
       />
       <h3 className="mt-3 text-base font-semibold text-zinc-100">{asset.title}</h3>
       <p className="mt-1 text-sm text-zinc-400">
@@ -269,7 +269,7 @@ export default function FlipPressPage() {
         <p className="mt-2 text-zinc-400">
           Vertical, 720 x 1280, MP4. Sound is the app&apos;s own effects; there is no music.
         </p>
-        <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-6 grid gap-6 sm:grid-cols-2">
           {videos.map((v) => (
             <li key={v.slug} className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
               <video
