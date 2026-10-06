@@ -101,20 +101,12 @@ const appJsonLd = {
   description:
     "An iPhone coin-flip app. Tap or shake, mint your own coin, no account and no ads.",
   author: { "@type": "Organization", name: "AK Internet Consulting, Inc." },
-  offers: [
-    {
-      "@type": "Offer",
-      name: "Flip Pro (yearly)",
-      price: "0.99",
-      priceCurrency: "USD",
-    },
-    {
-      "@type": "Offer",
-      name: "Flip Pro (lifetime)",
-      price: "4.99",
-      priceCurrency: "USD",
-    },
-  ],
+  // Free to download; Flip Pro ($0.99/year or $4.99 once) is an in-app purchase.
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
 };
 
 export default function FlipPage() {
@@ -124,7 +116,7 @@ export default function FlipPage() {
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
           { name: "Tools", path: "/tools" },
-          { name: "Flip", path: "/tools/flip" },
+          { name: "Fast Coin Flip", path: "/tools/flip" },
         ])}
       />
       <JsonLd data={appJsonLd} />
@@ -202,7 +194,11 @@ export default function FlipPage() {
 
       <section className="mt-16">
         <h2 className="text-2xl font-bold text-zinc-50">Screenshots</h2>
-        <ul className="mt-6 flex snap-x gap-4 overflow-x-auto pb-4">
+        <ul
+          tabIndex={0}
+          aria-label="Fast Coin Flip screenshots, scrolls sideways"
+          className="mt-6 flex snap-x gap-4 overflow-x-auto pb-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400"
+        >
           {screenshots.map((shot) => (
             <li key={shot.src} className="w-44 shrink-0 snap-start sm:w-52">
               <Image
@@ -210,6 +206,7 @@ export default function FlipPage() {
                 alt={shot.alt}
                 width={600}
                 height={1303}
+                sizes="(min-width: 640px) 208px, 176px"
                 className="h-auto w-full rounded-2xl border border-zinc-800"
               />
             </li>
