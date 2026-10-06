@@ -133,6 +133,12 @@ export default function FlipPage() {
         >
           Download on the App Store
         </a>
+        <Link
+          href="/tools/flip/press"
+          className="inline-flex items-center rounded-lg border border-zinc-600 px-6 py-3 text-base font-semibold text-zinc-100 transition hover:border-zinc-400 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-300"
+        >
+          Press kit
+        </Link>
         <Link href="/flip-privacy" className="text-sm text-blue-400 hover:text-blue-300">
           Privacy policy
         </Link>
@@ -241,6 +247,13 @@ export default function FlipPage() {
             legal@akinternetconsulting.com
           </a>
           .
+        </p>
+        <p className="mt-4 text-zinc-400">
+          Writing about Fast Coin Flip? Get the{" "}
+          <Link href="/tools/flip/press" className="text-blue-400 hover:text-blue-300">
+            press kit
+          </Link>{" "}
+          with descriptions, screenshots, graphics and videos.
         </p>
       </section>
     </div>
