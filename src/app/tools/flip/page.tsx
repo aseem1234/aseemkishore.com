@@ -81,7 +81,7 @@ const faqs = [
   {
     question: "What does Pro cost?",
     answer:
-      "Flip Pro is $0.99 per year with a 1-month introductory offer, or $4.99 lifetime. Both unlock the same features. Purchases go through Apple StoreKit.",
+      "Flip Pro is $0.99 per year with a free 1-month introductory offer, or $4.99 lifetime. Both unlock the same features. Purchases go through Apple StoreKit.",
   },
   {
     question: "What does it run on?",
