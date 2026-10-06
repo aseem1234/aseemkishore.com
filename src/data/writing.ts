@@ -212,6 +212,13 @@ export function getFeaturedWriting(): WritingSample[] {
   return writingSamples.filter((item) => item.featured);
 }
 
+export function getWritingBySlugs(slugs: readonly string[]): WritingSample[] {
+  return slugs.flatMap((slug) => {
+    const sample = writingSamples.find((item) => item.slug === slug);
+    return sample ? [sample] : [];
+  });
+}
+
 export function getWritingByCategory(): Map<string, WritingSample[]> {
   const grouped = new Map<string, WritingSample[]>();
   for (const sample of writingSamples) {

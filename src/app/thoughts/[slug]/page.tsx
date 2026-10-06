@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostByCategorySlug, getPostsByCategorySlug, decodeHtmlEntities } from "@/lib/wordpress";
+import { getPublishedThought, getPublishedThoughts } from "@/lib/thoughts";
+import { decodeHtmlEntities } from "@/lib/wordpress";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -15,20 +16,25 @@ function formatDate(dateStr: string): string {
 }
 
 export async function generateStaticParams() {
-  const thoughts = await getPostsByCategorySlug("thoughts", 50);
+  const thoughts = await getPublishedThoughts(50);
   return thoughts.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostByCategorySlug(slug, "thoughts");
+  const post = await getPublishedThought(slug);
   if (!post) return {};
-  return { title: decodeHtmlEntities(post.title.rendered) };
+  const description = decodeHtmlEntities(post.excerpt.rendered.replace(/<[^>]*>/g, "")).trim();
+  return {
+    title: decodeHtmlEntities(post.title.rendered),
+    ...(description ? { description } : {}),
+    alternates: { canonical: `/thoughts/${post.slug}` },
+  };
 }
 
 export default async function ThoughtPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getPostByCategorySlug(slug, "thoughts");
+  const post = await getPublishedThought(slug);
   if (!post) notFound();
 
   return (

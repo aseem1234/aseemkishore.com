@@ -7,17 +7,17 @@ import WritingCard from "@/components/WritingCard";
 import { thoughtOutlines } from "@/data/thoughts";
 import { getFeaturedWriting } from "@/data/writing";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
-import { getPostsByCategorySlug } from "@/lib/wordpress";
+import { getPublishedThoughts } from "@/lib/thoughts";
 
 export const metadata: Metadata = {
   title: "Thoughts",
   description:
-    "Original essays in development, plus selected verified writing. Draft first-person articles are held for review before publication.",
+    "Original essays on publishing, editorial operations and AI search, plus selected verified writing. Remaining essays are outlines until reviewed.",
   alternates: { canonical: "/thoughts" },
 };
 
 export default async function ThoughtsPage() {
-  const published = await getPostsByCategorySlug("thoughts", 20);
+  const published = await getPublishedThoughts(20);
   const featuredWriting = getFeaturedWriting().slice(0, 4);
 
   return (
@@ -31,7 +31,7 @@ export default async function ThoughtsPage() {
       <PageHero
         eyebrow="Thoughts"
         title="Essays and observations"
-        description="This section is for original writing on publishing, editorial operations, AI, and product work. Full first-person essays are drafted for review before they go live. In the meantime, the verified writing portfolio is the public reading list."
+        description="This section is for original writing on publishing, editorial operations, AI, and product work. The first essay is live. The rest are drafted for review before they go live, and the verified writing portfolio is the public reading list in the meantime."
       />
 
       <div className="mt-8">
@@ -45,7 +45,7 @@ export default async function ThoughtsPage() {
           <h2 className="text-2xl font-bold text-zinc-50">Published essays</h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             {published.map((post) => (
-              <ThoughtCard key={post.id} post={post} />
+              <ThoughtCard key={post.slug} post={post} />
             ))}
           </div>
         </section>
