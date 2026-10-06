@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import ButtonLink from "@/components/ButtonLink";
+import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
+import TrackedAnchor from "@/components/TrackedAnchor";
 import WritingCard from "@/components/WritingCard";
 import { authorArchives, links } from "@/data/profile";
-import { writingSamples } from "@/data/writing";
+import { getWritingBySlugs, writingSamples } from "@/data/writing";
+import { writingRoles } from "@/data/writing-roles";
 import { breadcrumbJsonLd, writingJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
@@ -53,9 +56,73 @@ export default function WritingPage() {
           Muck Rack
         </ButtonLink>
         <ButtonLink href="/thoughts" variant="secondary">
-          Essays in development
+          Essays
         </ButtonLink>
       </div>
+
+      <section id="by-role" className="mt-16 scroll-mt-24" aria-labelledby="by-role-heading">
+        <h2 id="by-role-heading" className="text-2xl font-bold text-zinc-50">
+          Read by role
+        </h2>
+        <p className="mt-3 text-zinc-400">
+          Short, curated lists for the kind of work you’re hiring for. The full categories are below.
+        </p>
+        <ul className="mt-5 flex flex-wrap gap-2">
+          {writingRoles.map((role) => (
+            <li key={role.id}>
+              <a
+                href={`#by-role-${role.id}`}
+                className="inline-flex rounded-md border border-zinc-700 px-3 py-1.5 text-sm text-zinc-300 transition-colors hover:border-zinc-400 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+              >
+                {role.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-10 grid gap-8 md:grid-cols-2">
+          {writingRoles.map((role) => {
+            const picks = role.picks.flatMap((pick) =>
+              getWritingBySlugs([pick.slug]).map((sample) => ({ sample, note: pick.note })),
+            );
+            return (
+              <div key={role.id} id={`by-role-${role.id}`} className="scroll-mt-24">
+                <h3 className="text-xl font-bold text-zinc-100">{role.label}</h3>
+                <ul className="mt-4 space-y-4">
+                  {role.essays?.map((essay) => (
+                    <li key={essay.href}>
+                      <Link
+                        href={essay.href}
+                        className="font-medium text-blue-400 hover:text-blue-300"
+                      >
+                        {essay.label}
+                      </Link>
+                      <p className="mt-1 text-sm text-zinc-500">{essay.note}</p>
+                    </li>
+                  ))}
+                  {picks.map(({ sample, note }) => (
+                    <li key={sample.slug}>
+                      <TrackedAnchor
+                        href={sample.url}
+                        event="writing_sample_click"
+                        eventData={{ slug: sample.slug }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-blue-400 hover:text-blue-300"
+                      >
+                        {sample.title}
+                      </TrackedAnchor>
+                      <p className="mt-1 text-sm text-zinc-500">
+                        {sample.publication} · {note}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       {grouped.map((group) => (
         <section key={group.category} className="mt-16">

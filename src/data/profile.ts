@@ -3,8 +3,10 @@ import type { EducationItem, ExternalLink } from "./types";
 export const profile = {
   name: "Aseem Kishore",
   label: "Content Strategy & Editorial Operations Leader",
-  supportingLabel: "Digital Publishing Founder | AI & Product Builder",
-  headline: "I build content systems, digital publications, and AI-powered products.",
+  supportingLabel: "Digital publishing founder · Content operations · SEO and AI search (AEO)",
+  headline: "I lead content strategy, editorial operations and search for publications built to last.",
+  heroSupportingLine:
+    "Since 2007 I’ve built and run a five-publication technology network, led up to 35 writers/editors at peak and written more than 3,000 of the network’s 6,000+ articles. At its peak the network reached about 7–8 million monthly pageviews.",
   location: "Clarksville, Maryland",
   locationDetail:
     "Based between the Baltimore and Washington, D.C. metropolitan areas. Experienced remote operator and distributed-team manager.",
@@ -15,7 +17,7 @@ export const profile = {
   availability:
     "Open to remote senior leadership, strategy, and selected advisory opportunities.",
   heroSummary:
-    "For nearly two decades, I have built and operated technology publications, led distributed teams of writers and editors, grown audiences to millions of monthly readers, and developed the editorial systems that make quality content scalable. Today, I also build AI-assisted workflows and SaaS products at the intersection of content, technology, and business.",
+    "For nearly two decades, I have built and operated technology publications, led distributed teams of writers/editors, grown audiences to millions of monthly readers, and developed the editorial systems that make quality content scalable. Today, I also build AI-assisted workflows and SaaS products at the intersection of content, technology, and business.",
   professionalSummary: [
     "I started publishing technology guides in 2007 and later operated the work full time through AK Internet Consulting. The job was never only writing. It was deciding what each publication should cover, recruiting and managing contributors, designing workflows, and connecting editorial choices to audience and revenue results.",
     "Search, analytics, and content lifecycle work sat alongside editing and quality control. I used performance data to tell the difference between a weak idea, weak execution, poor distribution, and content that simply needed an update.",

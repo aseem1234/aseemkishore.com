@@ -21,11 +21,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Aseem Kishore | Content Strategy, Editorial Operations & AI",
+    default: "Aseem Kishore | Content Strategy, Editorial Operations & Search",
     template: "%s — Aseem Kishore",
   },
   description:
-    "Aseem Kishore is a content strategy and editorial operations leader who has built technology publications reaching millions of monthly readers and now develops AI-assisted workflows and SaaS products.",
+    "Aseem Kishore leads content strategy, editorial operations and search (SEO and AEO). Founder of a five-publication technology network since 2007.",
   alternates: {
     canonical: "/",
   },
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: profile.name,
-    title: "Aseem Kishore | Content Strategy, Editorial Operations & AI",
+    title: "Aseem Kishore | Content Strategy, Editorial Operations & Search",
     description:
-      "Aseem Kishore is a content strategy and editorial operations leader who has built technology publications reaching millions of monthly readers and now develops AI-assisted workflows and SaaS products.",
+      "Aseem Kishore leads content strategy, editorial operations and search (SEO and AEO). Founder of a five-publication technology network since 2007.",
     images: [
       {
         url: profile.photo,
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aseem Kishore | Content Strategy, Editorial Operations & AI",
+    title: "Aseem Kishore | Content Strategy, Editorial Operations & Search",
     description:
-      "Content strategy and editorial operations leader. Digital publishing, AI-enabled workflows, and SaaS products.",
+      "Aseem Kishore leads content strategy, editorial operations and search (SEO and AEO). Founder of a five-publication technology network since 2007.",
   },
   robots: {
     index: true,

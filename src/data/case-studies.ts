@@ -4,9 +4,40 @@ import type { CaseStudy } from "./types";
 export const caseStudies: CaseStudy[] = [
   {
     slug: "publishing-portfolio",
-    title: "Building a Multi-Publication Technology Network",
+    title: "Building a Five-Publication Technology Network",
     subtitle: "Five audience-specific desks, one operating system",
     featured: true,
+    teaser:
+      "How one troubleshooting blog became five audience-specific desks and 6,000+ articles.",
+    chips: ["Content strategy", "Portfolio strategy", "Organic growth"],
+    summary: {
+      problem:
+        "I started Online Tech Tips in March 2007 while working in IT. It grew fast, and a single general-interest desk soon couldn’t serve everyone well. Windows troubleshooters, Mac switchers, working sysadmins and gamers want different depth, different vocabulary and different promises. Folding them into one site would have blurred the voice and made the archive harder to manage.",
+      didHeading: "What I did",
+      did: [
+        {
+          text: "Launched Help Desk Geek in 2009, then Switching to Mac, The Back Room Tech and Xbox Advisor, each with its own audience and scope, including what it would not cover.",
+        },
+        {
+          text: "Ran the network full time through AK Internet Consulting from May 2010 as Founder & Head of Digital Publishing and Content Operations.",
+        },
+        {
+          text: "Kept one shared quality bar and editing approach across all five, so standards didn’t depend on which site a reader landed on.",
+        },
+        {
+          text: "Tied editorial calendars to search intent and real reader problems instead of chasing keywords for their own sake.",
+        },
+        {
+          text: "Treated the archive as a product: updated, consolidated or retired pages instead of only adding new URLs.",
+        },
+      ],
+      results: [
+        "Five technology publications, all still active",
+        "About 7–8 million monthly pageviews across the network at peak",
+        "6,000+ articles across the network, including 3,000+ I wrote myself",
+        "Up to 35 writers/editors at peak",
+      ],
+    },
     context:
       "I started publishing technology guides in 2007 while working in IT. The first site, Online Tech Tips, grew quickly enough that a single general-interest desk could not serve every reader well.",
     challenge:
@@ -33,7 +64,7 @@ export const caseStudies: CaseStudy[] = [
     results: [
       "Five major technology publications, each with a distinct audience.",
       "Approximately 7–8 million monthly pageviews across the network at its peak.",
-      "A portfolio of more than 4,500 technology articles.",
+      "More than 6,000 articles across the network, including 3,000+ I wrote myself.",
     ],
     lessons: [
       "Audience-specific positioning is an editorial decision, not a branding exercise.",
@@ -66,14 +97,53 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "editorial-operations",
-    title: "Scaling Editorial Operations Across a Distributed Team",
-    subtitle: "More than 35 contributors without turning publishing into a factory",
+    title: "Running Editorial Operations for Up to 35 Writers/Editors",
+    subtitle: "Up to 35 writers/editors without turning publishing into a factory",
     featured: true,
+    teaser:
+      "Briefs, review cycles and standards that kept quality steady as the team grew to 35.",
+    chips: ["Editorial operations", "Team leadership", "Quality systems"],
+    summary: {
+      problem:
+        "A single-author site can keep its point of view in one person’s head. A network publishing every day across five desks can’t. As the team grew, remote writers brought different research habits and different assumptions about what readers already knew. Volume and quality pulled in opposite directions, and “write it like I would” doesn’t scale.",
+      didHeading: "What I built",
+      did: [
+        {
+          lead: "Recruiting and onboarding",
+          text: "for a distributed team that reached up to 35 writers/editors at peak.",
+        },
+        {
+          lead: "Content briefs",
+          text: "that spell out audience, search intent, angle and what the piece should not try to be.",
+        },
+        {
+          lead: "Review cycles",
+          text: "with clear checkpoints and a shared definition of “done,” so editing wasn’t a matter of taste.",
+        },
+        {
+          lead: "Editorial feedback, not just accept/reject:",
+          text: "writers got specific notes so they improved over time.",
+        },
+        {
+          lead: "Assignment and update workflows",
+          text: "across time zones, including ownership of older articles, not just new ones.",
+        },
+        {
+          lead: "A working-editor role for myself:",
+          text: "I kept writing and editing (3,000+ articles under my own name) so standards stayed grounded in the actual work.",
+        },
+      ],
+      results: [
+        "Up to 35 writers/editors managed at peak, fully remote",
+        "Continuous publishing across five publications from one set of operating habits",
+        "6,000+ articles across the network, a library big enough to need governance as well as production",
+      ],
+    },
     context:
       "A single-author site can hold a point of view in one person’s head. A network that publishes continuously cannot. The work had to become teachable: who writes, what a brief contains, how review works, and what “done” means.",
     challenge:
       "Volume and quality pull in opposite directions. Remote contributors also pull toward inconsistency — different habits, different research depth, different sense of what the reader already knows. The operation needed structure without becoming a content mill.",
-    role: "Recruited, managed, and edited a distributed group of writers, editors, and contractors. Set standards, assigned work, and remained a working editor.",
+    role: "Recruited, managed and edited a distributed team of up to 35 writers/editors. Set standards, assigned work and remained a working editor.",
     strategy: [
       "Hire for judgment and clarity, then teach the publication’s point of view rather than a generic style sheet alone.",
       "Use briefs to lock audience, intent, angle, and what the piece should not try to be.",
@@ -81,7 +151,7 @@ export const caseStudies: CaseStudy[] = [
       "Mentor contributors with direct editorial feedback instead of only accepting or rejecting drafts.",
     ],
     execution: [
-      "Recruited and collaborated with more than 35 writers, editors, and contractors.",
+      "Recruited and managed up to 35 writers/editors at peak.",
       "Assigned work against calendars that mixed evergreen library-building with timely coverage.",
       "Edited for accuracy, sequence, and voice so a reader could act on the piece.",
       "Balanced speed with quality when news or product changes created real reader demand.",
@@ -115,42 +185,49 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "search-and-adaptation",
-    title: "Adapting Content Strategy for Search and AI",
-    subtitle: "Performance, lifecycle, and judgment — not another keyword checklist",
+    title: "Search, AI Answers and a Staged AI Content Pipeline",
+    subtitle:
+      "Organic-first content strategy, adapted for AI search, plus a staged AI pipeline that researches, drafts and checks content across several sites.",
     featured: true,
-    context:
-      "Organic search has been the primary way readers found the publications. That made SEO unavoidable, but it was never the whole strategy. The useful question was always why a piece performed the way it did.",
-    challenge:
-      "Search demand, content quality, distribution, and audience behavior can fail independently. A weak ranking can mean a weak idea, a weak draft, a page that aged, a change in the results page, or a topic the publication should not have chased. Later, AI-generated answers changed how people discover and trust information again.",
-    role: "Directed topic selection, content investment, audits, updates, and the interpretation of performance data across the portfolio.",
-    strategy: [
-      "Start from search intent and a real reader problem, then decide whether the publication should own that topic.",
-      "Use traffic, rankings, engagement, and revenue signals to distinguish demand issues from execution issues.",
-      "Treat the archive as a product: refresh, prune, and internally link instead of only adding new URLs.",
-      "Evaluate AI search as a distribution and trust problem, not as a reason to abandon editorial standards.",
-    ],
-    execution: [
-      "Planned calendars around evergreen demand and timely changes that actually affected readers.",
-      "Ran content audits to find decay, duplication, and pages that no longer matched current software or search behavior.",
-      "Updated and extended successful material rather than replacing it with near-duplicate posts.",
-      "Introduced AI-assisted research and production only where human review still owned accuracy and point of view.",
-    ],
-    systems: [
-      "Keyword and intent research tied to editorial calendars",
-      "Performance review loops after publication",
-      "Content-update and pruning workflows",
-      "Internal linking and information architecture across a large library",
-    ],
-    results: [
-      "Search remained a core acquisition channel through multiple algorithm and distribution shifts.",
-      "The network reached approximately 7–8 million monthly pageviews at its peak.",
-      "Editorial investment could be justified — or withdrawn — with evidence rather than habit.",
-    ],
-    lessons: [
-      "SEO is a distribution method. It does not replace a point of view.",
-      "Content decay is normal. Ignoring it is an editorial failure.",
-      "AI can speed research and production. It cannot be accountable for what a publication puts in front of a reader.",
-    ],
+    teaser:
+      "Organic-first content strategy, adapted for AI search, plus a staged AI pipeline that researches, drafts and checks content across several sites.",
+    chips: ["SEO", "AEO / AI search", "AI content operations"],
+    summary: {
+      problem:
+        "Organic search was always the main way readers found the publications, but a weak result can mean many things: a weak idea, a weak draft, an aging page, a changed results page or a topic we shouldn’t own. Then AI-generated answers started changing how people discover and trust information. Separately, manual research, drafting, screenshots and CMS prep capped how fast a small team could produce review-ready drafts across several sites.",
+      didHeading: "What I did",
+      did: [
+        {
+          lead: "Search lifecycle:",
+          text: "directed topic selection, audits, refreshes, pruning and internal linking across the portfolio, starting from search intent and a real reader problem.",
+        },
+        {
+          lead: "Performance reviews:",
+          text: "read traffic and engagement after publishing to tell demand problems from execution problems, then updated, consolidated or stopped.",
+        },
+        {
+          lead: "AI search (AEO) approach:",
+          text: "treat answer engines as a distribution and trust problem. Clear intent, clear entities, accurate steps and a real point of view make a page worth citing; undifferentiated AI pages don’t.",
+        },
+        {
+          lead: "AI content pipeline:",
+          text: "designed a staged system that runs discovery → duplicate check → research brief → draft → review and fact-check gates → visuals → WordPress. It produces drafts and stages the work so editorial standards are built into each step.",
+        },
+      ],
+      results: [
+        "Search stayed a core acquisition channel through multiple algorithm and distribution shifts; the network reached about 7–8 million monthly pageviews at peak.",
+        "Configured for 5 WordPress properties (Online Tech Tips, Help Desk Geek, Switching to Mac, The Back Room Tech and Xbox Advisor) with 9 controlled workflow stages.",
+        "About 1,206 articles published automatically so far: 875 through the content automation pipeline and 331 through the content refresh pipeline.",
+      ],
+      resultsNote:
+        "Not claimed: rankings, AI Overview / answer-engine citation counts, traffic lift from the pipeline or current traffic.",
+      relatedEssay: {
+        label:
+          "AI Is Changing Search. Content Leaders Need More Than Another SEO Checklist",
+        href: "/thoughts/ai-is-changing-search",
+      },
+      stack: "WordPress REST API · GitHub Actions · Playwright + Sharp (per the AK Internet Consulting page)",
+    },
     skills: [
       "SEO",
       "Analytics",
@@ -159,19 +236,24 @@ export const caseStudies: CaseStudy[] = [
       "AEO",
       "GEO",
       "AI search",
-      "Strategic adaptation",
+      "AI content operations",
     ],
     relatedSlugs: ["online-tech-tips", "help-desk-geek", "the-back-room-tech"],
     links: [
-      { id: "ott", label: "Online Tech Tips", href: "https://www.online-tech-tips.com" },
-      { id: "hdg", label: "Help Desk Geek", href: "https://helpdeskgeek.com" },
+      {
+        id: "akic-ai-content-pipeline",
+        label: "AI Content Pipeline on AK Internet Consulting",
+        href: "https://akinternetconsulting.com/work-samples/ai-content-pipeline",
+        event: "akic_click",
+      },
     ],
   },
   {
     slug: "position-tracker",
     title: "Building PositionTracker With AI-Assisted Development",
     subtitle: "A SaaS product directed, designed, and iterated with modern AI workflows",
-    featured: true,
+    featured: false,
+    kicker: "Product / AI-workflow proof",
     context:
       "After years of running publishing systems, I started building PositionTracker: a dashboard for organizing and analyzing stock and options positions. The product came from a practical problem — positions, research, and market context lived in too many places.",
     challenge:

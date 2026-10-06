@@ -20,20 +20,6 @@ export const thoughtOutlines: ThoughtOutline[] = [
     draft: true,
   },
   {
-    slug: "ai-is-changing-search",
-    title: "AI Is Changing Search. Content Leaders Need More Than Another SEO Checklist",
-    abstract:
-      "Search is becoming an answers layer. The useful response is not more keywords; it is clearer ownership of intent, accuracy, and whether a topic is worth owning.",
-    outline: [
-      "What actually changed for publishers when answers started appearing above links.",
-      "Why intent, entity clarity, and trust matter more than isolated keyword targets.",
-      "AEO and GEO as extensions of content strategy, not replacements for it.",
-      "How to tell content decay from a distribution shift.",
-      "Where AI-assisted production helps, and where it creates undifferentiated pages.",
-    ],
-    draft: true,
-  },
-  {
     slug: "content-operations-are-a-system",
     title: "Great Content Operations Are a System, Not a Content Factory",
     abstract:

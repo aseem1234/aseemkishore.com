@@ -3,9 +3,10 @@ import TrackedAnchor from "@/components/TrackedAnchor";
 import { links } from "@/data/profile";
 
 const footerNav = [
-  { href: "/experience", label: "Experience" },
   { href: "/work", label: "Work" },
+  { href: "/experience", label: "Experience" },
   { href: "/writing", label: "Writing" },
+  { href: "/thoughts", label: "Thoughts" },
   { href: "/career", label: "Career" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

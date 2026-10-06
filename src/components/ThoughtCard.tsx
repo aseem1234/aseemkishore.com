@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { WPPost } from "@/lib/wordpress";
+import type { ThoughtPost } from "@/lib/thoughts";
 import { decodeHtmlEntities } from "@/lib/wordpress";
 
 function stripHtml(html: string): string {
@@ -15,7 +15,7 @@ function formatDate(dateStr: string): string {
   });
 }
 
-export default function ThoughtCard({ post }: { post: WPPost }) {
+export default function ThoughtCard({ post }: { post: ThoughtPost }) {
   const title = decodeHtmlEntities(post.title.rendered);
   const fullExcerpt = decodeHtmlEntities(stripHtml(post.excerpt.rendered));
   const excerpt = fullExcerpt.slice(0, 150);

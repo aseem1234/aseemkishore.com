@@ -97,19 +97,38 @@ export interface Publication {
   featured: boolean;
 }
 
+export interface CaseSummaryItem {
+  lead?: string;
+  text: string;
+}
+
+export interface CaseSummary {
+  problem: string;
+  didHeading: string;
+  did: CaseSummaryItem[];
+  results: string[];
+  resultsNote?: string;
+  relatedEssay?: { label: string; href: string };
+  stack?: string;
+}
+
 export interface CaseStudy {
   slug: string;
   title: string;
   subtitle: string;
   featured: boolean;
-  context: string;
-  challenge: string;
-  role: string;
-  strategy: string[];
-  execution: string[];
-  systems: string[];
-  results: string[];
-  lessons: string[];
+  kicker?: string;
+  teaser?: string;
+  chips?: string[];
+  summary?: CaseSummary;
+  context?: string;
+  challenge?: string;
+  role?: string;
+  strategy?: string[];
+  execution?: string[];
+  systems?: string[];
+  results?: string[];
+  lessons?: string[];
   skills: string[];
   relatedSlugs: string[];
   links: ExternalLink[];

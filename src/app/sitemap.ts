@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import { caseStudies } from "@/data/case-studies";
 import { publications } from "@/data/publications";
 import { siteUrl } from "@/lib/site";
+import { getThoughtSitemapEntries } from "@/lib/thoughts";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/experience",
@@ -23,6 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/c",
   ];
 
+  const thoughtEntries = await getThoughtSitemapEntries(siteUrl);
+
   return [
     ...staticRoutes.map((path) => ({
       url: `${siteUrl}${path}`,
@@ -32,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/work/${study.slug}`,
       lastModified: new Date(),
     })),
+    ...thoughtEntries,
     ...publications.map((item) => ({
       url: `${siteUrl}/projects/${item.slug}`,
       lastModified: new Date(),

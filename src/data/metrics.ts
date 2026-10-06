@@ -9,23 +9,22 @@ export const proofPoints: ProofPoint[] = [
   },
   {
     id: "pageviews",
-    value: "7–8M+",
+    value: "~7–8M",
     label: "Monthly pageviews at peak",
     detail:
       "The publication network reached approximately 7–8 million monthly pageviews at its peak.",
   },
   {
     id: "contributors",
-    value: "35+",
-    label: "Writers, editors, and contractors",
-    detail:
-      "Recruited, managed, and collaborated with more than 35 writers, editors, and contractors.",
+    value: "Up to 35",
+    label: "Writers/editors at peak",
+    detail: "Recruited and managed a remote team of up to 35 writers/editors.",
   },
   {
     id: "articles",
-    value: "4,500+",
-    label: "Technology articles",
-    detail: "Oversaw a portfolio containing more than 4,500 technology articles.",
+    value: "6,000+",
+    label: "Articles across the network",
+    detail: "Including more than 3,000 I wrote myself.",
   },
   {
     id: "publications",

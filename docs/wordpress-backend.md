@@ -63,3 +63,9 @@ SSH via the `rocket-aseem` alias (key `~/.ssh/codex_rocketnet` — see folder CL
 Phase-by-phase progress tracking lives in the repo's Claude memory dir:
 `~/.claude/projects/-Users-akishore-Coding-Claude-aseemkishore-com/memory/roadmap.md`
 (Phases 1–2 complete 2026-03-13; Phase 3 frontend built but parked on `feat/frontend-design`; Phase 4 polish not started.)
+
+## Publishing a Thoughts essay from the repo (2026-10-06)
+
+Essay #1, "AI Is Changing Search. Content Leaders Need More Than Another SEO Checklist" (`/thoughts/ai-is-changing-search`), is authored in `src/data/published-thoughts.ts` because the agent that prepared it could not publish to the CMS. `src/lib/thoughts.ts` reads WP first and falls back to the repo, so the site renders it either way.
+
+To move it into WordPress (optional): create a post in the **Thoughts** category (ID 4) with slug `ai-is-changing-search`, the same title, the `excerpt` string as the excerpt and the `contentHtml` string as the body (it is plain HTML), publish, then delete the entry from `published-thoughts.ts` in a follow-up PR. Until then, edit the essay in the repo, not in WP.
