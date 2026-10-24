@@ -7,10 +7,10 @@ Agent operating manual: `CLAUDE.md`. Cross-tool ground rules: `AGENTS.md`.
 ## What is here (2026-09-03)
 
 - **Portfolio** — `/`, `/experience`, `/career`, `/work` (case studies), `/writing` (verified bylines), `/projects` (the publications), `/about`, `/contact`, `/resume` (HTML + PDF). Rebuilt 2026-08-15; all content is static TypeScript in `src/data/` with invariants in `test/profile-data.test.ts`.
-- **Thoughts** — `/thoughts`, `/thoughts/[slug]`. The only pages still served from headless WordPress (Rocket.net, WP REST API, ISR 60s, bounded fetches with fallbacks). Original essays are drafted for review before they are published there.
+- **Thoughts** — `/thoughts`, `/thoughts/[slug]`. `src/lib/thoughts.ts` merges repo-authored essays in `src/data/published-thoughts.ts` with posts fetched from headless WordPress (`src/lib/wordpress.ts`, Rocket.net WP REST API, ISR 60s, bounded fetches with fallbacks; WP post wins on slug collision).
 - **Tools** — `/tools`:
   - **Tweet Flops-o-Meter** (`/tools/tweet-score`): client UI + `POST /api/tools/tweet-score` (Together.ai writer) + `POST /api/tools/share-card` (OpenAI GPT Image 2.5 Flare background with GPT Image 2 fallback, `sharp` overlay). Per-IP rate limits, 20/h and 10/h.
-  - **Flip** (`/tools/flip`, privacy policy at `/flip-privacy`): pages for the Flip iPhone coin-flip app from AK Internet Consulting. Pricing copy mirrors StoreKit (yearly $0.99 with a 1-month intro, lifetime $4.99).
+  - **Flip** (`/tools/flip`, press kit at `/tools/flip/press`, privacy policy at `/flip-privacy`, shared-coin Universal Link / App Clip landing at `/c`, Open Graph card generator at `GET /api/tools/flip-og`, and `public/.well-known/apple-app-site-association`): pages and deep-link support for the Flip iPhone coin-flip app from AK Internet Consulting. Pricing copy mirrors StoreKit (yearly $0.99 with a 1-month intro, lifetime $4.99).
 
 Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, hosted on Vercel. No database, no user accounts.
 
