@@ -41,23 +41,23 @@ export const caseStudies: CaseStudy[] = [
     context:
       "I started publishing technology guides in 2007 while working in IT. The first site, Online Tech Tips, grew quickly enough that a single general-interest desk could not serve every reader well.",
     challenge:
-      "A consumer troubleshooting audience, Apple users, working IT readers, and later Xbox players do not want the same stories, voice, or calendar. Folding everything into one site would have diluted the point of view. Treating each new topic as a random post would have made the library unmanageable.",
-    role: "Founder responsible for positioning, editorial strategy, operations, technology, and business outcomes across the portfolio.",
+      "A consumer troubleshooting audience, Apple users, working IT readers and later Xbox players do not want the same stories, voice, or calendar. Folding everything into one site would have diluted the point of view. Treating each new topic as a random post would have made the library unmanageable.",
+    role: "Founder responsible for positioning, editorial strategy, operations, technology and business outcomes across the portfolio.",
     strategy: [
       "Give each publication a defined audience and a clear statement of what it will not cover.",
-      "Keep a shared quality bar — usefulness, accuracy, and readable structure — while letting voice and depth vary by desk.",
+      "Keep a shared quality bar — usefulness, accuracy and readable structure — while letting voice and depth vary by desk.",
       "Use search intent and reader problems to plan calendars, without turning the sites into keyword factories.",
-      "Connect publishing decisions to audience growth, advertising, affiliate programs, and the cost of maintaining a large library.",
+      "Connect publishing decisions to audience growth, advertising, affiliate programs and the cost of maintaining a large library.",
     ],
     execution: [
-      "Launched Online Tech Tips in 2007, then added Help Desk Geek, Switching to Mac, The Back Room Tech, and later Xbox Advisor.",
+      "Launched Online Tech Tips in 2007, then added Help Desk Geek, Switching to Mac, The Back Room Tech and later Xbox Advisor.",
       "Wrote heavily in the early years, then shifted toward recruiting contributors and building editorial systems as volume grew.",
       "Operated the work full time from 2010 through AK Internet Consulting.",
       "Maintained WordPress infrastructure capable of supporting high-traffic publishing.",
     ],
     systems: [
       "Per-publication positioning and topic boundaries",
-      "Shared briefing, editing, and quality-control patterns",
+      "Shared briefing, editing and quality-control patterns",
       "Content inventory and internal-linking practices across a large archive",
       "Analytics review to decide what to expand, update, or stop",
     ],
@@ -68,8 +68,8 @@ export const caseStudies: CaseStudy[] = [
     ],
     lessons: [
       "Audience-specific positioning is an editorial decision, not a branding exercise.",
-      "A large archive is an asset only if someone is accountable for quality, updates, and what no longer belongs.",
-      "Founder work in publishing includes people, systems, and business results — not only bylines.",
+      "A large archive is an asset only if someone is accountable for quality, updates and what no longer belongs.",
+      "Founder work in publishing includes people, systems and business results — not only bylines.",
     ],
     skills: [
       "Content strategy",
@@ -140,20 +140,20 @@ export const caseStudies: CaseStudy[] = [
       ],
     },
     context:
-      "A single-author site can hold a point of view in one person’s head. A network that publishes continuously cannot. The work had to become teachable: who writes, what a brief contains, how review works, and what “done” means.",
+      "A single-author site can hold a point of view in one person’s head. A network that publishes continuously cannot. The work had to become teachable: who writes, what a brief contains, how review works and what “done” means.",
     challenge:
       "Volume and quality pull in opposite directions. Remote contributors also pull toward inconsistency — different habits, different research depth, different sense of what the reader already knows. The operation needed structure without becoming a content mill.",
     role: "Recruited, managed and edited a distributed team of up to 35 writers/editors. Set standards, assigned work and remained a working editor.",
     strategy: [
       "Hire for judgment and clarity, then teach the publication’s point of view rather than a generic style sheet alone.",
-      "Use briefs to lock audience, intent, angle, and what the piece should not try to be.",
+      "Use briefs to lock audience, intent, angle and what the piece should not try to be.",
       "Keep review cycles short enough to ship and strict enough to catch thin research or muddy structure.",
       "Mentor contributors with direct editorial feedback instead of only accepting or rejecting drafts.",
     ],
     execution: [
       "Recruited and managed up to 35 writers/editors at peak.",
       "Assigned work against calendars that mixed evergreen library-building with timely coverage.",
-      "Edited for accuracy, sequence, and voice so a reader could act on the piece.",
+      "Edited for accuracy, sequence and voice so a reader could act on the piece.",
       "Balanced speed with quality when news or product changes created real reader demand.",
     ],
     systems: [
@@ -251,36 +251,36 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "position-tracker",
     title: "Building PositionTracker With AI-Assisted Development",
-    subtitle: "A SaaS product directed, designed, and iterated with modern AI workflows",
+    subtitle: "A SaaS product directed, designed and iterated with modern AI workflows",
     featured: false,
     kicker: "Product / AI-workflow proof",
     context:
-      "After years of running publishing systems, I started building PositionTracker: a dashboard for organizing and analyzing stock and options positions. The product came from a practical problem — positions, research, and market context lived in too many places.",
+      "After years of running publishing systems, I started building PositionTracker: a dashboard for organizing and analyzing stock and options positions. The product came from a practical problem — positions, research and market context lived in too many places.",
     challenge:
-      "Individual investors can see quotes, options chains, filings, and notes in separate tools. Spreadsheets do not keep up. I needed a product that made the book of positions understandable without pretending to be a brokerage or a source of financial advice.",
-    role: "Founder. I directed product concept, user workflows, interface design, and implementation using AI-assisted development. I review, test, and decide what ships. I do not claim to have hand-coded every line or to be a senior software engineer.",
+      "Individual investors can see quotes, options chains, filings and notes in separate tools. Spreadsheets do not keep up. I needed a product that made the book of positions understandable without pretending to be a brokerage or a source of financial advice.",
+    role: "Founder. I directed product concept, user workflows, interface design and implementation using AI-assisted development. I review, test and decide what ships. I do not claim to have hand-coded every line or to be a senior software engineer.",
     strategy: [
-      "Define the job: one place to see positions, context, and the next question a user should ask.",
-      "Choose a stack that supports authentication, financial data, a real database, billing, and frequent iteration.",
+      "Define the job: one place to see positions, context and the next question a user should ask.",
+      "Choose a stack that supports authentication, financial data, a real database, billing and frequent iteration.",
       "Use AI coding agents to move faster on implementation while keeping humans responsible for product judgment and quality.",
-      "Apply publishing lessons: information architecture, clarity, and measurable outcomes.",
+      "Apply publishing lessons: information architecture, clarity and measurable outcomes.",
     ],
     execution: [
       "Designed workflows and a responsive interface around portfolio and options use cases.",
-      "Integrated financial data, Clerk authentication, Neon Postgres, Stripe subscriptions, and Vercel deployment.",
-      "Worked through GitHub, pull requests, testing, and release habits rather than treating the app as a one-off prototype.",
+      "Integrated financial data, Clerk authentication, Neon Postgres, Stripe subscriptions and Vercel deployment.",
+      "Worked through GitHub, pull requests, testing and release habits rather than treating the app as a one-off prototype.",
       "Kept the public claim accurate: this is a live product I built and operate, not a claim of institutional asset management.",
     ],
     systems: [
       "AI-assisted development with human review",
-      "Auth, data, billing, and hosting as first-class product pieces",
+      "Auth, data, billing and hosting as first-class product pieces",
       "Subscription plans and user-account workflows",
       "Iterative release on Vercel",
     ],
     results: [
       "A live SaaS product at positiontracker.trading.",
       "A working example of moving from content operations into product operations.",
-      "A clearer view of how content, software, and business models inform one another.",
+      "A clearer view of how content, software and business models inform one another.",
     ],
     lessons: [
       "AI agents change the pace of software work. They do not remove the need for taste, testing, or accountability.",

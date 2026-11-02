@@ -3,7 +3,7 @@ import type { EducationItem, ExternalLink } from "./types";
 export const profile = {
   name: "Aseem Kishore",
   label: "Content Strategy & Editorial Operations Leader",
-  supportingLabel: "Digital publishing founder · Content operations · SEO and AI search (AEO)",
+  supportingLabel: "Content strategy, SEO/AEO and editorial operations leader",
   headline: "I lead content strategy, editorial operations and search for publications built to last.",
   heroSupportingLine:
     "Since 2007 I’ve built and run a five-publication technology network, led up to 35 writers/editors at peak and written more than 3,000 of the network’s 6,000+ articles. At its peak the network reached about 7–8 million monthly pageviews.",
@@ -15,34 +15,34 @@ export const profile = {
   photo: "/images/aseem-kishore.jpg",
   photoAlt: "Aseem Kishore",
   availability:
-    "Open to remote senior leadership, strategy, and selected advisory opportunities.",
+    "Open to remote leadership and strategy roles, plus contract, fractional and freelance engagements.",
   heroSummary:
-    "For nearly two decades, I have built and operated technology publications, led distributed teams of writers/editors, grown audiences to millions of monthly readers, and developed the editorial systems that make quality content scalable. Today, I also build AI-assisted workflows and SaaS products at the intersection of content, technology, and business.",
+    "For nearly two decades, I have built and operated technology publications, led distributed teams of writers/editors, grown audiences to about 7–8 million monthly pageviews at peak and developed the editorial systems that make quality content scalable. Today, I also build AI-assisted workflows and SaaS products at the intersection of content, technology and business.",
   professionalSummary: [
-    "I started publishing technology guides in 2007 and later operated the work full time through AK Internet Consulting. The job was never only writing. It was deciding what each publication should cover, recruiting and managing contributors, designing workflows, and connecting editorial choices to audience and revenue results.",
-    "Search, analytics, and content lifecycle work sat alongside editing and quality control. I used performance data to tell the difference between a weak idea, weak execution, poor distribution, and content that simply needed an update.",
-    "More recently I have applied the same systems thinking to AI-assisted research, editorial workflows, and product development, including PositionTracker, a SaaS dashboard for organizing and analyzing stock and options positions. AI can accelerate research, production, analysis, and distribution. Human judgment remains responsible for original thinking, accuracy, editorial point of view, and quality.",
+    "I started publishing technology guides in 2007 and later operated the work full time through AK Internet Consulting. The job was never only writing. It was deciding what each publication should cover, recruiting and managing contributors, designing workflows and connecting editorial choices to audience and revenue results.",
+    "Search, analytics and content lifecycle work sat alongside editing and quality control. I used performance data to tell the difference between a weak idea, weak execution, poor distribution and content that simply needed an update.",
+    "More recently I have applied the same systems thinking to AI-assisted research, editorial workflows and product development, including PositionTracker, a SaaS dashboard for organizing and analyzing stock and options positions. AI can accelerate research, production, analysis and distribution. Human judgment remains responsible for original thinking, accuracy, editorial point of view and quality.",
   ],
   currentFocus:
-    "I am currently interested in remote senior leadership and strategy opportunities involving content, editorial operations, AI-enabled workflows, knowledge systems, digital publishing, and product-oriented content.",
+    "I am currently interested in remote senior leadership and strategy opportunities involving content, editorial operations, AI-enabled workflows, knowledge systems, digital publishing and product-oriented content.",
   careerFocus:
-    "I am exploring remote senior leadership and strategy roles where content, editorial operations, AI, technology, and measurable business outcomes intersect. I am particularly interested in organizations building useful products, serving meaningful audiences, or navigating the transition from traditional search and publishing to AI-enabled discovery.",
+    "I am exploring remote senior leadership and strategy roles where content, editorial operations, AI, technology and measurable business outcomes intersect. I am particularly interested in organizations building useful products, serving meaningful audiences or navigating the transition from traditional search and publishing to AI-enabled discovery.",
   transferableOutcomes:
-    "My publishing career has required me to connect content decisions directly to measurable audience and revenue outcomes. More recently, building PositionTracker has expanded that perspective into SaaS product acquisition, engagement, subscriptions, and user workflows.",
+    "My publishing career has required me to connect content decisions directly to measurable audience and revenue outcomes. More recently, building PositionTracker has expanded that perspective into SaaS product acquisition, engagement, subscriptions and user workflows.",
   aiPosition:
-    "AI should accelerate research, production, analysis, and distribution, while human judgment remains responsible for original thinking, accuracy, editorial point of view, and quality.",
+    "AI should accelerate research, production, analysis and distribution, while human judgment remains responsible for original thinking, accuracy, editorial point of view and quality.",
   leadershipPhilosophy:
-    "The best content organizations combine a clear point of view, strong editorial judgment, useful systems, and honest performance analysis. Technology can accelerate the work, but it cannot replace responsibility for what gets published and why.",
+    "The best content organizations combine a clear point of view, strong editorial judgment, useful systems and honest performance analysis. Technology can accelerate the work, but it cannot replace responsibility for what gets published and why.",
   community: {
     title: "Community",
     body: "For the past several years, I have volunteered with Meals on Wheels in Maryland, delivering meals to older and disabled neighbors. The experience has reinforced that practical assistance and personal connection often matter equally: helping with an immediate need while making sure someone knows they have not been forgotten.",
   },
   personal:
-    "Outside of work I spend time with family, follow markets, and stay curious about new tools. I still like taking things apart — software, workflows, and the occasional workout plan — to see how they can work better.",
+    "Outside of work I spend time with family, follow markets and stay curious about new tools. I still like taking things apart — software, workflows and the occasional workout plan — to see how they can work better.",
   education: [
     {
       institution: "Emory University",
-      fields: ["Computer Science", "Mathematics"],
+      fields: ["B.S. in Computer Science with a minor in Mathematics"],
     },
   ] satisfies EducationItem[],
   targetRoles: [

@@ -9,7 +9,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Publications, products, and ventures built by Aseem Kishore, including the technology publishing network and PositionTracker.",
+    "Publications, products and ventures built by Aseem Kishore, including the technology publishing network and PositionTracker.",
   alternates: { canonical: "/projects" },
 };
 

@@ -9,9 +9,18 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Career Profile",
   description:
-    "Career profile for remote senior leadership and strategy roles in content, editorial operations, AI, and product-oriented publishing.",
+    "Career profile for remote senior leadership and strategy roles in content, editorial operations, AI and product-oriented publishing.",
   alternates: { canonical: "/career" },
 };
+
+const seoAndAnalyticsTools = [
+  "Google Search Console (GSC)",
+  "Google Analytics 4 (GA4)",
+  "Ahrefs",
+  "Semrush",
+  "Screaming Frog",
+  "Bing Webmaster Tools",
+] as const;
 
 export default function CareerPage() {
   return (
@@ -24,7 +33,7 @@ export default function CareerPage() {
       />
       <PageHero
         eyebrow="Career profile"
-        title="Remote senior leadership at the intersection of content, operations, and AI"
+        title="Remote senior leadership at the intersection of content, operations and AI"
         description={profile.careerFocus}
       />
 
@@ -68,6 +77,23 @@ export default function CareerPage() {
               className="rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-3 text-zinc-300"
             >
               {role}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold text-zinc-50">SEO &amp; analytics stack</h2>
+        <p className="mt-4 leading-relaxed text-zinc-400">
+          Daily search, audit and performance tooling used across the publishing network:
+        </p>
+        <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+          {seoAndAnalyticsTools.map((tool) => (
+            <li
+              key={tool}
+              className="rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-3 text-zinc-300"
+            >
+              {tool}
             </li>
           ))}
         </ul>

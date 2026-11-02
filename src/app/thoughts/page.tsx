@@ -31,7 +31,7 @@ export default async function ThoughtsPage() {
       <PageHero
         eyebrow="Thoughts"
         title="Essays and observations"
-        description="This section is for original writing on publishing, editorial operations, AI, and product work. The first essay is live. The rest are drafted for review before they go live, and the verified writing portfolio is the public reading list in the meantime."
+        description="This section is for original writing on publishing, editorial operations, AI and product work. The first essay is live. The rest are drafted for review before they go live, and the verified writing portfolio is the public reading list in the meantime."
       />
 
       <div className="mt-8">

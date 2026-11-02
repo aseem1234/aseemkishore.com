@@ -7,7 +7,7 @@ export const writingSamples: WritingSample[] = [
     publication: "The Back Room Tech",
     date: "2026-02-13",
     description:
-      "A first-person evaluation of GLM-5 for agent-style coding work — planning changes, editing across files, and judging whether a cheaper model can earn a place in a real stack.",
+      "A first-person evaluation of GLM-5 for agent-style coding work — planning changes, editing across files and judging whether a cheaper model can earn a place in a real stack.",
     topic: "AI coding agents",
     format: "First-person technical evaluation",
     role: "Author",
@@ -76,7 +76,7 @@ export const writingSamples: WritingSample[] = [
     publication: "Help Desk Geek",
     date: "2026-08-01",
     description:
-      "A security-minded consumer guide to reading permissions, publisher signals, and existing add-ons before a Chrome extension becomes a problem.",
+      "A security-minded consumer guide to reading permissions, publisher signals and existing add-ons before a Chrome extension becomes a problem.",
     topic: "Browser security",
     format: "Technical how-to",
     role: "Author",
@@ -93,7 +93,7 @@ export const writingSamples: WritingSample[] = [
     publication: "Online Tech Tips",
     date: "2026-08-05",
     description:
-      "A complete walkthrough of post flair, user flair, spoiler tags, and text formatting across desktop Reddit and old Reddit.",
+      "A complete walkthrough of post flair, user flair, spoiler tags and text formatting across desktop Reddit and old Reddit.",
     topic: "Social platforms",
     format: "Long-form guide",
     role: "Author",
@@ -110,7 +110,7 @@ export const writingSamples: WritingSample[] = [
     publication: "Online Tech Tips",
     date: "2026-07-28",
     description:
-      "A comparison of current offline-saving approaches after ScrapBook, including SingleFile, Save Page WE, and Kiwix.",
+      "A comparison of current offline-saving approaches after ScrapBook, including SingleFile, Save Page WE and Kiwix.",
     topic: "Browsers and archiving",
     format: "Long-form tools guide",
     role: "Author",
@@ -127,7 +127,7 @@ export const writingSamples: WritingSample[] = [
     publication: "Online Tech Tips",
     date: "2026-08-14",
     description:
-      "A comparison of calibration, cleaning, DIY parts, Nintendo service, shops, and replacement when a Switch controller starts drifting.",
+      "A comparison of calibration, cleaning, DIY parts, Nintendo service, shops and replacement when a Switch controller starts drifting.",
     topic: "Hardware repair",
     format: "Comparison review",
     role: "Author",

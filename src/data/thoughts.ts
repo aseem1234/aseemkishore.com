@@ -9,11 +9,11 @@ export const thoughtOutlines: ThoughtOutline[] = [
     slug: "building-content-teams",
     title: "What Nearly Two Decades in Digital Publishing Taught Me About Building Content Teams",
     abstract:
-      "A working editor’s view of recruiting contributors, teaching a point of view, and keeping quality intact after the founder is no longer the only writer.",
+      "A working editor’s view of recruiting contributors, teaching a point of view and keeping quality intact after the founder is no longer the only writer.",
     outline: [
       "Why a single-author voice does not scale, and what has to become explicit.",
       "Hiring for judgment versus hiring for throughput.",
-      "Briefs, review cycles, and the difference between a style guide and a point of view.",
+      "Briefs, review cycles and the difference between a style guide and a point of view.",
       "How feedback actually improves writers — and when a contributor is not a fit.",
       "What I would keep, and what I would not repeat, in a corporate editorial organization.",
     ],
@@ -23,7 +23,7 @@ export const thoughtOutlines: ThoughtOutline[] = [
     slug: "content-operations-are-a-system",
     title: "Great Content Operations Are a System, Not a Content Factory",
     abstract:
-      "Calendars, briefs, editing, updates, and analytics are one loop. Treating them as separate departments is how quality and performance both drift.",
+      "Calendars, briefs, editing, updates and analytics are one loop. Treating them as separate departments is how quality and performance both drift.",
     outline: [
       "The loop: decide, assign, edit, publish, measure, update or stop.",
       "Why volume targets without lifecycle ownership produce decaying libraries.",
@@ -37,11 +37,11 @@ export const thoughtOutlines: ThoughtOutline[] = [
     slug: "saas-with-ai-agents",
     title: "What I Learned Building a SaaS Product With AI Coding Agents",
     abstract:
-      "Notes from directing PositionTracker with AI-assisted development: speed is real, and so is the need for product judgment, review, and honest scope.",
+      "Notes from directing PositionTracker with AI-assisted development: speed is real, and so is the need for product judgment, review and honest scope.",
     outline: [
       "What I asked agents to do, and what I refused to delegate.",
       "Product definition still comes first: workflows, not features in a pile.",
-      "Auth, data, billing, and deploy are the product, not chores after the UI.",
+      "Auth, data, billing and deploy are the product, not chores after the UI.",
       "Testing and reading the diff are the job when generation is cheap.",
       "Why this experience is relevant to content and knowledge systems, not only software.",
     ],
@@ -56,7 +56,7 @@ export const thoughtOutlines: ThoughtOutline[] = [
       "The difference between fluent prose and a correct procedure.",
       "Voice is a series of refusals: what we will not oversimplify.",
       "Review systems that assume AI was in the draft, not that it was not.",
-      "Accuracy, trust, and the reader who will follow the steps.",
+      "Accuracy, trust and the reader who will follow the steps.",
       "A practical standard: humans own the claim; tools own the acceleration.",
     ],
     draft: true,

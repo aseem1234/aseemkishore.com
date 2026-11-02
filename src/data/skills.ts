@@ -5,7 +5,7 @@ export const capabilities: Capability[] = [
     id: "content-strategy",
     title: "Content Strategy",
     summary:
-      "Decide what a publication should cover, what it should refuse, and how the work connects to an audience.",
+      "Decide what a publication should cover, what it should refuse and how the work connects to an audience.",
     items: [
       "Editorial point of view",
       "Editorial calendars",
@@ -23,10 +23,10 @@ export const capabilities: Capability[] = [
     id: "editorial-operations",
     title: "Editorial Operations",
     summary:
-      "Build the people, briefs, review cycles, and standards that keep quality intact as volume grows.",
+      "Build the people, briefs, review cycles and standards that keep quality intact as volume grows.",
     items: [
       "Team building",
-      "Writer and editor management",
+      "Writer/editor management",
       "Content briefs",
       "Editorial workflows",
       "Review cycles",
@@ -39,9 +39,9 @@ export const capabilities: Capability[] = [
   },
   {
     id: "search-distribution",
-    title: "Search, Distribution, and Analytics",
+    title: "Search, Distribution and Analytics",
     summary:
-      "Treat SEO as one part of a broader system for discoverability, refresh, and business results.",
+      "Treat SEO as one part of a broader system for discoverability, refresh and business results.",
     items: [
       "SEO",
       "Search intent",
@@ -49,18 +49,19 @@ export const capabilities: Capability[] = [
       "Content refreshes",
       "Internal linking",
       "Performance analysis",
+      "Google Search Console (GSC), GA4, Ahrefs, Semrush, Screaming Frog and Bing Webmaster Tools",
       "Content distribution",
       "Repurposing",
       "Audience engagement",
       "Revenue and business outcomes",
-      "AEO, GEO, and AI-search visibility",
+      "AEO, GEO and AI-search visibility",
     ],
   },
   {
     id: "ai-workflows",
     title: "AI and Workflow Transformation",
     summary:
-      "Use AI to speed research, production, and analysis without handing over editorial accountability.",
+      "Use AI to speed research, production and analysis without handing over editorial accountability.",
     items: [
       "AI content workflows",
       "AI-assisted research",
@@ -78,13 +79,13 @@ export const capabilities: Capability[] = [
     id: "product-technology",
     title: "Product and Technology",
     summary:
-      "Work across publishing technology, APIs, and SaaS product development with a technical foundation.",
+      "Work across publishing technology, APIs and SaaS product development with a technical foundation.",
     items: [
       "SaaS product development",
       "WordPress",
       "APIs",
-      "JavaScript, HTML, and CSS",
-      "Vercel, Neon Postgres, Clerk, and Stripe",
+      "JavaScript, HTML and CSS",
+      "Vercel, Neon Postgres, Clerk and Stripe",
       "GitHub and deployment workflows",
       "Financial data products",
       "Technical communication",
@@ -100,7 +101,7 @@ export const skillGroups: SkillGroup[] = [
       "Content leadership",
       "Editorial leadership",
       "Distributed-team management",
-      "Writer and editor management",
+      "Writer/editor management",
       "Contractor management",
       "Mentorship",
       "Strategic prioritization",
@@ -131,6 +132,12 @@ export const skillGroups: SkillGroup[] = [
       "SEO",
       "Organic growth",
       "Search intent",
+      "Google Search Console (GSC)",
+      "Google Analytics 4 (GA4)",
+      "Ahrefs",
+      "Semrush",
+      "Screaming Frog",
+      "Bing Webmaster Tools",
       "Audience development",
       "Content performance",
       "Traffic analytics",

@@ -10,7 +10,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies and selected work spanning digital publishing, editorial operations, search strategy, and PositionTracker.",
+    "Case studies and selected work spanning digital publishing, editorial operations, search strategy and PositionTracker.",
   alternates: { canonical: "/work" },
 };
 
@@ -26,7 +26,7 @@ export default function WorkPage() {
       <PageHero
         eyebrow="Work"
         title="Selected work"
-        description="Case studies first, then the publications and products. Each page explains the audience, my role, the system, and the outcome — not only the tech stack."
+        description="Case studies first, then the publications and products. Each page explains the audience, my role, the system and the outcome — not only the tech stack."
       />
 
       <section className="mt-16">

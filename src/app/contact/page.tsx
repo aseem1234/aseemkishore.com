@@ -10,13 +10,13 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Aseem Kishore about career opportunities, advisory work, partnerships, or interviews.",
+    "Contact Aseem Kishore about career opportunities, advisory work, partnerships or interviews.",
   alternates: { canonical: "/contact" },
 };
 
 const subjects = [
   { id: "career", label: "Career opportunity", subject: "Career opportunity" },
-  { id: "advisory", label: "Advisory or consulting", subject: "Advisory or consulting" },
+  { id: "advisory", label: "Advisory, contract or consulting", subject: "Advisory, contract or consulting" },
   { id: "partnership", label: "Partnership", subject: "Partnership" },
   { id: "media", label: "Media or interview", subject: "Media or interview" },
   { id: "general", label: "General message", subject: "Hello" },
@@ -40,7 +40,9 @@ export default function ContactPage() {
         />
       </div>
 
-      <div className="mt-10 flex flex-wrap gap-3">
+      <p className="mt-6 text-zinc-300">{profile.availability}</p>
+
+      <div className="mt-6 flex flex-wrap gap-3">
         <ButtonLink href={links.email.href} event="contact_click">
           Email me
         </ButtonLink>
