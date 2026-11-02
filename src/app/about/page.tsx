@@ -10,7 +10,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Aseem Kishore — content strategy and editorial operations leader, digital publishing founder, and builder of AI-assisted workflows and products.",
+    "About Aseem Kishore — content strategy and editorial operations leader, digital publishing founder and builder of AI-assisted workflows and products.",
   alternates: { canonical: "/about" },
 };
 
@@ -27,8 +27,8 @@ export default function AboutPage() {
         <Portrait variant="page" priority />
         <PageHero
           eyebrow="About"
-          title="A career across technology, content, and product"
-          description="I work where publishing, editorial judgment, and software meet. The through-line is building systems that help people understand something clearly and act on it."
+          title="A career across technology, content and product"
+          description="I work where publishing, editorial judgment and software meet. The through-line is building systems that help people understand something clearly and act on it."
         />
       </div>
 
@@ -37,13 +37,13 @@ export default function AboutPage() {
           I studied Computer Science and Mathematics at Emory University, then spent the first part of my career in technical roles. {earlyCareerSummary}
         </p>
         <p>
-          In 2007 I started writing down the technology problems I was already solving at work. That side project became Online Tech Tips, then a network of audience-specific publications. In 2010 I began operating the work full time through AK Internet Consulting. The job became editorial strategy, team leadership, search, analytics, monetization, and the WordPress systems underneath high-traffic sites.
+          In 2007 I started writing down the technology problems I was already solving at work. That side project became Online Tech Tips, then a network of audience-specific publications. In 2010 I began operating the work full time through AK Internet Consulting. The job became editorial strategy, team leadership, search, analytics, monetization and the WordPress systems underneath high-traffic sites.
         </p>
         <p>
-          I recruited and managed a distributed group of writers/editors, set standards, and stayed close enough to the writing to edit and to publish under my own name. The network reached approximately 7–8 million monthly pageviews at its peak and now holds more than 6,000 articles across five publications, more than 3,000 of them mine.
+          I recruited and managed a distributed group of writers/editors, set standards and stayed close enough to the writing to edit and to publish under my own name. The network reached approximately 7–8 million monthly pageviews at its peak and now holds more than 6,000 articles across five publications, more than 3,000 of them mine.
         </p>
         <p>
-          Search and distribution changed more than once. So did advertising and social referral. The useful habit was the same: look at performance, decide whether the idea, the execution, or the channel had failed, and then update, prune, or double down. {profile.aiPosition}
+          Search and distribution changed more than once. So did advertising and social referral. The useful habit was the same: look at performance, decide whether the idea, the execution or the channel had failed, and then update, prune or double down. {profile.aiPosition}
         </p>
         <p>
           That same habit is now in product work. I built and operate PositionTracker, a SaaS dashboard for stock and options positions that is live at{" "}

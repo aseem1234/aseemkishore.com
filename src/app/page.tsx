@@ -80,7 +80,7 @@ export default function Home() {
         <SectionHeading
           eyebrow="Selected work"
           title="Case studies"
-          description="How the work was organized, what I decided, and what it produced."
+          description="How the work was organized, what I decided and what it produced."
         />
         <div className="grid gap-6 lg:grid-cols-3">
           {studies.map((study) => (
@@ -130,7 +130,7 @@ export default function Home() {
         <SectionHeading
           eyebrow="Portfolio"
           title="Publications and products"
-          description="Five technology publications, the company that operates them, and PositionTracker."
+          description="Five technology publications, the company that operates them and PositionTracker."
         />
         <div className="grid gap-6 md:grid-cols-2">
           {selectedWork.map((item) => (
@@ -143,7 +143,7 @@ export default function Home() {
         <SectionHeading
           eyebrow="Expertise"
           title="What I do"
-          description="Five areas that show up across publishing, editorial operations, search, AI, and product work."
+          description="Five areas that show up across publishing, editorial operations, search, AI and product work."
         />
         <CapabilityGrid />
       </section>
@@ -151,7 +151,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-16">
         <SectionHeading
           eyebrow="Background"
-          title="Publishing, operations, and product in one career"
+          title="Publishing, operations and product in one career"
         />
         <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-zinc-400">
           {profile.professionalSummary.map((paragraph) => (
@@ -194,7 +194,7 @@ export default function Home() {
 
       <CtaBand
         title="Let’s talk"
-        description="Résumé, LinkedIn, and a direct email are all one click away."
+        description="Résumé, LinkedIn and a direct email are all one click away."
       />
     </>
   );

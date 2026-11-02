@@ -15,20 +15,20 @@ export const publications: Publication[] = [
     founded: "2007",
     status: "active",
     audience:
-      "Everyday technology users who need clear, practical guidance on software, devices, online tools, and emerging products.",
+      "Everyday technology users who need clear, practical guidance on software, devices, online tools and emerging products.",
     editorialFocus:
-      "How-to tutorials, explainers, and reviews that help readers solve a specific problem and get back to work. Coverage includes Windows, online tools, social networks, streaming, and AI.",
+      "How-to tutorials, explainers and reviews that help readers solve a specific problem and get back to work. Coverage includes Windows, online tools, social networks, streaming and AI.",
     role: "Founder and Editor-in-Chief",
     summary:
       "The flagship publication, started in 2007 while I was still working in IT. It began as a place to document troubleshooting work and became the first property in a multi-publication network.",
     strategy:
-      "I treated OTT as a broad consumer-technology desk with a consistent voice: specific, useful, and unwilling to chase every trend. Topic selection mixed evergreen problem-solving with timely coverage when a change actually affected readers. Search intent informed the calendar, but the editorial test was whether the piece would still help someone six months later.",
+      "I treated OTT as a broad consumer-technology desk with a consistent voice: specific, useful and unwilling to chase every trend. Topic selection mixed evergreen problem-solving with timely coverage when a change actually affected readers. Search intent informed the calendar, but the editorial test was whether the piece would still help someone six months later.",
     scale:
       "Part of a five-publication portfolio that reached approximately 7–8 million monthly pageviews at its peak and now contains more than 6,000 articles across the network.",
     team:
-      "Grew from a single-author site into a multi-contributor publication with briefs, editing, and quality standards shared across the network.",
+      "Grew from a single-author site into a multi-contributor publication with briefs, editing and quality standards shared across the network.",
     businessModel:
-      "Advertising, affiliate relationships, and email audience development, supported by organic search.",
+      "Advertising, affiliate relationships and email audience development, supported by organic search.",
     demonstrates:
       "How a founder can set editorial point of view, then build the systems that let other writers work inside it.",
     tech: ["WordPress", "PHP", "Rocket.net"],
@@ -44,20 +44,20 @@ export const publications: Publication[] = [
     audience:
       "Readers who want troubleshooting help — technically curious consumers and people doing help-desk style work, not enterprise IT strategy.",
     editorialFocus:
-      "Short, actionable fixes for Windows, Office, browsers, accounts, and everyday software failures. The site is built around getting someone unstuck quickly.",
+      "Short, actionable fixes for Windows, Office, browsers, accounts and everyday software failures. The site is built around getting someone unstuck quickly.",
     role: "Founder and Managing Editor",
     summary:
-      "The second publication in the network, positioned around troubleshooting rather than general tech curiosity. HDG is where editorial discipline shows up as brevity, sequence, and respect for the reader’s time.",
+      "The second publication in the network, positioned around troubleshooting rather than general tech curiosity. HDG is where editorial discipline shows up as brevity, sequence and respect for the reader’s time.",
     strategy:
-      "I kept HDG from drifting into gadget news or enterprise architecture. The point of view is: diagnose, try the safest fix first, and explain what the reader is looking at. Content briefs and review cycles mattered here because a wrong step wastes someone’s afternoon.",
+      "I kept HDG from drifting into gadget news or enterprise architecture. The point of view is: diagnose, try the safest fix first and explain what the reader is looking at. Content briefs and review cycles mattered here because a wrong step wastes someone’s afternoon.",
     scale:
       "A core property in the network’s 6,000+ article library and a major contributor to peak audience across the portfolio.",
     team:
       "Writers/editors worked from shared troubleshooting standards, with editing focused on accuracy, order of operations and clarity.",
     businessModel:
-      "Search-driven how-to inventory, display advertising, and affiliate relationships around software and tools readers already needed.",
+      "Search-driven how-to inventory, display advertising and affiliate relationships around software and tools readers already needed.",
     demonstrates:
-      "Editorial governance: what belongs on the site, how a fix should be structured, and how quality is protected at volume.",
+      "Editorial governance: what belongs on the site, how a fix should be structured and how quality is protected at volume.",
     tech: ["WordPress", "PHP", "Rocket.net"],
     featured: true,
   },
@@ -69,9 +69,9 @@ export const publications: Publication[] = [
     founded: "2010",
     status: "active",
     audience:
-      "Apple-focused consumers — people moving from Windows, and existing Mac, iPhone, iPad, and Apple Watch users who want practical guidance.",
+      "Apple-focused consumers — people moving from Windows, and existing Mac, iPhone, iPad and Apple Watch users who want practical guidance.",
     editorialFocus:
-      "Tutorials, setup guides, and product explainers across the Apple ecosystem, with extra attention to migration and the details that make Apple software less opaque.",
+      "Tutorials, setup guides and product explainers across the Apple ecosystem, with extra attention to migration and the details that make Apple software less opaque.",
     role: "Founder and Editor-in-Chief",
     summary:
       "Launched to give Apple coverage its own desk instead of folding it into a general technology site. The name started with migration; the publication grew into ongoing Apple-ecosystem education.",
@@ -82,7 +82,7 @@ export const publications: Publication[] = [
     team:
       "Contributors who could write clearly about Apple software, reviewed against the same network standards for accuracy and usefulness.",
     businessModel:
-      "Organic search, advertising, and affiliate programs relevant to Apple hardware, software, and accessories.",
+      "Organic search, advertising and affiliate programs relevant to Apple hardware, software and accessories.",
     demonstrates:
       "Audience-specific editorial strategy: knowing when a topic needs its own publication rather than another category on an existing site.",
     tech: ["WordPress", "PHP", "Rocket.net"],
@@ -98,14 +98,14 @@ export const publications: Publication[] = [
       "The publication’s own project record and on-site history use 2007. An AKIC about timeline lists 2010.",
     status: "active",
     audience:
-      "Working IT and sysadmin readers — people who keep servers, networks, and internal tools running. Not enterprise strategy, and not consumer gadget coverage.",
+      "Working IT and sysadmin readers — people who keep servers, networks and internal tools running. Not enterprise strategy, and not consumer gadget coverage.",
     editorialFocus:
-      "Hands-on guides for infrastructure, Linux, Windows Server, scripting, virtualization, and the tools that show up in a real back room.",
+      "Hands-on guides for infrastructure, Linux, Windows Server, scripting, virtualization and the tools that show up in a real back room.",
     role: "Founder and Managing Editor",
     summary:
       "The technical publication in the network. TBRT exists so IT-specific work does not get flattened into consumer how-tos, and so consumer sites do not pretend to be sysadmin desks.",
     strategy:
-      "I kept the voice practical and environment-aware: commands, failure modes, and the difference between a lab tip and a production change. That point of view also made it the natural home for later writing about AI coding tools.",
+      "I kept the voice practical and environment-aware: commands, failure modes and the difference between a lab tip and a production change. That point of view also made it the natural home for later writing about AI coding tools.",
     scale:
       "A specialized desk inside the network’s 6,000+ article library, aimed at a narrower and more technical reader.",
     team:
@@ -125,22 +125,22 @@ export const publications: Publication[] = [
     founded: "2023",
     status: "active",
     audience:
-      "Xbox players who want setup help, troubleshooting, hardware guidance, and clear coverage of the games and features they actually use.",
+      "Xbox players who want setup help, troubleshooting, hardware guidance and clear coverage of the games and features they actually use.",
     editorialFocus:
-      "Xbox-specific how-tos, reviews, and features — from error codes and accessories to game recommendations — written for players rather than for a general tech audience.",
+      "Xbox-specific how-tos, reviews and features — from error codes and accessories to game recommendations — written for players rather than for a general tech audience.",
     role: "Founder and Owner",
     summary:
-      "The newest publication in the network. Xbox Advisor extends the same editorial model into gaming: a defined audience, a defined desk, and standards that still apply when the subject is entertainment.",
+      "The newest publication in the network. Xbox Advisor extends the same editorial model into gaming: a defined audience, a defined desk and standards that still apply when the subject is entertainment.",
     strategy:
       "I did not fold Xbox coverage into OTT or HDG. Gaming readers arrive with different intent, and the calendar has to balance evergreen troubleshooting with timely game and platform changes without turning the site into rumor coverage.",
     scale:
       "The fifth major publication in the portfolio, launched after the network’s core editorial systems were already in place.",
     team:
-      "Uses the same contributor, briefing, and review patterns as the older sites, adapted to gaming subject matter.",
+      "Uses the same contributor, briefing and review patterns as the older sites, adapted to gaming subject matter.",
     businessModel:
-      "Advertising and affiliate relationships around games, hardware, and subscriptions, supported by search and regular publishing.",
+      "Advertising and affiliate relationships around games, hardware and subscriptions, supported by search and regular publishing.",
     demonstrates:
-      "That the operating system — positioning, calendars, contributors, and quality control — can be applied to a new vertical without starting from zero.",
+      "That the operating system — positioning, calendars, contributors and quality control — can be applied to a new vertical without starting from zero.",
     tech: ["WordPress", "PHP", "Rocket.net"],
     featured: true,
   },
@@ -152,20 +152,20 @@ export const publications: Publication[] = [
     founded: "2025",
     status: "live",
     audience:
-      "Individual investors and active traders who want one place to organize stock and options positions, research, and portfolio context.",
+      "Individual investors and active traders who want one place to organize stock and options positions, research and portfolio context.",
     editorialFocus:
-      "Not a publication. A SaaS product for position tracking, analysis, and market-context workflows.",
-    role: "Founder — product, design, and AI-assisted development",
+      "Not a publication. A SaaS product for position tracking, analysis and market-context workflows.",
+    role: "Founder — product, design and AI-assisted development",
     summary:
-      "A SaaS dashboard for organizing and analyzing stock and options positions. I directed the concept, workflows, interface, and implementation using modern AI-assisted development — I do not claim to have hand-coded every line or to be a senior software engineer.",
+      "A SaaS dashboard for organizing and analyzing stock and options positions. I directed the concept, workflows, interface and implementation using modern AI-assisted development — I do not claim to have hand-coded every line or to be a senior software engineer.",
     strategy:
-      "The product started from a real workflow problem: positions, research, and market context were spread across too many tools. I designed around that job-to-be-done, then chose a stack that could support authentication, financial data, billing, and iteration.",
+      "The product started from a real workflow problem: positions, research and market context were spread across too many tools. I designed around that job-to-be-done, then chose a stack that could support authentication, financial data, billing and iteration.",
     team:
-      "Founder-led product work with AI coding agents, review, and deployment discipline.",
+      "Founder-led product work with AI coding agents, review and deployment discipline.",
     businessModel:
       "Subscription plans. Not financial advice, and not a brokerage.",
     demonstrates:
-      "Product thinking, technical collaboration, and the ability to move from content systems into SaaS without abandoning judgment about what users actually need.",
+      "Product thinking, technical collaboration and the ability to move from content systems into SaaS without abandoning judgment about what users actually need.",
     tech: [
       "JavaScript",
       "HTML",
@@ -194,17 +194,17 @@ export const publications: Publication[] = [
       "Digital publishing and content operations first. Consulting is a supporting offering, not the whole professional identity.",
     role: "Founder & Head of Digital Publishing and Content Operations",
     summary:
-      "The company through which I have operated the publication network and, more recently, offered WordPress care, workflow automation, and AI-assisted software work. The consulting catalog should not be mistaken for the full scope of the career.",
+      "The company through which I have operated the publication network and, more recently, offered WordPress care, workflow automation and AI-assisted software work. The consulting catalog should not be mistaken for the full scope of the career.",
     strategy:
-      "AKIC exists to run the publications as a business: contributors, infrastructure, monetization, and later AI-enabled production. Advisory work grew out of those operations, not the other way around.",
+      "AKIC exists to run the publications as a business: contributors, infrastructure, monetization and later AI-enabled production. Advisory work grew out of those operations, not the other way around.",
     scale:
       "Parent organization for five publications, up to 35 writers/editors at peak and a 6,000+ article library.",
     team:
       "Distributed writers, editors and contractors, plus vendors for hosting, advertising and related services.",
     businessModel:
-      "Publishing revenue from advertising, affiliates, and audience, with selected project-based consulting.",
+      "Publishing revenue from advertising, affiliates and audience, with selected project-based consulting.",
     demonstrates:
-      "Founder experience that maps to head-of-function work: strategy, people, operations, technology, and P&L-adjacent decisions.",
+      "Founder experience that maps to head-of-function work: strategy, people, operations, technology and P&L-adjacent decisions.",
     tech: ["WordPress", "Next.js", "Claude Code", "Make.com", "n8n"],
     featured: true,
   },

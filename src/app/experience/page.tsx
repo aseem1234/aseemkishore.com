@@ -12,7 +12,7 @@ import { formatDateRange } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Experience & Leadership",
   description:
-    "Experience translating founder-led digital publishing into editorial operations, team leadership, SEO, and AI-enabled product work.",
+    "Experience translating founder-led digital publishing into editorial operations, team leadership, SEO and AI-enabled product work.",
   alternates: { canonical: "/experience" },
 };
 
@@ -30,7 +30,7 @@ export default function ExperiencePage() {
         <PageHero
           eyebrow="Experience & Leadership"
           title="What the work actually involved"
-          description="Founder titles can hide the job. This page translates the publishing business into responsibilities a hiring manager can recognize: strategy, people, systems, performance, and accountability for results."
+          description="Founder titles can hide the job. This page translates the publishing business into responsibilities a hiring manager can recognize: strategy, people, systems, performance and accountability for results."
         />
       </div>
 

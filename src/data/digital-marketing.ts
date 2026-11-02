@@ -19,7 +19,7 @@ export const digitalMarketing = {
     },
     {
       lead: "Measure, then act.",
-      text: "Review performance after publishing and decide whether to update, consolidate or stop.",
+      text: "Review performance in Google Search Console (GSC), GA4, Ahrefs, Semrush, Screaming Frog and Bing Webmaster Tools after publishing and decide whether to update, consolidate or stop.",
     },
     {
       lead: "Maintain the archive.",

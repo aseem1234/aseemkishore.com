@@ -20,12 +20,23 @@ test("homepage proof points stay qualified and limited", () => {
   assert.match(proofPoints.find((item) => item.id === "pageviews")?.detail ?? "", /approximately/);
 });
 
-test("AKIC title and dates distinguish 2007 publishing from 2010 company", () => {
+test("AKIC title and dates distinguish 2007 publishing from 2010 company and lead the experience list", () => {
+  assert.equal(experience[0]?.id, "akic");
+  assert.equal(experience[1]?.id, "position-tracker");
   const akic = experience.find((role) => role.id === "akic");
   assert.ok(akic);
-  assert.equal(akic.title, "Founder & Head of Digital Publishing and Content Operations");
+  assert.equal(akic.title, "Head of Content & SEO");
   assert.equal(akic.dates.start, "2010-05");
   assert.match(akic.dates.note ?? "", /2007/);
+  assert.match(akic.dates.note ?? "", /2009/);
+  assert.equal(
+    profile.supportingLabel,
+    "Content strategy, SEO/AEO and editorial operations leader",
+  );
+  assert.equal(
+    profile.availability,
+    "Open to remote leadership and strategy roles, plus contract, fractional and freelance engagements.",
+  );
 });
 
 test("publication and case-study slugs are unique", () => {

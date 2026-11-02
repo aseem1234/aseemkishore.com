@@ -21,7 +21,7 @@ export default function Footer() {
           <div>
             <p className="text-sm font-semibold text-zinc-200">Aseem Kishore</p>
             <p className="mt-2 max-w-sm text-sm text-zinc-500">
-              Content strategy and editorial operations. Digital publishing, AI-enabled workflows, and product work.
+              Content strategy and editorial operations. Digital publishing, AI-enabled workflows and product work.
             </p>
           </div>
           <nav aria-label="Footer">
