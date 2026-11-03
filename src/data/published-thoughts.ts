@@ -6,16 +6,7 @@ export interface PublishedThought {
   contentHtml: string;
 }
 
-/**
- * Thoughts essays that are published from the repo. `/thoughts` and
- * `/thoughts/[slug]` read WordPress first (`src/lib/thoughts.ts`); a WordPress
- * post with the same slug and Thoughts category takes precedence over the
- * entry here, so an essay can move to the CMS without a code change.
- *
- * `contentHtml` is first-party, hand-written markup (same trust level as the
- * WordPress content it stands in for). It is also the paste-ready body for the
- * matching WordPress post.
- */
+/** Static fallback essays. Blob records with the same slug take precedence. */
 export const publishedThoughts: PublishedThought[] = [
   {
     slug: "ai-is-changing-search",

@@ -2,6 +2,7 @@ import { authorArchives, links, profile } from "@/data/profile";
 import { publications } from "@/data/publications";
 import type { WritingSample } from "@/data/types";
 import { absoluteUrl, siteUrl } from "@/lib/site";
+import type { ThoughtPost } from "@/lib/thoughts-model";
 
 export function personJsonLd() {
   return {
@@ -100,5 +101,20 @@ export function writingJsonLd(sample: WritingSample) {
 }
 
 export function jsonLdScript(data: unknown): string {
-  return JSON.stringify(data);
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+export function thoughtArticleJsonLd(post: ThoughtPost) {
+  return {
+    "@context": "https://schema.org", "@type": "Article",
+    headline: post.title, description: post.excerpt,
+    datePublished: post.date, dateModified: post.updatedAt,
+    url: absoluteUrl(`/thoughts/${post.slug}`),
+    mainEntityOfPage: absoluteUrl(`/thoughts/${post.slug}`),
+    author: { "@type": "Person", name: "Aseem Kishore", url: siteUrl },
+    publisher: { "@id": `${siteUrl}/#person` },
+    articleSection: post.category === "markets" ? "Markets" : "Tech & AI",
+    keywords: post.tags.join(", "),
+    ...(post.heroImage ? { image: post.heroImage.url } : {}),
+  };
 }

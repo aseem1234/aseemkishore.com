@@ -1,42 +1,40 @@
-import { publishedThoughts } from "@/data/published-thoughts";
-import { getPostByCategorySlug, getPostsByCategorySlug } from "@/lib/wordpress";
-import type { WPPost } from "@/lib/wordpress";
+import { cache } from "react";
+import { unstable_cache } from "next/cache";
+import { THOUGHTS_TAG, validateSlug } from "@/lib/thoughts-model";
+import { createThoughtsService } from "@/lib/thoughts-service";
+import { blobThoughtsStore } from "@/lib/thoughts-store";
 
-export type ThoughtPost = Pick<WPPost, "slug" | "title" | "excerpt" | "content" | "date">;
+export type { ThoughtPost } from "@/lib/thoughts-model";
+export const thoughtsService = createThoughtsService(blobThoughtsStore);
+const cacheScope = process.env.VERCEL_ENV ?? "development";
 
-const THOUGHTS_CATEGORY = "thoughts";
+export const getPublishedThoughts = cache(
+  unstable_cache(
+    () => thoughtsService.all(),
+    ["published-thoughts", cacheScope],
+    { tags: [THOUGHTS_TAG], revalidate: 60 },
+  ),
+);
 
-const repoThoughts: ThoughtPost[] = publishedThoughts.map((item) => ({
-  slug: item.slug,
-  title: { rendered: item.title },
-  excerpt: { rendered: `<p>${item.excerpt}</p>` },
-  content: { rendered: item.contentHtml },
-  date: item.date,
-}));
+export const getPublishedThought = cache(async (slug: string) => {
+  try {
+    validateSlug(slug);
+  } catch {
+    return null;
+  }
+  return unstable_cache(
+    () => thoughtsService.get(slug),
+    ["thought", cacheScope, slug],
+    {
+      tags: [THOUGHTS_TAG],
+      revalidate: 60,
+    },
+  )();
+});
 
-export async function getPublishedThoughts(perPage = 20): Promise<ThoughtPost[]> {
-  const cms = await getPostsByCategorySlug(THOUGHTS_CATEGORY, perPage);
-  const cmsSlugs = new Set(cms.map((post) => post.slug));
-  const fromRepo = repoThoughts.filter((post) => !cmsSlugs.has(post.slug));
-  return [...cms, ...fromRepo].sort((a, b) => b.date.localeCompare(a.date));
-}
-
-export async function getPublishedThought(slug: string): Promise<ThoughtPost | null> {
-  const cms = await getPostByCategorySlug(slug, THOUGHTS_CATEGORY);
-  if (cms) return cms;
-  return repoThoughts.find((post) => post.slug === slug) ?? null;
-}
-
-export async function getThoughtSitemapEntries(
-  baseUrl: string,
-  perPage = 50,
-): Promise<Array<{ url: string; lastModified?: Date }>> {
-  const posts = await getPublishedThoughts(perPage);
-  return posts.map((post) => {
-    const parsed = new Date(`${post.date}Z`);
-    return {
-      url: `${baseUrl}/thoughts/${post.slug}`,
-      ...(Number.isNaN(parsed.getTime()) ? {} : { lastModified: parsed }),
-    };
-  });
+export async function getThoughtSitemapEntries(baseUrl: string) {
+  return (await getPublishedThoughts()).map((post) => ({
+    url: `${baseUrl}/thoughts/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+  }));
 }

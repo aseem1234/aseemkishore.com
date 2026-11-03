@@ -1,62 +1,57 @@
 # aseemkishore.com
 
-Personal site for Aseem Kishore: consulting in content/search strategy, editorial operations and AI automation, plus work, writing, career and apps. Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 on Vercel (project name unset in this repo). **Portfolio content is static TypeScript in `src/data/`**; headless WordPress (Rocket.net, WP REST) now serves the Thoughts pages (with repo-published essays in `src/data/published-thoughts.ts` as a fallback) — that CMS is not public DNS. Public DNS (2026-09-12): registrar GoDaddy; NS Cloudflare (DNS-only); apex A Vercel; `wp.aseemkishore.com` is NXDOMAIN. No DB, no user auth. Risk: `main` auto-deploys to production; the tools spend Together/OpenAI credit.
+Personal site for Aseem Kishore: consulting in content/search strategy, editorial operations and AI automation, plus work, writing, career and apps. Next.js 16 App Router, React 19, TypeScript and Tailwind CSS v4 on the existing Vercel project `aseemkishore.com`. Portfolio content is static TypeScript in `src/data/`. Thoughts posts and media use Vercel Blob through a protected publishing API. Public DNS uses Cloudflare nameservers and points to Vercel. No user accounts. `main` auto-deploys; tools spend Together/OpenAI credit.
 
 ## Do NOT
 
-- **Do NOT merge or push to `main` casually — Vercel auto-deploys `main` to production** (this repo is an exception to the folder-wide "no auto-deploy" default). Branch + PR.
-- **Do NOT run `npm run gateway:canary` unprompted** — it runs `vercel crons run /api/gateway-canary` against the deployed project and is part of an attended, one-shot qualification procedure (`README.md` § AI continuity). Never add a static AI Gateway key; Gateway auth is runtime Vercel OIDC.
-- **Do NOT use `wp.aseemkishore.com`** — NXDOMAIN (verified 2026-06-10, reconfirmed 2026-09-12). Public site DNS is Cloudflare NS + Vercel A, not Rocket. Use the Rocket.net CDN URL in `.env.example` for Thoughts REST (`docs/wordpress-backend.md`).
-- **Do NOT add client-side data fetching or state management outside `src/app/tools/**`** — everything else is server-rendered from `src/data/` or `src/lib/thoughts.ts` (`src/data/published-thoughts.ts` + `src/lib/wordpress.ts`).
-- Do NOT let a client field select the Gateway path, model, or auth in `/api/tools/tweet-score` — `test/tweet-score-route.test.ts` pins this; the server sets `gatewayTrustedServerContext`.
-- Do NOT commit `.env*` (only `.env.example` is tracked) or the secrets listed under Env.
+- Push directly to `main`. Use a fresh worktree, branch and PR, then follow global checks, review and merge policy.
+- Run `npm run gateway:canary` unprompted. It invokes `vercel crons run /api/gateway-canary` for an attended one-shot procedure (`README.md`, AI continuity). Gateway uses runtime Vercel OIDC, never a static key.
+- Add client-side data fetching or state management outside `src/app/tools/**`. Thoughts pagination uses server-rendered links.
+- Let client fields select Gateway routing, models or authentication in `/api/tools/tweet-score`. The server sets `gatewayTrustedServerContext`.
+- Commit credentials or `.env*` values. Only `.env.example` is tracked. Keep all publishing and storage credentials server-only.
+- Reuse production Blob credentials or publishing keys for preview tests, or create a replacement Vercel project.
 
 ## Commands
 
 ```bash
-npm run dev      # localhost:3000
-npm run build    # production build — also the only typecheck gate (no typecheck script)
-npm run lint     # eslint (v9 flat config, eslint-config-next)
-npm test         # tsx --test test/*.test.ts test/*.test.mjs — hermetic: Gateway/canary policy, tweet-score route, share-card, flip-link, thoughts merge, WordPress fetch bounds, profile-data invariants
-npm run gateway:canary   # ATTENDED ONLY — see Do NOT
+npm run dev             # Next development server
+npm run build           # production build and typecheck
+npm run lint            # ESLint v9 flat config
+npm test                # hermetic tsx/Node test runner, no live network
+npm run thoughts:media -- <file>  # publishing-key upload, up to 50 MiB
+npm run gateway:canary  # ATTENDED ONLY
 ```
 
-`scripts/generate-resume-pdf.mjs` is a stale generator: the shipped `public/resume/Aseem-Kishore-Resume.pdf` is a browser print of `scripts/resume.html` (2026-08-16), so regenerate by printing that HTML, not by running the script.
+`scripts/generate-resume-pdf.mjs` is stale. Regenerate `public/resume/Aseem-Kishore-Resume.pdf` by printing `scripts/resume.html`.
 
 ## Architecture
 
-- Routes (`src/app/`): `/`, `/consulting`, `/consulting/[slug]` (three offers), `/experience`, `/career`, `/work`, `/work/[slug]` (case studies), `/writing`, `/about`, `/contact`, `/resume`, `/projects`, `/projects/[slug]` (publications), `/thoughts`, `/thoughts/[slug]`, `/tools`, `/tools/tweet-score`, `/tools/flip`, `/tools/flip/press` (Fast Coin Flip press kit), `/flip-privacy`, `/c` (`src/app/c/page.tsx` — shared-coin Universal Link / App Clip web landing page), plus `sitemap.ts`, `robots.ts`, `icon.tsx`/`apple-icon.tsx`, `opengraph-image.tsx`/`twitter-image.tsx`, `not-found.tsx`. `public/.well-known/apple-app-site-association` configures Universal Links (`/c?p=*`, `/c/*` → `6SV2AL44X4.com.akinternetconsulting.flip`) and the App Clip (`6SV2AL44X4.com.akinternetconsulting.flip.Clip`). `next.config.ts` redirects `/projects/positiontracker` → `/projects/position-tracker`. New public routes go into `sitemap.ts` and (if top-level) `src/components/Nav.tsx`.
-- API routes: `POST /api/tools/tweet-score` (Together writer, 20 req/h/IP), `POST /api/tools/share-card` (OpenAI GPT Image 2.5 Flare → GPT Image 2 background + `sharp` overlay, 10 req/h/IP, dark-gradient fallback without `OPENAI_API_KEY`), `GET /api/tools/flip-og` (`src/app/api/tools/flip-og/route.tsx` — `next/og` `ImageResponse` 1200×630 Open Graph card for `/tools/flip` and `/c?p=...` shared coins), `GET /api/gateway-canary` (Vercel Cron `17 11 * * *` UTC; inert unless armed). Rate limits are `src/lib/rate-limit.ts`, in-memory per warm instance — cost control, not security.
-- `src/data/*.ts` — `profile.ts`, `experience.ts`, `skills.ts`, `metrics.ts`, `publications.ts`, `case-studies.ts`, `digital-marketing.ts`, `writing.ts`, `writing-roles.ts`, `thoughts.ts` (thought outlines), `published-thoughts.ts` (repo-authored full essays), `flipCoins.ts` (built-in Flip coin catalog for `/tools/flip` and `/c`), `types.ts`; `src/data/index.ts` re-exports. Tests in `test/` (`profile-data.test.ts`, `thoughts.test.ts`, `wordpress.test.ts`, `tweet-score-route.test.ts`, `together-gateway.test.ts`, `gateway-canary.test.ts`, `gateway-canary-invoker.test.mjs`, `share-card.test.ts`, `flip-link.test.ts`) guard data invariants, routes, and link encoding. Public contact address is `hello@aseemkishore.com` (`src/data/profile.ts`).
-- `src/lib/thoughts.ts` merges WP Thoughts posts (`src/lib/wordpress.ts`) with `src/data/published-thoughts.ts` (repo-authored essays); a WP post with the same slug wins. Primary nav: Consulting · Work · Apps & Tools · Writing · About · Contact. Experience, Career, Thoughts and Résumé remain in secondary navigation.
-- `src/lib/wordpress.ts` — the only WP REST client, used by `src/lib/thoughts.ts` for `/thoughts` and `/thoughts/[slug]` (`getPostsByCategorySlug`, `getPostByCategorySlug`). Every fetch goes through `fetchAPI()` with `next: { revalidate: 60 }`, an `AbortController` deadline (`WORDPRESS_FETCH_TIMEOUT_MS`, default 10s, cap 30s) and a fallback arg so builds survive WP outages. WP details: `docs/wordpress-backend.md`.
-- `src/lib/together.ts` — Together chat client: `Qwen/Qwen3.7-Max` → `zai-org/GLM-5.2` → optional Vercel AI Gateway final leg (`alibaba/qwen3.7-max`, OIDC, ZDR/no-training/`only: ["alibaba"]`, reasoning off, hash-only telemetry). `src/lib/gateway-canary.ts` — the fixed-input canary handler. `src/lib/share-card.ts`, `src/lib/tweet-score.ts` (prompt, `MAX_DRAFT_CHARS = 500`, parser), `src/lib/flip-link.ts` (`decodeSharedCoin` base64url `?p=` decoder + validation for `/c` and `/api/tools/flip-og`). `src/lib/jsonld.ts`, `src/lib/site.ts` (`siteUrl`, date formatters), `src/lib/analytics.ts` (`trackEvent` → `window.va`; a no-op unless a Vercel Web Analytics script defines `va`).
+- Public routes: `/`, `/consulting`, `/consulting/[slug]` (three offers), `/experience`, `/career`, `/work`, `/work/[slug]`, `/writing`, `/about`, `/contact`, `/resume`, `/projects`, `/projects/[slug]`, `/thoughts`, `/thoughts/[slug]`, `/tools`, `/tools/tweet-score`, `/tools/flip`, `/tools/flip/press`, `/flip-privacy` and `/c`. New public routes go in `src/app/sitemap.ts` and top-level routes in `src/components/Nav.tsx` when appropriate.
+- Thoughts API: `GET /api/thoughts` lists posts with pagination, `POST /api/thoughts` creates/replaces, `POST /api/thoughts/media` uploads and `DELETE /api/thoughts/[slug]` unpublishes. All require `x-api-key`. Schema, curl examples and upload constraints: `docs/THOUGHTS-API.md`.
+- `src/lib/thoughts-model.ts` owns validation, sanitizing and pagination. `thoughts-service.ts` owns publishing policy and static fallback merging. `thoughts-store.ts` adapts private Vercel Blob for posts, uses uncached origin reads and conditional ETag writes, reserves duplicate slugs and retains deletion tombstones. `thoughts-api.ts` and `thoughts-media.ts` implement authenticated request handling. `thoughts-revalidate.ts` invalidates the Thoughts data tag, index, post and sitemap after a write.
+- `src/lib/thoughts.ts` caches public reads for 60 seconds and deduplicates within a render. The verification API reads fresh storage. `src/data/published-thoughts.ts` preserves the original essay and URL; a stored post or tombstone takes precedence. Public listing uses 12 posts per page; the sitemap includes every published post. Article pages provide OG/Twitter metadata, Article JSON-LD and a markets disclaimer.
+- Media: multipart requests capped at 4 MiB; larger uploads use the same route to issue a short-lived Blob client token restricted to a media path/type and 50 MiB. `scripts/upload-thoughts-media.mjs` selects the flow. Uploaded media is public and retained when a post is unpublished.
+- Tools APIs: `POST /api/tools/tweet-score` (Together writer, 20 requests/hour/IP), `POST /api/tools/share-card` (OpenAI image background and Sharp overlay, 10/hour/IP), `GET /api/tools/flip-og` (1200×630 `next/og` shared-coin card). In-memory rate limits in `src/lib/rate-limit.ts` are cost controls.
+- `GET /api/gateway-canary` is Vercel Cron `17 11 * * *` UTC, inert unless armed. `src/lib/together.ts` routes `Qwen/Qwen3.7-Max` → `zai-org/GLM-5.2` → optional Vercel Gateway `alibaba/qwen3.7-max` with OIDC, zero retention, no training, Alibaba-only routing and hash-only telemetry. `src/lib/gateway-canary.ts` owns the fixed-input canary. Preserve the default-off rollout (`README.md`).
+- `src/data/*.ts` owns portfolio facts, essays and the Flip coin catalog. `src/data/index.ts` re-exports data. `src/lib/site.ts` owns URLs and date helpers; `jsonld.ts` owns structured data with script-safe serialization; `analytics.ts` provides `trackEvent` via optional `window.va`. Public contact: `hello@aseemkishore.com`.
+- `next.config.ts` redirects `/projects/positiontracker` to `/projects/position-tracker`. `public/.well-known/apple-app-site-association` maps `/c?p=*` and `/c/*` to `6SV2AL44X4.com.akinternetconsulting.flip` and its `.Clip` App Clip. Keep `src/lib/flip-link.ts` consistent with `CoinShareLink.swift` in `iphone-app-pipeline`.
 
 ## Conventions
 
-- Styling: Tailwind v4 CSS-first — `globals.css` has `@import "tailwindcss"` + `@plugin "@tailwindcss/typography"`. There is no `tailwind.config`. Dark-only (`<html class="dark">`).
-- Data: portfolio facts are edited in `src/data/`, then `npm test` (profile-data invariants). WP fetchers go in `src/lib/wordpress.ts`, always pass a fallback; decode WP titles/excerpts with `decodeHtmlEntities()`.
-- WP HTML is rendered with `dangerouslySetInnerHTML` — accepted because the CMS is our own; add sanitization if untrusted content ever enters.
-- **Tools exception:** `"use client"` and `src/app/api/tools/**` are allowed under `src/app/tools/**` only.
-- **Flip pages** (`/tools/flip`, `/tools/flip/press`, `/flip-privacy`, `/c`): marketing, press kit, privacy copy, and shared-coin Universal Link / App Clip landing for the Flip iPhone app (AK Internet Consulting). Pricing and data claims must match StoreKit and the app: yearly $0.99 with a 1-month intro, lifetime $4.99, no trial; Pro iCloud Backup syncs settings and custom/AI faces (#13/#14, 2026-09-02). Change marketing/privacy pages together and bump `lastUpdated` in `flip-privacy/page.tsx`. Keep `src/lib/flip-link.ts` in lockstep with `CoinShareLink.swift` in `iphone-app-pipeline`.
-- Env (verified 2026-09-03; template in `.env.example`): `WORDPRESS_API_URL` (code falls back to the Rocket.net CDN URL), optional `WORDPRESS_FETCH_TIMEOUT_MS`; tools: `TOGETHER_API_KEY` (503 without it), `OPENAI_API_KEY`, optional `TOGETHER_TIMEOUT_MS` (default 75000), `WRITER_MODEL`, `WRITER_FALLBACK_MODEL`, `IMAGE_QUALITY` (`medium` default | `low`); Gateway continuity: `TWEET_SCORE_GATEWAY_TEXT_QUALIFIED`, `TWEET_SCORE_GATEWAY_FALLBACK_MODE` (`off`|`shadow`|`live`), `TWEET_SCORE_GATEWAY_CANARY_ARMED` (temporary), `CRON_SECRET` (Vercel Cron bearer). `VERCEL_DEPLOYMENT_ID` is Vercel-provided. Modes and rollout order: `README.md` § AI continuity.
+- Dark-only HTML. Tailwind v4 CSS-first styling in `globals.css`, with the typography plugin. `.thought-prose` styles sanitized HTML, captioned images, tables and video. Author HTML cannot supply styles or event handlers.
+- Portfolio facts belong in `src/data/`; run the profile invariants after changes. Do not rewrite career claims as part of site infrastructure work.
+- Flip marketing, press, privacy and shared-link pages must agree with StoreKit: yearly $0.99 with a one-month intro, lifetime $4.99, no trial. Pro iCloud Backup syncs settings and custom/AI faces. Update marketing/privacy together and bump `lastUpdated` in the privacy page when those claims change.
+- Primary navigation: Consulting, Work, Apps & Tools, Writing, About and Contact. Experience, Career, Thoughts and Résumé remain secondary.
 
-## AMBIGUOUS-KEPT
+## Environment
 
-- `.env.local` may still include `NODE_TLS_REJECT_UNAUTHORIZED` from the old `wp.aseemkishore.com` SSL attempt. That hostname is NXDOMAIN (2026-09-12); the flag is leftover, not a pending DNS/SSL step.
+Template: `.env.example`. Thoughts requires `THOUGHTS_API_KEY`, public-media `BLOB_READ_WRITE_TOKEN` and private-post `THOUGHTS_POSTS_READ_WRITE_TOKEN`, scoped separately for Production and Preview. The upload helper reads `THOUGHTS_API_KEY` and optional `THOUGHTS_SITE_URL` (default `https://aseemkishore.com`).
 
-## Model Routing (this repo)
-
-Base policy: `~/.claude/CLAUDE.md` § Model routing. Small site; `sonnet` is the default tier.
-
-- **Lead (Fable):** anything in `src/lib/together.ts` / `src/lib/gateway-canary.ts` / the tools API routes (metered providers, Gateway privacy controls), portfolio positioning copy in `src/data/profile.ts`, merge decisions (merge = production deploy), review of delegated diffs.
-- **`sonnet` subagents (default):** page/component work, `src/data/` edits from a brief, tests, WP fetcher changes, lint/build verification.
-- **`haiku` subagents:** summarizing build/test output, doc updates.
+Tools use `TOGETHER_API_KEY` (503 without it), `OPENAI_API_KEY`, optional `TOGETHER_TIMEOUT_MS` (75000 default), `WRITER_MODEL`, `WRITER_FALLBACK_MODEL` and `IMAGE_QUALITY` (`medium` default or `low`). Gateway uses `TWEET_SCORE_GATEWAY_TEXT_QUALIFIED`, `TWEET_SCORE_GATEWAY_FALLBACK_MODE` (`off`, `shadow`, `live`), temporary `TWEET_SCORE_GATEWAY_CANARY_ARMED` and `CRON_SECRET`. `VERCEL_DEPLOYMENT_ID` is platform-provided. Preserve exact qualification, privacy and rollout gates.
 
 ## Docs
 
-- `docs/consulting-and-work.md` — consulting routes, 17 migrated narratives, compatibility anchors and app-continuity checks.
-- `README.md` — human overview, local setup, deployment, AI continuity (Gateway modes, canary, rollout/rollback).
-- `docs/wordpress-backend.md` — public DNS vs Thoughts CMS, WP server/SSH details, mu-plugins, content IDs, endpoint status (WP now backs only `/thoughts`).
-- `docs/plans/2026-03-13-frontend-design.md`, `docs/plans/2026-03-13-frontend-implementation.md` — original WP-driven frontend plans; superseded for everything except Thoughts by the 2026-08-15 rebuild (status notes at the top of each).
-- `AGENTS.md` — cross-tool ground rules (Codex/Copilot/Cursor). Next 16.1.6 has not auto-written one here; if a later Next appends its "This is NOT the Next.js you know" block, keep it and commit it.
+- `README.md`: setup, hosting and AI continuity.
+- `AGENTS.md`: compact cross-tool guardrails.
+- `docs/THOUGHTS-API.md`: publishing, storage, media, schema and verification.
+- `docs/consulting-and-work.md`: consulting routes, migrated narratives and compatibility checks.

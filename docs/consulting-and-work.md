@@ -17,7 +17,7 @@ Legacy work-index fragments `fmp-dashboard`, `sec-filing-monitor` and `tbrt-cont
 
 ## Boundaries
 
-WordPress care, troubleshooting and Google Workspace support belong at AK Computer Services. Corporate media/advertising belongs at AK Internet Consulting. Consulting contact uses the existing email path; scope, timing and price are agreed per project rather than presented as a fixed availability promise.
+Site maintenance, troubleshooting and Google Workspace support belong at AK Computer Services. Corporate media/advertising belongs at AK Internet Consulting. Consulting contact uses the existing email path; scope, timing and price are agreed per project rather than presented as a fixed availability promise.
 
 Narratives were imported from published AKIC marketing pages. Position Tracker screenshots are the published demo/sample-data assets; no private execution records or dashboard credentials are included. Migration styles and the explicit `mwork` dark variant are scoped to `.migrated-work`; Tailwind v4 remains in place.
 
