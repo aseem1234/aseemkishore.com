@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getWorkNarrative } from "@/content/work";
 import ButtonLink from "@/components/ButtonLink";
 import JsonLd from "@/components/JsonLd";
 import { caseStudies, getCaseStudy } from "@/data/case-studies";
@@ -21,6 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: study.title,
     description: study.subtitle,
     alternates: { canonical: `/work/${study.slug}` },
+    openGraph: { title: study.title, description: study.subtitle, url: `/work/${study.slug}` },
+    twitter: { title: study.title, description: study.subtitle },
   };
 }
 
@@ -50,6 +53,26 @@ export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params;
   const study = getCaseStudy(slug);
   if (!study) notFound();
+  const Narrative = await getWorkNarrative(slug);
+  if (Narrative) {
+    return (
+      <article className="migrated-work">
+        <JsonLd data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+          { name: study.title, path: `/work/${study.slug}` },
+        ])} />
+        {slug === "ai-content-pipeline" ? (
+          <aside className="border-b border-blue-500/30 bg-blue-950/30 px-6 py-5">
+            <p className="mx-auto max-w-5xl text-sm leading-relaxed text-zinc-300">
+              <strong className="text-white">Earlier implementation.</strong> This case study documents the original four-property, draft-delivery workflow. The system has since expanded to five properties and supports automatic publication after its configured checks. <Link href="/work/search-and-adaptation" className="text-blue-300 underline">Read the updated publishing overview.</Link>
+            </p>
+          </aside>
+        ) : null}
+        <Narrative />
+      </article>
+    );
+  }
   const summary = study.summary;
   const hasNarrative = Boolean(study.context || study.challenge || study.strategy);
 

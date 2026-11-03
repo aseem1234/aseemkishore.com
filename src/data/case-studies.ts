@@ -1,3 +1,4 @@
+import { importedCaseStudies } from "./imported-case-studies";
 import { links } from "./profile";
 import type { CaseStudy } from "./types";
 
@@ -242,8 +243,8 @@ export const caseStudies: CaseStudy[] = [
     links: [
       {
         id: "akic-ai-content-pipeline",
-        label: "AI Content Pipeline on AK Internet Consulting",
-        href: "https://akinternetconsulting.com/work-samples/ai-content-pipeline",
+        label: "AI Content Pipeline case study",
+        href: "/work/ai-content-pipeline",
         event: "akic_click",
       },
     ],
@@ -299,6 +300,7 @@ export const caseStudies: CaseStudy[] = [
     relatedSlugs: ["position-tracker"],
     links: [links.positionTracker],
   },
+  ...importedCaseStudies,
 ];
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {

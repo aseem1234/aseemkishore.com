@@ -3,13 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 const links = [
+  { href: "/consulting", label: "Consulting" },
   { href: "/work", label: "Work" },
-  { href: "/experience", label: "Experience" },
+  { href: "/tools", label: "Apps & Tools" },
   { href: "/writing", label: "Writing" },
-  { href: "/career", label: "Career" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -26,11 +26,15 @@ export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuId = useId();
+  const menuButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -57,7 +61,7 @@ export default function Nav() {
           Aseem Kishore
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-5 lg:flex">
           {links.map(({ href, label }) => (
             <Link
               key={href}
@@ -70,8 +74,9 @@ export default function Nav() {
         </div>
 
         <button
+          ref={menuButton}
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-zinc-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 md:hidden"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md p-2 text-zinc-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 lg:hidden"
           aria-expanded={open}
           aria-controls={menuId}
           onClick={() => setOpen((value) => !value)}
@@ -96,7 +101,7 @@ export default function Nav() {
       </div>
 
       {open ? (
-        <div id={menuId} className="border-t border-zinc-800 px-6 py-4 md:hidden">
+        <div id={menuId} className="border-t border-zinc-800 px-6 py-4 lg:hidden">
           <div className="flex flex-col gap-4">
             {links.map(({ href, label }) => (
               <Link

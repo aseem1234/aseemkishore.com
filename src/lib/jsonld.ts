@@ -55,7 +55,7 @@ export function websiteJsonLd() {
     name: profile.name,
     url: siteUrl,
     description:
-      "Aseem Kishore leads content strategy, editorial operations and search (SEO and AEO). Founder of a five-publication technology network since 2007.",
+      "Consulting in content strategy, editorial operations, SEO/AEO and practical AI automation. Built on experience running technology publications since 2007.",
     publisher: { "@id": `${siteUrl}/#person` },
   };
 }
@@ -65,7 +65,7 @@ export function profilePageJsonLd() {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     url: siteUrl,
-    name: `${profile.name} | Content Strategy, Editorial Operations & Search`,
+    name: `${profile.name} | Consulting, Content Strategy & AI Automation`,
     mainEntity: { "@id": `${siteUrl}/#person` },
   };
 }

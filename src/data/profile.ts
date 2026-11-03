@@ -2,11 +2,11 @@ import type { EducationItem, ExternalLink } from "./types";
 
 export const profile = {
   name: "Aseem Kishore",
-  label: "Content Strategy & Editorial Operations Leader",
+  label: "Consultant & Publishing Operator",
   supportingLabel: "Content strategy, SEO/AEO and editorial operations leader",
-  headline: "I lead content strategy, editorial operations and search for publications built to last.",
+  headline: "Content strategy, editorial operations and practical AI automation.",
   heroSupportingLine:
-    "Since 2007 I’ve built and run a five-publication technology network, led up to 35 writers/editors at peak and written more than 3,000 of the network’s 6,000+ articles. At its peak the network reached about 7–8 million monthly pageviews.",
+    "I help publishers and small teams plan content, organize work and build useful workflows and tools, drawing on experience running technology publications since 2007.",
   location: "Clarksville, Maryland",
   locationDetail:
     "Based between the Baltimore and Washington, D.C. metropolitan areas. Experienced remote operator and distributed-team manager.",

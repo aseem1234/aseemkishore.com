@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ButtonLink from "@/components/ButtonLink";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
@@ -57,6 +58,12 @@ export default function AboutPage() {
           </a>
           , directing the product and implementing it with AI-assisted development. I am not a licensed financial adviser, and I do not present the product as institutional portfolio management.
         </p>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold text-zinc-100">The systems behind the publications</h2>
+        <p className="mt-4 leading-relaxed text-zinc-400">Running the sites also meant working through WordPress updates, plugin conflicts, security incidents, hosting migrations and performance problems. That hands-on work grew into shared themes, maintenance workflows, dashboards and integrations that support the publishing operation.</p>
+        <p className="mt-4 leading-relaxed text-zinc-400">I also built TastyTech, a Next.js site for gadget selections and setup guides. Today I bring that mix of publishing and technical operations to <Link href="/consulting" className="text-blue-400">consulting projects</Link>, while bookable WordPress, Workspace and IT support lives at <a href="https://akcomputerservices.com" className="text-blue-400">AK Computer Services</a>.</p>
       </section>
 
       <section className="mt-16">

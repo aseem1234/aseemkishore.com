@@ -21,11 +21,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Aseem Kishore | Content Strategy, Editorial Operations & Search",
+    default: "Aseem Kishore | Consulting, Content Strategy & AI Automation",
     template: "%s — Aseem Kishore",
   },
   description:
-    "Aseem Kishore leads content strategy, editorial operations and search (SEO and AEO). Founder of a five-publication technology network since 2007.",
+    "Consulting in content strategy, editorial operations, SEO/AEO and practical AI automation. Built on experience running technology publications since 2007.",
   alternates: {
     canonical: "/",
   },
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: profile.name,
-    title: "Aseem Kishore | Content Strategy, Editorial Operations & Search",
+    title: "Aseem Kishore | Consulting, Content Strategy & AI Automation",
     description:
-      "Aseem Kishore leads content strategy, editorial operations and search (SEO and AEO). Founder of a five-publication technology network since 2007.",
+      "Consulting in content strategy, editorial operations, SEO/AEO and practical AI automation. Built on experience running technology publications since 2007.",
     images: [
       {
         url: profile.photo,
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aseem Kishore | Content Strategy, Editorial Operations & Search",
+    title: "Aseem Kishore | Consulting, Content Strategy & AI Automation",
     description:
-      "Aseem Kishore leads content strategy, editorial operations and search (SEO and AEO). Founder of a five-publication technology network since 2007.",
+      "Consulting in content strategy, editorial operations, SEO/AEO and practical AI automation. Built on experience running technology publications since 2007.",
   },
   robots: {
     index: true,

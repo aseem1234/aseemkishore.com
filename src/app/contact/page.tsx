@@ -10,11 +10,12 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Aseem Kishore about career opportunities, advisory work, partnerships or interviews.",
+    "Contact Aseem Kishore about consulting, content strategy, editorial operations, AI automation, career opportunities and partnerships.",
   alternates: { canonical: "/contact" },
 };
 
 const subjects = [
+  { id: "consulting", label: "Content, editorial or AI consulting", subject: "Consulting inquiry" },
   { id: "career", label: "Career opportunity", subject: "Career opportunity" },
   { id: "advisory", label: "Advisory, contract or consulting", subject: "Advisory, contract or consulting" },
   { id: "partnership", label: "Partnership", subject: "Partnership" },
@@ -41,6 +42,7 @@ export default function ContactPage() {
       </div>
 
       <p className="mt-6 text-zinc-300">{profile.availability}</p>
+      <p className="mt-4 text-zinc-400">For consulting, include your current setup, what you want to improve and any timing constraints. For WordPress care, Google Workspace support or a bookable technical session, <a href="https://akcomputerservices.com/services" className="text-blue-400">visit AK Computer Services</a>.</p>
 
       <div className="mt-6 flex flex-wrap gap-3">
         <ButtonLink href={links.email.href} event="contact_click">

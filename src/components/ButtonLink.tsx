@@ -32,7 +32,7 @@ export default function ButtonLink({
 }: Props) {
   const classes = `inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${variants[variant]} ${className}`;
 
-  if (external || href.startsWith("http") || href.startsWith("mailto:") || href.endsWith(".pdf")) {
+  if (event || external || href.startsWith("http") || href.startsWith("mailto:") || href.endsWith(".pdf")) {
     return (
       <TrackedAnchor
         href={href}
