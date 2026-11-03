@@ -51,6 +51,7 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap gap-3">
               <ButtonLink href="/consulting">Explore consulting</ButtonLink>
               <ButtonLink href="/work" variant="secondary">See selected work</ButtonLink>
+              <ButtonLink href="/thoughts" variant="ghost">Read Thoughts</ButtonLink>
             </div>
             <p className="mt-5 text-sm text-zinc-500">
               Or email me at{" "}

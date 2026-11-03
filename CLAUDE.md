@@ -41,7 +41,7 @@ npm run gateway:canary  # ATTENDED ONLY
 - Dark-only HTML. Tailwind v4 CSS-first styling in `globals.css`, with the typography plugin. `.thought-prose` styles sanitized HTML, captioned images, tables and video. Author HTML cannot supply styles or event handlers.
 - Portfolio facts belong in `src/data/`; run the profile invariants after changes. Do not rewrite career claims as part of site infrastructure work.
 - Flip marketing, press, privacy and shared-link pages must agree with StoreKit: yearly $0.99 with a one-month intro, lifetime $4.99, no trial. Pro iCloud Backup syncs settings and custom/AI faces. Update marketing/privacy together and bump `lastUpdated` in the privacy page when those claims change.
-- Primary navigation: Consulting, Work, Apps & Tools, Writing, About and Contact. Experience, Career, Thoughts and Résumé remain secondary.
+- Primary navigation: Consulting, Work, Apps & Tools, Writing, Thoughts, About and Contact. Thoughts also has a home hero link, a Writing page callout and an About page link. Experience, Career and Résumé remain secondary.
 
 ## Environment
 

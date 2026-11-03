@@ -80,6 +80,11 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold text-zinc-100">Personal</h2>
         <p className="mt-4 leading-relaxed text-zinc-400">{profile.personal}</p>
         <p className="mt-4 leading-relaxed text-zinc-400">{profile.locationDetail}</p>
+        <p className="mt-4 leading-relaxed text-zinc-400">
+          I share my views on tech, AI, markets and stocks in{" "}
+          <Link href="/thoughts" className="text-blue-400 underline-offset-4 hover:text-blue-300 hover:underline">Thoughts</Link>
+          , including where I think things are heading and predictions I can revisit.
+        </p>
       </section>
 
       <div className="mt-12 flex flex-wrap gap-3">
