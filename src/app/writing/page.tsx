@@ -55,10 +55,22 @@ export default function WritingPage() {
         <ButtonLink href={links.muckrack.href} event="muckrack_click">
           Muck Rack
         </ButtonLink>
-        <ButtonLink href="/thoughts" variant="secondary">
-          Essays
-        </ButtonLink>
       </div>
+
+      <section
+        aria-labelledby="thoughts-heading"
+        className="mt-10 rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 sm:flex sm:items-center sm:justify-between sm:gap-8"
+      >
+        <div>
+          <h2 id="thoughts-heading" className="text-xl font-bold text-zinc-100">Thoughts</h2>
+          <p className="mt-3 max-w-2xl leading-relaxed text-zinc-400">
+            My personal takes on tech, AI, markets and stocks. Where I think things are heading and predictions I can revisit.
+          </p>
+        </div>
+        <div className="mt-5 shrink-0 sm:mt-0">
+          <ButtonLink href="/thoughts" variant="secondary">Read Thoughts</ButtonLink>
+        </div>
+      </section>
 
       <section id="by-role" className="mt-16 scroll-mt-24" aria-labelledby="by-role-heading">
         <h2 id="by-role-heading" className="text-2xl font-bold text-zinc-50">
