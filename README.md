@@ -22,7 +22,7 @@ cp .env.example .env.local   # configure Thoughts Blob/key and optional tool cre
 npm run dev                  # http://localhost:3000
 ```
 
-Checks: `npm run build` (also the typecheck), `npm run lint`, `npm test` (hermetic, no network). Upload supported media up to 50 MiB with `npm run thoughts:media -- <file>` using `THOUGHTS_API_KEY` and optional `THOUGHTS_SITE_URL`. Use separate production and preview stores and keys.
+Checks: `npm run build` (also the typecheck), `npm run lint`, `npm test` (hermetic, no network). Upload supported media up to 50 MiB with `npm run thoughts:media -- <file>` using `THOUGHTS_API_KEY` and optional `THOUGHTS_SITE_URL`. Use private post stores, public media stores and separate production/preview credentials.
 
 ## Deployment
 

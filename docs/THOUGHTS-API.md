@@ -6,11 +6,11 @@ Thoughts runs on Next.js on Vercel. Posts and media live in Vercel Blob. Once th
 
 All four endpoints require `x-api-key`, matched against the server-only `THOUGHTS_API_KEY`. Missing or incorrect keys return `401`. Generate a random key of at least 32 bytes and store it as a Vercel Secret. Give the assistant only the publishing key, never the Blob token. API responses use `Cache-Control: no-store`.
 
-Connect a **public** Blob store to the existing `aseemkishore.com` Vercel project and set its server-only `BLOB_READ_WRITE_TOKEN`. Use separate Blob stores and publishing keys for Production and Preview. Development uses the preview store. Set secrets before building a deployment so functions receive them. Existing deployments retain their original environment values.
+Connect a **public media** Blob store to the existing `aseemkishore.com` Vercel project as `BLOB_READ_WRITE_TOKEN` and a **private posts** Blob store with the custom prefix `THOUGHTS_POSTS` as `THOUGHTS_POSTS_READ_WRITE_TOKEN`. Both tokens are server-only. Use separate store pairs and publishing keys for Production and Preview. Development uses the preview stores. Private post reads bypass the Blob CDN cache and use strong object ETags for conditional writes. Set secrets before building a deployment so functions receive them. Existing deployments retain their original environment values.
 
 Post records use `thoughts/posts/<slug>.json`. Media uses immutable names under `thoughts/media/`. The built-in `ai-is-changing-search` essay remains available at its original URL until replaced or unpublished through the API. Deleted posts retain a tombstone to prevent the built-in fallback from returning. A deleted slug can be republished with `update: true`.
 
-Post records and media are public assets, so send publishable material only. Unpublishing removes the post from site pages, API lists and the sitemap. It replaces the stored post body with a tombstone; it does not delete referenced media or retract copies already downloaded or indexed. Blob's public CDN may retain the old JSON for up to 60 seconds.
+Post records live in private storage and reach readers through the site. Media is public, so upload publishable material only. Unpublishing removes the post from site pages, API lists and the sitemap. It replaces the stored post body with a tombstone; it does not delete referenced media or retract copies already downloaded or indexed.
 
 For the examples, set `THOUGHTS_API_KEY` in your shell and set `SITE=https://aseemkishore.com`. Keep the key out of repository files, logs and browser code.
 

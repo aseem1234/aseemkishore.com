@@ -492,3 +492,65 @@ test("Article JSON-LD uses offset dates and escapes script-closing text", () => 
   assert.doesNotMatch(serialized, /<\/script>/);
   assert.equal(JSON.parse(serialized).headline, post.title);
 });
+
+test("Blob origin reads use private storage and pass strong ETags to conditional writes", async () => {
+  const { createBlobThoughtsStore } = await import("../src/lib/thoughts-store");
+  const { post } = validateThought(valid);
+  const record = { slug: post.slug, post, updatedAt: post.updatedAt };
+  const blob = {
+    url: "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json",
+    downloadUrl:
+      "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json?download=1",
+    pathname: "thoughts/posts/test-thought.json",
+    contentType: "application/json",
+    contentDisposition: "inline",
+    cacheControl: "max-age=60",
+    uploadedAt: new Date(),
+    size: 100,
+    etag: 'W/"revision"',
+  };
+  let written = false;
+  const cursors: Array<string | undefined> = [];
+  const store = createBlobThoughtsStore(
+    {
+      get: async (_path, options) => {
+        assert.equal(options.access, "private");
+        assert.equal(options.useCache, false);
+        assert.equal(options.token, "isolated-posts-token");
+        assert.equal(
+          new Headers(options.headers).get("accept-encoding"),
+          "identity",
+        );
+        return {
+          statusCode: 200 as const,
+          stream: new Response(JSON.stringify(record)).body!,
+          headers: new Headers(),
+          blob,
+        };
+      },
+      list: async (options) => {
+        cursors.push(options?.cursor);
+        return {
+          blobs: [blob],
+          hasMore: !options?.cursor,
+          cursor: options?.cursor ? undefined : "next-page",
+        };
+      },
+      put: async (_path, _body, options) => {
+        assert.equal(options.access, "private");
+        assert.equal(options.token, "isolated-posts-token");
+        assert.equal(options.ifMatch, '"revision"');
+        assert.equal(options.allowOverwrite, true);
+        written = true;
+        return blob;
+      },
+    },
+    () => "isolated-posts-token",
+  );
+  const current = await store.read(post.slug);
+  assert.equal(current?.etag, '"revision"');
+  await store.write(post.slug, record, current?.etag);
+  assert.ok(written);
+  assert.equal((await store.all()).length, 2);
+  assert.deepEqual(cursors, [undefined, "next-page"]);
+});

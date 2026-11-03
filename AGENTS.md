@@ -7,8 +7,8 @@ Ground rules for every coding agent. `CLAUDE.md` is the operating manual.
 - `main` auto-deploys to production on Vercel. Use a fresh worktree, branch and PR. Follow the global review and merge policy.
 - Portfolio pages render from static data in `src/data/`. Thoughts pages use server-side Blob reads through `src/lib/thoughts.ts`, with `src/data/published-thoughts.ts` as a fallback.
 - No client-side data fetching or state management outside `src/app/tools/**`. Thoughts pagination uses server-rendered links.
-- Thoughts writes require `THOUGHTS_API_KEY` in `x-api-key`. Validate input and sanitize HTML before persistence. Keep API keys and `BLOB_READ_WRITE_TOKEN` server-only.
-- Use separate production and preview Blob stores and keys. Preserve conditional writes, deleted-post tombstones, the 60-second cache and write invalidation for pages and sitemap.
+- Thoughts writes require `THOUGHTS_API_KEY` in `x-api-key`. Validate input and sanitize HTML before persistence. Keep API keys, `BLOB_READ_WRITE_TOKEN` and `THOUGHTS_POSTS_READ_WRITE_TOKEN` server-only.
+- Use private post stores, public media stores and separate production/preview credentials. Preserve conditional writes, deleted-post tombstones, the 60-second cache and write invalidation for pages and sitemap.
 - Never log or commit credentials or `.env*` values. Only `.env.example` is tracked.
 - Do not run `npm run gateway:canary` or add a static AI Gateway key. The Gateway leg is attended and default-off (`README.md`, AI continuity).
 

@@ -84,10 +84,12 @@ main :not(pre) > code {
   font-variant-numeric: tabular-nums;
 }
 .thought-prose th, .thought-prose td {
+  min-width: 7rem;
   border: 1px solid #3f3f46;
   padding: 0.75rem 1rem;
   vertical-align: top;
   color: #d4d4d8;
+  overflow-wrap: normal;
 }
 .thought-prose th { background: #27272a; color: #f4f4f5; }
 .thought-prose tbody tr:nth-child(even) { background: #18181b; }
