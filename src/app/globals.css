@@ -56,6 +56,43 @@ main :not(pre) > code {
   top: 1rem;
 }
 
+/* Published HTML stays readable without trusting author-supplied styles. */
+.thought-prose { overflow-wrap: anywhere; }
+.thought-prose figure { margin: 2rem 0; }
+.thought-prose img, .thought-prose video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border: 1px solid #3f3f46;
+  border-radius: 0.75rem;
+  background: #18181b;
+}
+.thought-prose video { width: 100%; }
+.thought-prose figcaption, .thought-prose caption {
+  margin-top: 0.75rem;
+  color: #a1a1aa;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  text-align: left;
+}
+.thought-prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.thought-prose th, .thought-prose td {
+  border: 1px solid #3f3f46;
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+  color: #d4d4d8;
+}
+.thought-prose th { background: #27272a; color: #f4f4f5; }
+.thought-prose tbody tr:nth-child(even) { background: #18181b; }
+.thought-prose pre { overflow-x: auto; border: 1px solid #3f3f46; }
+
 /* Compatibility is scoped to the migrated work, so app and tool styles stay independent. */
 @layer components {
   .migrated-work .section { @apply py-14 sm:py-20; }

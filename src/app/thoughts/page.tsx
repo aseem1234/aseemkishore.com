@@ -1,24 +1,34 @@
 import type { Metadata } from "next";
-import ButtonLink from "@/components/ButtonLink";
+import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
 import ThoughtCard from "@/components/ThoughtCard";
-import WritingCard from "@/components/WritingCard";
-import { thoughtOutlines } from "@/data/thoughts";
-import { getFeaturedWriting } from "@/data/writing";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { getPublishedThoughts } from "@/lib/thoughts";
+import { THOUGHTS_PAGE_SIZE, thoughtPage } from "@/lib/thoughts-model";
 
+export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Thoughts",
   description:
-    "Original essays on publishing, editorial operations and AI search, plus selected verified writing. Remaining essays are outlines until reviewed.",
+    "Aseem Kishore's personal takes on tech, AI, markets and stocks. What I think matters, where things are heading and predictions I can revisit.",
   alternates: { canonical: "/thoughts" },
 };
 
-export default async function ThoughtsPage() {
-  const published = await getPublishedThoughts(20);
-  const featuredWriting = getFeaturedWriting().slice(0, 4);
+type Props = { searchParams: Promise<{ page?: string | string[] }> };
+
+export default async function ThoughtsPage({ searchParams }: Props) {
+  const [params, posts] = await Promise.all([
+    searchParams,
+    getPublishedThoughts(),
+  ]);
+  const requested = typeof params.page === "string" ? Number(params.page) : 1;
+  const lastPage = Math.max(1, Math.ceil(posts.length / THOUGHTS_PAGE_SIZE));
+  const page =
+    Number.isSafeInteger(requested) && requested > 0
+      ? Math.min(requested, lastPage)
+      : 1;
+  const published = thoughtPage(posts, page);
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-24">
@@ -30,62 +40,57 @@ export default async function ThoughtsPage() {
       />
       <PageHero
         eyebrow="Thoughts"
-        title="Essays and observations"
-        description="This section is for original writing on publishing, editorial operations, AI and product work. The first essay is live. The rest are drafted for review before they go live, and the verified writing portfolio is the public reading list in the meantime."
+        title="What I think comes next"
+        description="My personal takes on tech, AI, markets and stocks. What I find interesting, where I think things are heading and predictions I can look back on. New thoughts throughout the week."
       />
-
-      <div className="mt-8">
-        <ButtonLink href="/writing" variant="secondary">
-          Open the writing portfolio
-        </ButtonLink>
-      </div>
-
-      {published.length > 0 ? (
-        <section className="mt-16">
-          <h2 className="text-2xl font-bold text-zinc-50">Published essays</h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            {published.map((post) => (
+      <section className="mt-16" aria-label="Published thoughts">
+        {published.posts.length ? (
+          <div className="grid gap-6 sm:grid-cols-2">
+            {published.posts.map((post) => (
               <ThoughtCard key={post.slug} post={post} />
             ))}
           </div>
-        </section>
-      ) : null}
-
-      <section className="mt-16">
-        <h2 className="text-2xl font-bold text-zinc-50">Selected writing already published elsewhere</h2>
-        <p className="mt-3 text-zinc-400">
-          Verified bylines from the publications. These replace an empty “coming soon” state.
-        </p>
-        <div className="mt-6 grid gap-6">
-          {featuredWriting.map((sample) => (
-            <WritingCard key={sample.slug} sample={sample} />
-          ))}
-        </div>
+        ) : (
+          <p className="text-zinc-400">More thoughts soon.</p>
+        )}
+        {published.totalPages > 1 ? (
+          <nav
+            className="mt-10 flex items-center justify-between gap-4 text-sm"
+            aria-label="Thoughts pagination"
+          >
+            {page > 1 ? (
+              <Link
+                className="text-blue-400 hover:underline"
+                href={page === 2 ? "/thoughts" : `/thoughts?page=${page - 1}`}
+              >
+                Newer thoughts
+              </Link>
+            ) : (
+              <span />
+            )}
+            <span className="text-zinc-400" aria-current="page">
+              Page {page} of {published.totalPages}
+            </span>
+            {page < published.totalPages ? (
+              <Link
+                className="text-blue-400 hover:underline"
+                href={`/thoughts?page=${page + 1}`}
+              >
+                Older thoughts
+              </Link>
+            ) : (
+              <span />
+            )}
+          </nav>
+        ) : null}
       </section>
-
-      <section className="mt-16">
-        <h2 className="text-2xl font-bold text-zinc-50">Essays in development</h2>
-        <p className="mt-3 text-zinc-400">
-          Outlines only. Draft articles are not published until they have been reviewed.
-        </p>
-        <div className="mt-6 space-y-6">
-          {thoughtOutlines.map((thought) => (
-            <article
-              key={thought.slug}
-              className="rounded-xl border border-dashed border-zinc-700 bg-zinc-900/30 p-6"
-            >
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-zinc-500">Draft</p>
-              <h3 className="mt-2 text-xl font-bold text-zinc-100">{thought.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-zinc-400">{thought.abstract}</p>
-              <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm text-zinc-500">
-                {thought.outline.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ol>
-            </article>
-          ))}
-        </div>
-      </section>
+      <p className="mt-12 text-sm text-zinc-400">
+        For my published work elsewhere,{" "}
+        <Link className="text-blue-400 hover:underline" href="/writing">
+          visit the writing portfolio
+        </Link>
+        .
+      </p>
     </div>
   );
 }

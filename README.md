@@ -1,28 +1,28 @@
 # aseemkishore.com
 
-Personal site for Aseem Kishore — a content-strategy / editorial-operations portfolio with a small set of web tools. Live at [aseemkishore.com](https://aseemkishore.com); `main` auto-deploys to Vercel (project name unset in this repo). Public DNS (2026-09-12): registrar GoDaddy; nameservers Cloudflare (DNS-only); apex A is Vercel. `www` also 200 (no redirect). Thoughts CMS is still Rocket.net WP REST — that is not public DNS.
+Personal site for Aseem Kishore: consulting, work, writing, career and web tools. Live at [aseemkishore.com](https://aseemkishore.com). The existing `aseemkishore.com` Vercel project auto-deploys `main`. Public DNS uses Cloudflare nameservers and points to Vercel.
 
 Agent operating manual: `CLAUDE.md`. Cross-tool ground rules: `AGENTS.md`.
 
 ## What is here (2026-09-03)
 
 - **Portfolio** — `/`, `/experience`, `/career`, `/work` (case studies), `/writing` (verified bylines), `/projects` (the publications), `/about`, `/contact`, `/resume` (HTML + PDF). Rebuilt 2026-08-15; all content is static TypeScript in `src/data/` with invariants in `test/profile-data.test.ts`.
-- **Thoughts** — `/thoughts`, `/thoughts/[slug]`. `src/lib/thoughts.ts` merges repo-authored essays in `src/data/published-thoughts.ts` with posts fetched from headless WordPress (`src/lib/wordpress.ts`, Rocket.net WP REST API, ISR 60s, bounded fetches with fallbacks; WP post wins on slug collision).
+- **Thoughts** — `/thoughts` and `/thoughts/[slug]` publish personal views on tech, AI, markets and stocks. Protected APIs store posts and media in Vercel Blob, invalidate pages on writes and use a 60-second cache. The original essay remains a static fallback. [API schema, uploads and curl examples](docs/THOUGHTS-API.md).
 - **Tools** — `/tools`:
   - **Tweet Flops-o-Meter** (`/tools/tweet-score`): client UI + `POST /api/tools/tweet-score` (Together.ai writer) + `POST /api/tools/share-card` (OpenAI GPT Image 2.5 Flare background with GPT Image 2 fallback, `sharp` overlay). Per-IP rate limits, 20/h and 10/h.
   - **Flip** (`/tools/flip`, press kit at `/tools/flip/press`, privacy policy at `/flip-privacy`, shared-coin Universal Link / App Clip landing at `/c`, Open Graph card generator at `GET /api/tools/flip-og`, and `public/.well-known/apple-app-site-association`): pages and deep-link support for the Flip iPhone coin-flip app from AK Internet Consulting. Pricing copy mirrors StoreKit (yearly $0.99 with a 1-month intro, lifetime $4.99).
 
-Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, hosted on Vercel. No database, no user accounts.
+Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, hosted on Vercel. Vercel Blob stores Thoughts content and media. No user accounts.
 
 ## Getting started
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in WORDPRESS_API_URL (Rocket.net CDN URL) and, for the tools, TOGETHER_API_KEY / OPENAI_API_KEY
+cp .env.example .env.local   # configure Thoughts Blob/key and optional tool credentials
 npm run dev                  # http://localhost:3000
 ```
 
-Checks: `npm run build` (also the typecheck), `npm run lint`, `npm test` (hermetic, no network). WordPress backend details: `docs/wordpress-backend.md`. Do not point `WORDPRESS_API_URL` at `wp.aseemkishore.com` — that hostname is NXDOMAIN (reconfirmed 2026-09-12).
+Checks: `npm run build` (also the typecheck), `npm run lint`, `npm test` (hermetic, no network). Upload supported media up to 50 MiB with `npm run thoughts:media -- <file>` using `THOUGHTS_API_KEY` and optional `THOUGHTS_SITE_URL`. Use separate production and preview stores and keys.
 
 ## Deployment
 
@@ -52,7 +52,7 @@ completion, token, or Together error text.
 
 `/api/gateway-canary` is a fixed-input Vercel Cron route. It accepts no request
 body or query, sends no system message or tools, produces at most 16 tokens,
-and has no access to tweet drafts, WordPress, image generation, or persistence.
+and has no access to tweet drafts, publishing, image generation, or persistence.
 The daily scheduled request is an unmetered no-op unless qualification and the
 temporary `TWEET_SCORE_GATEWAY_CANARY_ARMED=true` flag are both present. Vercel
 must also have `CRON_SECRET` configured so Cron supplies the exact bearer; the

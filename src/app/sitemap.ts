@@ -4,6 +4,8 @@ import { publications } from "@/data/publications";
 import { siteUrl } from "@/lib/site";
 import { getThoughtSitemapEntries } from "@/lib/thoughts";
 
+export const revalidate = 60;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
