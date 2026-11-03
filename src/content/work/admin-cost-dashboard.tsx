@@ -296,7 +296,7 @@ export default function AdminCostDashboard() {
           </div>
 
           <div className="bg-neutral-50 mwork:bg-neutral-900 rounded-2xl p-6 md:p-8 border border-neutral-200 mwork:border-neutral-700">
-            <div className="grid md:grid-cols-4 gap-6 items-center">
+            <div className="grid gap-6 items-center md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-3 lg:gap-6">
               <div className="text-center">
                 <div className="w-16 h-16 rounded-full bg-brand-orange/10 flex items-center justify-center mx-auto mb-3">
                   <svg className="w-8 h-8 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">

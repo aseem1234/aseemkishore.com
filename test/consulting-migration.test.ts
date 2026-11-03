@@ -55,3 +55,18 @@ test("verified legacy work-index fragments survive", async () => {
   assert.match(source, /tbrt-content-automation/);
   assert.ok(importedCaseStudies.some(({ slug }) => slug === "sec-filing-monitor"));
 });
+
+test("every imported custom palette utility has a declared Tailwind v4 token", async () => {
+  const { readdir } = await import("node:fs/promises");
+  const css = await readFile(new URL("../src/app/globals.css", import.meta.url), "utf8");
+  const tokens = new Set<string>();
+  for (const dir of ["../src/content/work/", "../src/components/work/"]) {
+    const url = new URL(dir, import.meta.url);
+    for (const name of await readdir(url)) {
+      if (!name.endsWith(".tsx")) continue;
+      const source = await readFile(new URL(name, url), "utf8");
+      for (const match of source.matchAll(/(?:bg|text|border|from|via|to|ring)-(akic-[a-z-]+|brand-[a-z-]+)/g)) tokens.add(match[1]);
+    }
+  }
+  for (const token of tokens) assert.ok(css.includes(`--color-${token}:`), `Missing palette token: ${token}`);
+});
