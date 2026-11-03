@@ -7,6 +7,10 @@ import { getThoughtSitemapEntries } from "@/lib/thoughts";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
+    "/consulting",
+    "/consulting/content-seo-aeo-strategy",
+    "/consulting/editorial-operations",
+    "/consulting/ai-automation",
     "/experience",
     "/career",
     "/work",

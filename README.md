@@ -75,3 +75,7 @@ Rollback begins by setting `TWEET_SCORE_GATEWAY_FALLBACK_MODE=off`. Remove the
 temporary arm next. Qualification and `CRON_SECRET` may then be removed after
 the off deployment is confirmed. Direct Together behavior remains available
 throughout.
+
+## Consulting and work
+
+The homepage leads with consulting. `/consulting` links to content/SEO/AEO strategy, editorial operations and AI automation. `/work` retains four original case studies and 17 complete migrated narratives. Apps & Tools remains at `/tools`; career, writing, résumé and app URLs stay available. Route ownership and validation are documented in [docs/consulting-and-work.md](docs/consulting-and-work.md).

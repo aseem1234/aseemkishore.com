@@ -10,7 +10,7 @@ import { breadcrumbJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies and selected work spanning digital publishing, editorial operations, search strategy and PositionTracker.",
+    "Case studies spanning publishing, editorial operations, search, AI automation, Google Workspace and software delivery.",
   alternates: { canonical: "/work" },
 };
 
@@ -33,7 +33,10 @@ export default function WorkPage() {
         <h2 className="text-2xl font-bold text-zinc-50">Case studies</h2>
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           {caseStudies.map((study) => (
-            <CaseStudyCard key={study.slug} study={study} />
+            <div key={study.slug} id={study.slug === "portfolio-dashboard" ? "fmp-dashboard" : study.slug} className="work-anchor flex flex-col [&>a]:h-full">
+              {study.slug === "ai-content-pipeline" ? <span id="tbrt-content-automation" className="work-anchor" /> : null}
+              <CaseStudyCard study={study} />
+            </div>
           ))}
         </div>
       </section>

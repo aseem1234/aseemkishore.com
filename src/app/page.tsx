@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ButtonLink from "@/components/ButtonLink";
 import CapabilityGrid from "@/components/CapabilityGrid";
 import CaseStudyCard from "@/components/CaseStudyCard";
@@ -11,6 +12,7 @@ import WritingCard from "@/components/WritingCard";
 import TrackedAnchor from "@/components/TrackedAnchor";
 import { getFeaturedCaseStudies } from "@/data/case-studies";
 import { digitalMarketing } from "@/data/digital-marketing";
+import { consultingOffers } from "@/data/consulting";
 import { links, profile } from "@/data/profile";
 import { publications } from "@/data/publications";
 import { getWritingBySlugs } from "@/data/writing";
@@ -43,19 +45,12 @@ export default function Home() {
             <h1 className="mt-5 text-4xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
               {profile.headline}
             </h1>
-            <p className="mt-3 text-lg text-zinc-400">{profile.supportingLabel}</p>
             <p className="mt-8 max-w-3xl text-lg leading-relaxed text-zinc-400">
               {profile.heroSupportingLine}
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <ButtonLink href="/work">See selected work</ButtonLink>
-              <ButtonLink
-                href={links.resume.href}
-                variant="secondary"
-                event="resume_download"
-              >
-                Download résumé
-              </ButtonLink>
+              <ButtonLink href="/consulting">Explore consulting</ButtonLink>
+              <ButtonLink href="/work" variant="secondary">See selected work</ButtonLink>
             </div>
             <p className="mt-5 text-sm text-zinc-500">
               Or email me at{" "}
@@ -71,6 +66,18 @@ export default function Home() {
           <div className="mx-auto lg:mx-0">
             <Portrait variant="hero" priority />
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20" aria-label="Consulting areas">
+        <div className="grid gap-5 lg:grid-cols-3">
+          {consultingOffers.map((offer) => (
+            <Link key={offer.slug} href={`/consulting/${offer.slug}`} className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-7 transition-colors hover:border-blue-400">
+              <h2 className="text-xl font-semibold text-zinc-100">{offer.name}</h2>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">{offer.description}</p>
+              <p className="mt-5 text-sm text-blue-400">Explore <span aria-hidden="true">→</span></p>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -185,16 +192,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-8">
+      <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="max-w-3xl">
-          <h2 className="text-2xl font-bold text-zinc-50">Current professional focus</h2>
-          <p className="mt-4 text-lg leading-relaxed text-zinc-400">{profile.currentFocus}</p>
+          <p className="font-mono text-xs uppercase tracking-widest text-blue-400">Apps &amp; Tools</p>
+          <h2 className="mt-4 text-3xl font-bold text-zinc-50">Small tools. Useful jobs.</h2>
+          <p className="mt-4 text-lg leading-relaxed text-zinc-400">Fast Coin Flip brings a quick decision to your iPhone. Explore the app, its press kit and the other tools I build.</p>
+          <div className="mt-7 flex flex-wrap gap-4"><ButtonLink href="/tools/flip">Meet Fast Coin Flip</ButtonLink><ButtonLink href="/tools" variant="secondary">Explore my apps and tools</ButtonLink></div>
         </div>
       </section>
 
       <CtaBand
-        title="Let’s talk"
-        description="Résumé, LinkedIn and a direct email are all one click away."
+        consulting
+        title="What are you working on?"
+        description="Share the content, process or automation problem you want to solve. We can discuss scope and timing from there."
       />
     </>
   );
