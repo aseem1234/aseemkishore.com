@@ -76,6 +76,12 @@ export interface EducationItem {
   note?: string;
 }
 
+export interface PublicProductLink {
+  label: string;
+  href: string;
+  detail: string;
+}
+
 export interface Publication {
   slug: string;
   name: string;
@@ -94,6 +100,7 @@ export interface Publication {
   businessModel: string;
   demonstrates: string;
   tech: string[];
+  publicLinks?: PublicProductLink[];
   featured: boolean;
 }
 

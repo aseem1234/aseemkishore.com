@@ -369,13 +369,42 @@ export default function SecFilingMonitorPage() {
             <a
               href="https://positiontracker.trading/sec-filings"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener"
               className="btn-secondary inline-flex items-center gap-2 border-white/30 bg-white/10 text-white hover:bg-white/20"
             >
               View the live filing feed
               <ArrowIcon />
             </a>
           </div>
+          <p className="mt-5 text-sm text-amber-100/80">
+            Browse public form hubs directly:{" "}
+            <a
+              href="https://positiontracker.trading/sec-filings/form/8-K"
+              target="_blank"
+              rel="noopener"
+              className="underline decoration-amber-200/50 underline-offset-4 hover:text-white"
+            >
+              Form 8-K
+            </a>
+            {" · "}
+            <a
+              href="https://positiontracker.trading/sec-filings/form/4"
+              target="_blank"
+              rel="noopener"
+              className="underline decoration-amber-200/50 underline-offset-4 hover:text-white"
+            >
+              Form 4 insider filings
+            </a>
+            {" · "}
+            <a
+              href="https://positiontracker.trading/congress-trades"
+              target="_blank"
+              rel="noopener"
+              className="underline decoration-amber-200/50 underline-offset-4 hover:text-white"
+            >
+              Congressional stock trades
+            </a>
+          </p>
         </div>
       </section>
 

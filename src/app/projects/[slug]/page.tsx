@@ -90,6 +90,26 @@ export default async function ProjectPage({ params }: Props) {
       <Field title="Business model">{item.businessModel}</Field>
       <Field title="What this demonstrates">{item.demonstrates}</Field>
 
+      {item.publicLinks && item.publicLinks.length > 0 ? (
+        <Field title="Public feeds and calculators">
+          <ul className="space-y-3">
+            {item.publicLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener"
+                  className="font-medium text-blue-400 hover:text-blue-300"
+                >
+                  {link.label} ↗
+                </a>
+                <p className="mt-0.5 text-sm text-zinc-400">{link.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </Field>
+      ) : null}
+
       {relatedStudies.length > 0 ? (
         <Field title="Related case studies">
           <ul className="space-y-2">
