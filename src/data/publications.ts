@@ -177,6 +177,38 @@ export const publications: Publication[] = [
       "Stripe",
       "GitHub",
     ],
+    publicLinks: [
+      {
+        label: "SEC Filings Feed",
+        href: "https://positiontracker.trading/sec-filings",
+        detail:
+          "Public 8-K, 10-Q, 10-K, S-1 and Form 4 filings with plain-English summaries, browsable by ticker and form.",
+      },
+      {
+        label: "Congressional Stock Trades",
+        href: "https://positiontracker.trading/congress-trades",
+        detail:
+          "U.S. House and Senate periodic transaction disclosures organized by member and ticker.",
+      },
+      {
+        label: "Portfolio Concentration Check",
+        href: "https://positiontracker.trading/tools/portfolio-check",
+        detail:
+          "Browser-based position weight and single-name concentration check with no account required.",
+      },
+      {
+        label: "Covered Call Calculator",
+        href: "https://positiontracker.trading/tools/covered-call-calculator",
+        detail:
+          "Defined-risk covered-call income, break-even and assignment payoff calculator.",
+      },
+      {
+        label: "Wheel Strategy Calculator",
+        href: "https://positiontracker.trading/tools/wheel-calculator",
+        detail:
+          "Cash-secured put and covered-call payoff calculator for modeling strike and premium scenarios.",
+      },
+    ],
     featured: true,
   },
   {

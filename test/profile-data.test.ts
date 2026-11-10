@@ -109,3 +109,16 @@ test("profile does not publish a phone number", () => {
   assert.doesNotMatch(serialized, /\b\d{3}[-.)]\s*\d{3}[-.\s]\d{4}\b/);
   assert.equal(profile.email, "hello@aseemkishore.com");
 });
+
+test("position-tracker project entry links to verified public feeds and calculators", () => {
+  const pt = publications.find((item) => item.slug === "position-tracker");
+  assert.ok(pt?.publicLinks);
+  const hrefs = pt.publicLinks.map((item) => item.href);
+  assert.deepEqual(hrefs, [
+    "https://positiontracker.trading/sec-filings",
+    "https://positiontracker.trading/congress-trades",
+    "https://positiontracker.trading/tools/portfolio-check",
+    "https://positiontracker.trading/tools/covered-call-calculator",
+    "https://positiontracker.trading/tools/wheel-calculator",
+  ]);
+});

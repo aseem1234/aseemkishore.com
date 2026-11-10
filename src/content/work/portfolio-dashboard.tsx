@@ -561,8 +561,25 @@ export default function PortfolioDashboardPage() {
               <p className="tag mb-3">Keep public information useful</p>
               <h2 className="text-3xl font-heading font-bold text-akic-brown mwork:text-akic-cream">Filings become a readable signal, not another inbox burden</h2>
               <p className="mt-4 leading-relaxed text-neutral-600 mwork:text-neutral-400">
-                SEC filing analysis gives a structured place to review important 10-Q and 8-K updates, read a summary, and subscribe to alerts. The public record is still available, but the
-                product reduces the friction of finding and prioritizing it.
+                <a
+                  href="https://positiontracker.trading/sec-filings"
+                  target="_blank"
+                  rel="noopener"
+                  className="underline decoration-neutral-400 underline-offset-4 hover:text-brand-orange"
+                >
+                  SEC filing analysis
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://positiontracker.trading/congress-trades"
+                  target="_blank"
+                  rel="noopener"
+                  className="underline decoration-neutral-400 underline-offset-4 hover:text-brand-orange"
+                >
+                  Congressional trade disclosures
+                </a>{" "}
+                give a structured public place to review important 10-Q, 8-K, and Form 4 updates, read a summary, and subscribe to alerts without logging in. The public record is still available,
+                but the product reduces the friction of finding and prioritizing it.
               </p>
               <PlainEnglish title="The broader pattern">
                 <p>When a team has too much incoming information, the valuable product is not just an alert. It is a repeatable way to decide what deserves attention.</p>
@@ -594,7 +611,34 @@ export default function PortfolioDashboardPage() {
                 clearer starting point for checking a contract than shifting between a broker screen and a separate calculator.
               </p>
               <p className="mt-4 leading-relaxed text-neutral-600 mwork:text-neutral-400">
-                The product keeps real market marks and modeled estimates distinct, so a reader can make an informed judgment about the quality of the information.
+                The product keeps real market marks and modeled estimates distinct, and exposes standalone{" "}
+                <a
+                  href="https://positiontracker.trading/tools/covered-call-calculator"
+                  target="_blank"
+                  rel="noopener"
+                  className="underline decoration-neutral-400 underline-offset-4 hover:text-brand-orange"
+                >
+                  covered-call
+                </a>
+                ,{" "}
+                <a
+                  href="https://positiontracker.trading/tools/wheel-calculator"
+                  target="_blank"
+                  rel="noopener"
+                  className="underline decoration-neutral-400 underline-offset-4 hover:text-brand-orange"
+                >
+                  wheel-strategy
+                </a>
+                , and{" "}
+                <a
+                  href="https://positiontracker.trading/tools/portfolio-check"
+                  target="_blank"
+                  rel="noopener"
+                  className="underline decoration-neutral-400 underline-offset-4 hover:text-brand-orange"
+                >
+                  portfolio concentration
+                </a>{" "}
+                calculators so a reader can test scenarios before connecting an account.
               </p>
             </div>
           </div>
