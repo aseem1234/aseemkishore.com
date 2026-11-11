@@ -124,8 +124,11 @@ export function createThoughtsHandlers(
       try {
         authorizeThoughts(request, key);
         if (
-          request.headers.get("content-type")?.split(";")[0].trim() !==
-          "application/json"
+          request.headers
+            .get("content-type")
+            ?.split(";")[0]
+            .trim()
+            .toLowerCase() !== "application/json"
         ) {
           throw new ThoughtsError(
             415,

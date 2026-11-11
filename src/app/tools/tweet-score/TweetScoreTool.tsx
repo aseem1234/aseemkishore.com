@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MAX_DRAFT_CHARS } from "@/lib/tweet-score";
 
 type ScoreResult = {
@@ -24,12 +24,28 @@ export default function TweetScoreTool() {
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [cardUrl, setCardUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const cardUrlRef = useRef<string | null>(null);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const revokeCard = useCallback(() => {
-    setCardUrl((prev) => {
-      if (prev) URL.revokeObjectURL(prev);
-      return null;
-    });
+    if (cardUrlRef.current) {
+      URL.revokeObjectURL(cardUrlRef.current);
+      cardUrlRef.current = null;
+    }
+    setCardUrl(null);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (cardUrlRef.current) {
+        URL.revokeObjectURL(cardUrlRef.current);
+        cardUrlRef.current = null;
+      }
+      if (copyTimerRef.current) {
+        clearTimeout(copyTimerRef.current);
+        copyTimerRef.current = null;
+      }
+    };
   }, []);
 
   async function onScore() {
@@ -43,9 +59,11 @@ export default function TweetScoreTool() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ draft }),
       });
-      const data = (await res.json()) as ScoreResult & { error?: string };
-      if (!res.ok) {
-        setError(data.error || "Something went wrong.");
+      const data = (await res.json().catch(() => null)) as
+        | (ScoreResult & { error?: string })
+        | null;
+      if (!res.ok || !data) {
+        setError(data?.error || "Something went wrong.");
         return;
       }
       setResult({
@@ -85,7 +103,9 @@ export default function TweetScoreTool() {
         return;
       }
       const blob = await res.blob();
-      setCardUrl(URL.createObjectURL(blob));
+      const nextUrl = URL.createObjectURL(blob);
+      cardUrlRef.current = nextUrl;
+      setCardUrl(nextUrl);
     } catch {
       setError("Network error generating share card.");
     } finally {
@@ -96,9 +116,17 @@ export default function TweetScoreTool() {
   async function copyRoast() {
     if (!result) return;
     const text = `I scored ${result.score}/100 on the Tweet Flops-o-Meter: "${result.verdict}"\n\n${result.roast}\n\nTry yours → https://aseemkishore.com/tools/tweet-score`;
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => {
+        copyTimerRef.current = null;
+        setCopied(false);
+      }, 2000);
+    } catch {
+      setError("Could not copy to clipboard.");
+    }
   }
 
   const shareIntent = result
@@ -174,9 +202,9 @@ export default function TweetScoreTool() {
                 Fix it
               </h2>
               <ul className="mt-3 space-y-2">
-                {result.fixes.map((fix) => (
+                {result.fixes.map((fix, idx) => (
                   <li
-                    key={fix}
+                    key={`${idx}-${fix}`}
                     className="flex gap-2 text-zinc-300 leading-relaxed"
                   >
                     <span className="text-blue-400">→</span>

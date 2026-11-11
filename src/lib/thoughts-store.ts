@@ -42,8 +42,10 @@ export function createBlobThoughtsStore(
         headers: { "accept-encoding": "identity" },
       });
       if (!result) return null;
-      if (result.statusCode !== 200 || !result.blob.etag)
+      if (result.statusCode !== 200 || !result.blob.etag) {
+        await result.stream?.cancel().catch(() => {});
         throw new Error("Unexpected Blob response");
+      }
       const record = (await new Response(
         result.stream,
       ).json()) as ThoughtRecord;
@@ -55,6 +57,7 @@ export function createBlobThoughtsStore(
       const token = getToken();
       if (!token) return [];
       const records: ThoughtRecord[] = [];
+      const seenCursors = new Set<string>();
       let cursor: string | undefined;
       do {
         const batch = await client.list({
@@ -63,19 +66,41 @@ export function createBlobThoughtsStore(
           cursor,
           limit: 1000,
         });
+        const validSlugs: string[] = [];
+        for (const blob of batch.blobs) {
+          if (
+            !blob.pathname.startsWith(PREFIX) ||
+            !blob.pathname.endsWith(".json")
+          ) {
+            continue;
+          }
+          const slugCandidate = blob.pathname.slice(PREFIX.length, -5);
+          try {
+            validateSlug(slugCandidate);
+            validSlugs.push(slugCandidate);
+          } catch {
+            // Skip stray non-post placeholders under the prefix without failing /thoughts or sitemap.
+          }
+        }
         // Bound fan-out even as the archive grows. Never truncate at Blob's first page.
-        for (let i = 0; i < batch.blobs.length; i += 20) {
-          const group = batch.blobs.slice(i, i + 20);
+        for (let i = 0; i < validSlugs.length; i += 20) {
+          const group = validSlugs.slice(i, i + 20);
           const values = await Promise.all(
-            group.map((blob) =>
-              this.read(blob.pathname.slice(PREFIX.length, -5)),
-            ),
+            group.map((slugCandidate) => this.read(slugCandidate)),
           );
           records.push(
             ...values.flatMap((value) => (value ? [value.record] : [])),
           );
         }
-        cursor = batch.hasMore ? batch.cursor : undefined;
+        if (batch.hasMore) {
+          if (!batch.cursor || seenCursors.has(batch.cursor)) {
+            throw new Error("Blob list pagination cursor stalled");
+          }
+          seenCursors.add(batch.cursor);
+          cursor = batch.cursor;
+        } else {
+          cursor = undefined;
+        }
       } while (cursor);
       return records;
     },

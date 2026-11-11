@@ -9,6 +9,7 @@ export type ShareCardInput = {
 
 const SIZE = "1024x1024" as const;
 export const SHARE_CARD_MODELS = ["gpt-image-2.5-flare", "gpt-image-2"] as const;
+export const OPENAI_IMAGE_TIMEOUT_MS = 25_000;
 
 function imageQuality(): "low" | "medium" | "high" {
   const q = (process.env.IMAGE_QUALITY || "medium").toLowerCase();
@@ -25,8 +26,23 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
-function wrapText(text: string, maxChars: number, maxLines: number): string[] {
-  const words = text.split(/\s+/).filter(Boolean);
+export function wrapText(
+  text: string,
+  maxChars: number,
+  maxLines: number,
+): string[] {
+  const rawWords = text.split(/\s+/).filter(Boolean);
+  const words: string[] = [];
+  for (const raw of rawWords) {
+    if (raw.length <= maxChars) {
+      words.push(raw);
+    } else {
+      for (let i = 0; i < raw.length; i += maxChars) {
+        words.push(raw.slice(i, i + maxChars));
+      }
+    }
+  }
+
   const lines: string[] = [];
   let current = "";
 
@@ -34,8 +50,11 @@ function wrapText(text: string, maxChars: number, maxLines: number): string[] {
     const next = current ? `${current} ${word}` : word;
     if (next.length > maxChars) {
       if (current) lines.push(current);
+      if (lines.length >= maxLines) {
+        current = "";
+        break;
+      }
       current = word;
-      if (lines.length >= maxLines) break;
     } else {
       current = next;
     }
@@ -146,7 +165,11 @@ export async function composeShareCard(
     bg = await solidBackground();
   } else {
     try {
-      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+      const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        timeout: OPENAI_IMAGE_TIMEOUT_MS,
+        maxRetries: 0,
+      });
       bg = await generateBackground(openai, input);
       usedAiBackground = true;
     } catch {
