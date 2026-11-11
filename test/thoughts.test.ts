@@ -554,3 +554,126 @@ test("Blob origin reads use private storage and pass strong ETags to conditional
   assert.equal((await store.all()).length, 2);
   assert.deepEqual(cursors, [undefined, "next-page"]);
 });
+
+test("Blob store ignores stray non-JSON objects, cancels streams on unexpected responses, and detects stalled cursors", async () => {
+  const { createBlobThoughtsStore } = await import("../src/lib/thoughts-store");
+  const { post } = validateThought(valid);
+  const record = { slug: post.slug, post, updatedAt: post.updatedAt };
+  let cancelledStream = false;
+
+  const badReadStore = createBlobThoughtsStore(
+    {
+      get: async () => ({
+        statusCode: 200 as const,
+        stream: new ReadableStream({
+          cancel() {
+            cancelledStream = true;
+          },
+        }),
+        headers: new Headers(),
+        blob: {
+          url: "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json",
+          downloadUrl: "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json",
+          pathname: "thoughts/posts/test-thought.json",
+          contentType: "application/json",
+          contentDisposition: "inline",
+          cacheControl: "max-age=60",
+          uploadedAt: new Date(),
+          size: 10,
+          etag: "",
+        },
+      }),
+      list: async () => ({ blobs: [], hasMore: false }),
+      put: async () => {
+        throw new Error("unused");
+      },
+    },
+    () => "isolated-posts-token",
+  );
+  await assert.rejects(() => badReadStore.read(post.slug), /Unexpected Blob response/);
+  assert.equal(cancelledStream, true);
+
+  const mixedStore = createBlobThoughtsStore(
+    {
+      get: async () => ({
+        statusCode: 200 as const,
+        stream: new Response(JSON.stringify(record)).body!,
+        headers: new Headers(),
+        blob: {
+          url: "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json",
+          downloadUrl: "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json",
+          pathname: "thoughts/posts/test-thought.json",
+          contentType: "application/json",
+          contentDisposition: "inline",
+          cacheControl: "max-age=60",
+          uploadedAt: new Date(),
+          size: 10,
+          etag: '"1"',
+        },
+      }),
+      list: async () => ({
+        blobs: [
+          {
+            url: "https://test.private.blob.vercel-storage.com/thoughts/posts/",
+            downloadUrl: "https://test.private.blob.vercel-storage.com/thoughts/posts/",
+            pathname: "thoughts/posts/",
+            size: 0,
+            uploadedAt: new Date(),
+          },
+          {
+            url: "https://test.private.blob.vercel-storage.com/thoughts/posts/nested/bad.json",
+            downloadUrl: "https://test.private.blob.vercel-storage.com/thoughts/posts/nested/bad.json",
+            pathname: "thoughts/posts/nested/bad.json",
+            size: 5,
+            uploadedAt: new Date(),
+          },
+          {
+            url: "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json",
+            downloadUrl: "https://test.private.blob.vercel-storage.com/thoughts/posts/test-thought.json",
+            pathname: "thoughts/posts/test-thought.json",
+            size: 10,
+            uploadedAt: new Date(),
+          },
+        ],
+        hasMore: false,
+      }),
+      put: async () => {
+        throw new Error("unused");
+      },
+    },
+    () => "isolated-posts-token",
+  );
+  const all = await mixedStore.all();
+  assert.equal(all.length, 1);
+  assert.equal(all[0].slug, post.slug);
+
+  const stalledStore = createBlobThoughtsStore(
+    {
+      get: async () => null,
+      list: async () => ({
+        blobs: [],
+        hasMore: true,
+        cursor: "same-cursor",
+      }),
+      put: async () => {
+        throw new Error("unused");
+      },
+    },
+    () => "isolated-posts-token",
+  );
+  await assert.rejects(() => stalledStore.all(), /cursor stalled/);
+
+  // Case-insensitive Content-Type header accepted by Thoughts POST
+  const { handlers } = fixture();
+  const resUpper = await handlers.POST(
+    new Request("https://example.test/api/thoughts", {
+      method: "POST",
+      headers: {
+        "x-api-key": key,
+        "Content-Type": "Application/JSON; charset=utf-8",
+      },
+      body: JSON.stringify(valid),
+    }),
+  );
+  assert.equal(resUpper.status, 201);
+});

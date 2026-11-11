@@ -41,9 +41,9 @@ export async function GET(request: Request) {
     faceDataUrl(view.pair.tails),
   ]);
 
-  const faces: { src: string; caption: string }[] = [
-    { src: headsSrc, caption: coinTitle("heads", view.headsText) },
-    { src: tailsSrc, caption: coinTitle("tails", view.tailsText) },
+  const faces: { side: "heads" | "tails"; src: string; caption: string }[] = [
+    { side: "heads", src: headsSrc, caption: coinTitle("heads", view.headsText) },
+    { side: "tails", src: tailsSrc, caption: coinTitle("tails", view.tailsText) },
   ];
 
   return new ImageResponse(
@@ -95,7 +95,7 @@ export async function GET(request: Request) {
           <div style={{ display: "flex", alignItems: "flex-start", gap: 96, marginTop: 36 }}>
             {faces.map((face) => (
               <div
-                key={face.caption}
+                key={face.side}
                 style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
                 <div

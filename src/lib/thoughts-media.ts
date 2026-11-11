@@ -23,7 +23,8 @@ const MEDIA_TYPES: Record<string, string> = {
 
 export function validateMedia(name: string, type: string, size: number) {
   const extension = name.split(".").pop()?.toLowerCase() ?? "";
-  if (!MEDIA_TYPES[extension] || MEDIA_TYPES[extension] !== type) {
+  const normalizedType = type.trim().toLowerCase();
+  if (!MEDIA_TYPES[extension] || MEDIA_TYPES[extension] !== normalizedType) {
     throw new ThoughtsError(
       400,
       "File extension and Content-Type must match PNG, JPEG, WebP, GIF or MP4.",
@@ -70,7 +71,8 @@ export function createThoughtsMediaHandler({
     try {
       authorizeThoughts(request, key);
       const contentType = request.headers.get("content-type") ?? "";
-      if (contentType.split(";")[0].trim() === "application/json") {
+      const mediaType = contentType.split(";")[0].trim().toLowerCase();
+      if (mediaType === "application/json") {
         const body = (await readLimitedJson(
           request,
           16_384,
@@ -131,7 +133,7 @@ export function createThoughtsMediaHandler({
         });
         return apiJson(result);
       }
-      if (!contentType.startsWith("multipart/form-data;")) {
+      if (mediaType !== "multipart/form-data" || !contentType.includes(";")) {
         throw new ThoughtsError(
           415,
           "Use multipart/form-data or the Blob SDK JSON upload handshake.",

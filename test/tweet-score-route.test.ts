@@ -38,3 +38,23 @@ test("client fields cannot select Gateway trust, model, auth, or routing", async
   assert.equal(received?.token, undefined);
   assert.equal(received?.providerOptions, undefined);
 });
+
+test("tweet-score route rejects oversized JSON bodies with 413 before buffering or model execution", async () => {
+  let writerCalled = false;
+  const handler = createTweetScoreHandler({
+    env: { TOGETHER_API_KEY: "together-secret" },
+    rateLimiter: () => ({ ok: true, remaining: 19 }),
+    writer: async () => {
+      writerCalled = true;
+      return { ok: false, error: "unreachable" };
+    },
+  });
+  const oversized = new Request("https://example.test/api/tools/tweet-score", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ draft: "a".repeat(25_000) }),
+  });
+  const response = await handler(oversized);
+  assert.equal(response.status, 413);
+  assert.equal(writerCalled, false);
+});

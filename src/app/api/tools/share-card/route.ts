@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { composeShareCard } from "@/lib/share-card";
+import { readLimitedJson } from "@/lib/thoughts-api";
+import { ThoughtsError } from "@/lib/thoughts-model";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -24,8 +26,14 @@ export async function POST(req: NextRequest) {
 
   let body: unknown;
   try {
-    body = await req.json();
-  } catch {
+    body = await readLimitedJson(req, 16_384);
+  } catch (error) {
+    if (error instanceof ThoughtsError && error.status === 413) {
+      return NextResponse.json(
+        { error: "Request body is too large." },
+        { status: 413 },
+      );
+    }
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
