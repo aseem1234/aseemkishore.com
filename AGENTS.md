@@ -1,23 +1,10 @@
 # AGENTS.md — aseemkishore.com
 
-Ground rules for every coding agent. `CLAUDE.md` is the operating manual.
+Read [CLAUDE.md](CLAUDE.md) for commands, architecture, and invariants.
 
-## Ground rules
+## Non-Negotiables
 
-- `main` auto-deploys to production on Vercel. Use a fresh worktree, branch and PR. Follow the global review and merge policy.
-- Portfolio pages render from static data in `src/data/`. Thoughts pages use server-side Blob reads through `src/lib/thoughts.ts`, with `src/data/published-thoughts.ts` as a fallback.
-- No client-side data fetching or state management outside `src/app/tools/**`. Thoughts pagination uses server-rendered links.
-- Thoughts writes require `THOUGHTS_API_KEY` in `x-api-key`. Validate input and sanitize HTML before persistence. Keep API keys, `BLOB_READ_WRITE_TOKEN` and `THOUGHTS_POSTS_READ_WRITE_TOKEN` server-only.
-- Use private post stores, public media stores and separate production/preview credentials. Preserve conditional writes, deleted-post tombstones, the 60-second cache and write invalidation for pages and sitemap.
-- Never log or commit credentials or `.env*` values. Only `.env.example` is tracked.
-- Do not run `npm run gateway:canary` or add a static AI Gateway key. The Gateway leg is attended and default-off (`README.md`, AI continuity).
-
-## Working in this repo
-
-- Next.js 16 App Router, React 19, TypeScript and Tailwind v4 (CSS-first, no Tailwind config file).
-- Validate with `npm run build` (includes typechecking), `npm run lint` and `npm test` (hermetic Node tests).
-- New public routes belong in `src/app/sitemap.ts`. Include all published Thoughts, including older pagination pages' posts.
-- `/tools/flip`, `/tools/flip/press`, `/flip-privacy` and `/c` must agree with StoreKit pricing and `CoinShareLink.swift` via `src/lib/flip-link.ts`.
-- The existing Vercel project is `aseemkishore.com`. Never create a replacement project.
-
-See `docs/THOUGHTS-API.md` for publishing, upload limits, credentials and verification.
+- **No client fetching outside `src/app/tools/**`:** Portfolio pages read static `src/data/`; Thoughts pages read server-side Blob via `src/lib/thoughts.ts` with `src/data/published-thoughts.ts` fallback and server-rendered pagination.
+- **Thoughts & Blob isolation:** Require `THOUGHTS_API_KEY` (`x-api-key`), sanitize HTML before persistence, keep private post (`THOUGHTS_POSTS_READ_WRITE_TOKEN`) and public media (`BLOB_READ_WRITE_TOKEN`) stores server-only with separate Prod/Preview credentials, and preserve ETag conditional writes, deletion tombstones, 60s cache, and sitemap/page revalidation.
+- **Gateway & Flip invariants:** Never run `npm run gateway:canary` unprompted, add static AI Gateway keys, or let client fields control Gateway routing/auth. Keep `/tools/flip*`, `/flip-privacy`, and `/c` (`src/lib/flip-link.ts`) synced with StoreKit pricing and `CoinShareLink.swift`.
+- **Cloud/Cursor/Codex:** branch -> PR (never push `main` or create a replacement Vercel project); after `npm run build && npm run lint && npm test` pass, merge PR and report deploy status (`aseemkishore.com` auto-deploys `main`).
